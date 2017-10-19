@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+        xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+    <!-- 定义使用服务的的消费者bean -->
+    <bean id="referenceBean" abstract="true" class="com.alibaba.dubbo.config.spring.ReferenceBean">
+        <property name="application" ref="dubboApplicationConfig"/>
+        <property name="registry" ref="dubboRegistryConfig"/>
+        <property name="consumer" ref="consumerConfig"/>
+        <property name="version" value="${consumer.default_version}"/>
+    </bean>
+
+    <bean id="consumerConfig" class="com.alibaba.dubbo.config.ConsumerConfig">
+        <property name="check" value="${consume.service_check}"/>
+    </bean>
+
+    <bean parent="referenceBean">
+        <property name="interface" value="com.shfc.house.service.HouseEstimateService"/>
+    </bean>
+
+    <bean parent="referenceBean">
+        <property name="interface" value="com.shfc.house.service.PlotService"/>
+    </bean>
+
+    <bean parent="referenceBean">
+        <property name="interface" value="com.shfc.house.service.NnsHouseService"/>
+    </bean>
+
+    <bean parent="referenceBean">
+        <property name="timeout" value="10000"/>
+        <property name="interface" value="com.shfc.house.service.RealtorService"/>
+    </bean>
+
+    <bean parent="referenceBean">
+        <property name="retries" value="0"/>
+        <property name="timeout" value="30000"/>
+        <property name="interface" value="com.shfc.base.service.SmsRemoteService"/>
+    </bean>
+    <bean parent="referenceBean">
+        <property name="interface" value="com.shfc.base.service.AreaExtService"/>
+    </bean>
+
+    <bean parent="referenceBean">
+        <property name="interface" value="com.shfc.base.service.BaseTagService"/>
+    </bean>
+
+    <bean parent="referenceBean">
+        <property name="interface" value="com.shfc.base.service.AdvertisementService"/>
+    </bean>
+
+    <bean parent="referenceBean">
+        <property name="interface" value="com.shfc.base.service.QueryHotPlotService"/>
+    </bean>
+
+    <bean parent="referenceBean">
+        <property name="interface" value="com.shfc.base.service.ReactionService"/>
+    </bean>
+
+    <bean parent="referenceBean">
+        <property name="interface" value="com.shfc.house.service.NnsEntrustProtocolService"/>
+    </bean>
+    <!--本地通知服务-->
+    <bean parent="referenceBean">
+        <property name="interface" value="com.shfc.base.service.SysMessageService"/>
+    </bean>
+    <!--&lt;!&ndash;微信通知服务&ndash;&gt;-->
+    <!--<bean parent="referenceBean">-->
+        <!--<property name="interface" value="com.shfc.user.service.WxOfficialAccountService"/>-->
+    <!--</bean>-->
+    <!--leads 房源接口-->
+    <bean parent="referenceBean">
+        <property name="interface" value="com.shfc.house.service.LeadsHouseService"/>
+    </bean>
+
+    <!-- 认证服务-->
+    <bean parent="referenceBean">
+        <property name="interface" value="com.shfc.authentication.service.AuthenticationService"/>
+        <property name="timeout" value="20000"/>
+    </bean>
+
+    <!--会员服务 -->
+    <bean parent="referenceBean">
+        <property name="interface" value="com.shfc.house.service.MemberService"/>
+    </bean>
+
+    <!--订单服务 -->
+    <bean parent="referenceBean">
+        <property name="retries" value="0"/>
+        <property name="timeout" value="6000"/>
+        <property name="interface" value="com.shfc.house.service.OrderService"/>
+    </bean>
+
+    <!-- 经纪人审核通知-->
+    <bean parent="referenceBean">
+        <property name="timeout" value="10000"/>
+        <property name="interface" value="com.shfc.house.service.WxRealtorAccountService"/>
+    </bean>
+
+    <bean parent="referenceBean">
+        <property name="interface" value="com.shfc.house.service.RealtorCompanyService"/>
+    </bean>
+
+    <bean parent="referenceBean">
+        <property name="interface" value="com.shfc.house.service.ImportDataService"/>
+    </bean>
+
+    <bean parent="referenceBean">
+        <property name="interface" value="com.shfc.building.service.BuildingDetailService"/>
+    </bean>
+
+    <bean parent="referenceBean">
+        <property name="timeout" value="10000"/>
+        <property name="interface" value="com.shfc.base.service.AppService"/>
+    </bean>
+
+    <bean parent="referenceBean">
+        <property name="interface" value="com.shfc.building.service.BuildingService"/>
+    </bean>
+
+    <bean parent="referenceBean">
+        <property name="interface" value="com.shfc.house.service.LeadsAddedService"/>
+    </bean>
+
+    <bean parent="referenceBean">
+        <property name="interface" value="com.shfc.house.service.PersonalCenterService"/>
+    </bean>
+
+    <bean parent="referenceBean">
+        <property name="interface" value="com.shfc.base.service.TemplateService"/>
+    </bean>
+
+    <bean parent="referenceBean">
+        <property name="interface" value="com.shfc.house.service.RealtorHouseService"/>
+    </bean>
+
+
+
+</beans>

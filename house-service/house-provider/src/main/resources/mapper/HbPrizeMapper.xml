@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shfc.house.dao.HbPrizeMapper">
+  <resultMap id="BaseResultMap" type="com.shfc.house.domain.HbPrize">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="activity_id" jdbcType="BIGINT" property="activityId" />
+    <result column="prize_name" jdbcType="VARCHAR" property="prizeName" />
+    <result column="prize_money" jdbcType="DECIMAL" property="prizeMoney" />
+    <result column="prize_amount" jdbcType="INTEGER" property="prizeAmount" />
+    <result column="prize_weight" jdbcType="INTEGER" property="prizeWeight" />
+    <result column="creater" jdbcType="BIGINT" property="creater" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, activity_id, prize_name, prize_money, prize_amount, prize_weight, creater, create_time, 
+    modifier, modify_time, version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--
+    开发负责人：xiehb
+    功能说明：根据主键获取一条数据库记录
+    是否有缓存：无
+    -->
+    select 
+    <include refid="Base_Column_List" />
+    from hb_prize
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--
+    开发负责人：xiehb
+    功能说明：根据主键删除数据库的记录
+    是否有缓存：无
+    -->
+    delete from hb_prize
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.shfc.house.domain.HbPrize" useGeneratedKeys="true">
+    <!--
+    开发负责人：xiehb
+    功能说明：插入数据库记录
+    是否有缓存：无
+    -->
+    insert into hb_prize (id, activity_id, prize_name, 
+      prize_money, prize_amount, prize_weight, 
+      creater, create_time, modifier, 
+      modify_time, version)
+    values (#{id,jdbcType=BIGINT}, #{activityId,jdbcType=BIGINT}, #{prizeName,jdbcType=VARCHAR}, 
+      #{prizeMoney,jdbcType=DECIMAL}, #{prizeAmount,jdbcType=INTEGER}, #{prizeWeight,jdbcType=INTEGER}, 
+      #{creater,jdbcType=BIGINT}, now(), #{modifier,jdbcType=BIGINT}, 
+      #{modifyTime,jdbcType=TIMESTAMP}, 0)
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.shfc.house.domain.HbPrize" useGeneratedKeys="true">
+    <!--
+    开发负责人：xiehb
+    功能说明：选择性插入数据库记录
+    是否有缓存：无
+    -->
+    insert into hb_prize
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="activityId != null">
+        activity_id,
+      </if>
+      <if test="prizeName != null">
+        prize_name,
+      </if>
+      <if test="prizeMoney != null">
+        prize_money,
+      </if>
+      <if test="prizeAmount != null">
+        prize_amount,
+      </if>
+      <if test="prizeWeight != null">
+        prize_weight,
+      </if>
+      <if test="creater != null">
+        creater,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="activityId != null">
+        #{activityId,jdbcType=BIGINT},
+      </if>
+      <if test="prizeName != null">
+        #{prizeName,jdbcType=VARCHAR},
+      </if>
+      <if test="prizeMoney != null">
+        #{prizeMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="prizeAmount != null">
+        #{prizeAmount,jdbcType=INTEGER},
+      </if>
+      <if test="prizeWeight != null">
+        #{prizeWeight,jdbcType=INTEGER},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shfc.house.domain.HbPrize">
+    <!--
+    开发负责人：xiehb
+    功能说明：根据主键来更新对应数据库字段
+    是否有缓存：无
+    -->
+    update hb_prize
+    <set>
+      <if test="activityId != null">
+        activity_id = #{activityId,jdbcType=BIGINT},
+      </if>
+      <if test="prizeName != null">
+        prize_name = #{prizeName,jdbcType=VARCHAR},
+      </if>
+      <if test="prizeMoney != null">
+        prize_money = #{prizeMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="prizeAmount != null">
+        prize_amount = #{prizeAmount,jdbcType=INTEGER},
+      </if>
+      <if test="prizeWeight != null">
+        prize_weight = #{prizeWeight,jdbcType=INTEGER},
+      </if>
+      <if test="creater != null">
+        creater = #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shfc.house.domain.HbPrize">
+    <!--
+    开发负责人：xiehb
+    功能说明：根据主键来更新数据库记录
+    是否有缓存：无
+    -->
+    update hb_prize
+    set activity_id = #{activityId,jdbcType=BIGINT},
+      prize_name = #{prizeName,jdbcType=VARCHAR},
+      prize_money = #{prizeMoney,jdbcType=DECIMAL},
+      prize_amount = #{prizeAmount,jdbcType=INTEGER},
+      prize_weight = #{prizeWeight,jdbcType=INTEGER},
+      creater = #{creater,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=BIGINT},
+      modify_time = now(),
+      version = version+1
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+
+  <select id="prizeList" resultType="com.shfc.house.dto.HbPrizeDTO">
+    SELECT t1.id as 'prizeId',t1.prize_name as 'prizeName',t1.prize_money as 'prizeMoney',t1.prize_amount as 'prizeAmount',t1.prize_weight as 'prizeWeight',t2.id as 'activityId',t2.activity_name as 'activityName'
+    from hb_prize t1 LEFT JOIN hb_activity t2 on t1.activity_id = t2.id where t1.prize_amount >0 and t1.prize_weight > 0 and NOW() BETWEEN t2.begin_time and t2.end_time;
+  </select>
+</mapper>

@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shfc.building.dao.BuildingHouseholdMapper">
+  <resultMap id="BaseResultMap" type="com.shfc.building.domain.BuildingHousehold">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="building_id" jdbcType="BIGINT" property="buildingId" />
+    <result column="is_main" jdbcType="TINYINT" property="isMain" />
+    <result column="room" jdbcType="TINYINT" property="room" />
+    <result column="hall" jdbcType="TINYINT" property="hall" />
+    <result column="bathroom" jdbcType="TINYINT" property="bathroom" />
+    <result column="kitchen" jdbcType="TINYINT" property="kitchen" />
+    <result column="orientation" jdbcType="VARCHAR" property="orientation" />
+    <result column="house_rate" jdbcType="REAL" property="houseRate" />
+    <result column="area" jdbcType="REAL" property="area" />
+    <result column="gift_area" jdbcType="REAL" property="giftArea" />
+    <result column="min_price" jdbcType="DECIMAL" property="minPrice" />
+    <result column="max_price" jdbcType="DECIMAL" property="maxPrice" />
+    <result column="param_id" jdbcType="VARCHAR" property="paramId" />
+    <result column="creator" jdbcType="BIGINT" property="creator" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.shfc.building.domain.BuildingHousehold">
+    <result column="cover_pic_url" jdbcType="LONGVARCHAR" property="coverPicUrl" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, building_id, is_main, room, hall, bathroom, kitchen, orientation, house_rate, 
+    area, gift_area, min_price, max_price, creator, create_time, modifier, modify_time, 
+    version
+  </sql>
+  <sql id="Blob_Column_List">
+    cover_pic_url
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from building_household
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from building_household
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.shfc.building.domain.BuildingHousehold" useGeneratedKeys="true">
+    insert into building_household (id, name, building_id, 
+      is_main, room, hall, 
+      bathroom, kitchen, orientation, 
+      house_rate, area, gift_area, min_price, 
+      max_price, creator, create_time, 
+      modifier, modify_time, version, 
+      cover_pic_url)
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{buildingId,jdbcType=BIGINT}, 
+      #{isMain,jdbcType=TINYINT}, #{room,jdbcType=TINYINT}, #{hall,jdbcType=TINYINT}, 
+      #{bathroom,jdbcType=TINYINT}, #{kitchen,jdbcType=TINYINT}, #{orientation,jdbcType=VARCHAR}, 
+      #{houseRate,jdbcType=REAL}, #{area,jdbcType=REAL}, #{giftArea,jdbcType=REAL}, #{minPrice,jdbcType=DECIMAL}, 
+      #{maxPrice,jdbcType=DECIMAL}, #{creator,jdbcType=BIGINT}, now(), 
+      #{modifier,jdbcType=BIGINT}, #{modifyTime,jdbcType=TIMESTAMP}, 0, 
+      #{coverPicUrl,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.shfc.building.domain.BuildingHousehold" useGeneratedKeys="true">
+    insert into building_household
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="buildingId != null">
+        building_id,
+      </if>
+      <if test="isMain != null">
+        is_main,
+      </if>
+      <if test="room != null">
+        room,
+      </if>
+      <if test="hall != null">
+        hall,
+      </if>
+      <if test="bathroom != null">
+        bathroom,
+      </if>
+      <if test="kitchen != null">
+        kitchen,
+      </if>
+      <if test="orientation != null">
+        orientation,
+      </if>
+      <if test="houseRate != null">
+        house_rate,
+      </if>
+      <if test="area != null">
+        area,
+      </if>
+      <if test="giftArea != null">
+        gift_area,
+      </if>
+      <if test="minPrice != null">
+        min_price,
+      </if>
+      <if test="maxPrice != null">
+        max_price,
+      </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+      <if test="coverPicUrl != null">
+        cover_pic_url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingId != null">
+        #{buildingId,jdbcType=BIGINT},
+      </if>
+      <if test="isMain != null">
+        #{isMain,jdbcType=TINYINT},
+      </if>
+      <if test="room != null">
+        #{room,jdbcType=TINYINT},
+      </if>
+      <if test="hall != null">
+        #{hall,jdbcType=TINYINT},
+      </if>
+      <if test="bathroom != null">
+        #{bathroom,jdbcType=TINYINT},
+      </if>
+      <if test="kitchen != null">
+        #{kitchen,jdbcType=TINYINT},
+      </if>
+      <if test="orientation != null">
+        #{orientation,jdbcType=VARCHAR},
+      </if>
+      <if test="houseRate != null">
+        #{houseRate,jdbcType=REAL},
+      </if>
+      <if test="area != null">
+        #{area,jdbcType=REAL},
+      </if>
+      <if test="giftArea != null">
+        #{giftArea,jdbcType=REAL},
+      </if>
+      <if test="minPrice != null">
+        #{minPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="maxPrice != null">
+        #{maxPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+      <if test="coverPicUrl != null">
+        #{coverPicUrl,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shfc.building.domain.BuildingHousehold">
+    update building_household
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingId != null">
+        building_id = #{buildingId,jdbcType=BIGINT},
+      </if>
+      <if test="isMain != null">
+        is_main = #{isMain,jdbcType=TINYINT},
+      </if>
+      <if test="room != null">
+        room = #{room,jdbcType=TINYINT},
+      </if>
+      <if test="hall != null">
+        hall = #{hall,jdbcType=TINYINT},
+      </if>
+      <if test="bathroom != null">
+        bathroom = #{bathroom,jdbcType=TINYINT},
+      </if>
+      <if test="kitchen != null">
+        kitchen = #{kitchen,jdbcType=TINYINT},
+      </if>
+      <if test="orientation != null">
+        orientation = #{orientation,jdbcType=VARCHAR},
+      </if>
+      <if test="houseRate != null">
+        house_rate = #{houseRate,jdbcType=REAL},
+      </if>
+      <if test="area != null">
+        area = #{area,jdbcType=REAL},
+      </if>
+      <if test="giftArea != null">
+        gift_area = #{giftArea,jdbcType=REAL},
+      </if>
+      <if test="minPrice != null">
+        min_price = #{minPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="maxPrice != null">
+        max_price = #{maxPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="creator != null">
+        creator = #{creator,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+      <if test="coverPicUrl != null">
+        cover_pic_url = #{coverPicUrl,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.shfc.building.domain.BuildingHousehold">
+    update building_household
+    set name = #{name,jdbcType=VARCHAR},
+      building_id = #{buildingId,jdbcType=BIGINT},
+      is_main = #{isMain,jdbcType=TINYINT},
+      room = #{room,jdbcType=TINYINT},
+      hall = #{hall,jdbcType=TINYINT},
+      bathroom = #{bathroom,jdbcType=TINYINT},
+      kitchen = #{kitchen,jdbcType=TINYINT},
+      orientation = #{orientation,jdbcType=VARCHAR},
+      house_rate = #{houseRate,jdbcType=REAL},
+      area = #{area,jdbcType=REAL},
+      gift_area = #{giftArea,jdbcType=REAL},
+      min_price = #{minPrice,jdbcType=DECIMAL},
+      max_price = #{maxPrice,jdbcType=DECIMAL},
+      creator = #{creator,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=BIGINT},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      version = #{version,jdbcType=BIGINT},
+      cover_pic_url = #{coverPicUrl,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shfc.building.domain.BuildingHousehold">
+    update building_household
+    set name = #{name,jdbcType=VARCHAR},
+      building_id = #{buildingId,jdbcType=BIGINT},
+      is_main = #{isMain,jdbcType=TINYINT},
+      room = #{room,jdbcType=TINYINT},
+      hall = #{hall,jdbcType=TINYINT},
+      bathroom = #{bathroom,jdbcType=TINYINT},
+      kitchen = #{kitchen,jdbcType=TINYINT},
+      orientation = #{orientation,jdbcType=VARCHAR},
+      house_rate = #{houseRate,jdbcType=REAL},
+      area = #{area,jdbcType=REAL},
+      gift_area = #{giftArea,jdbcType=REAL},
+      min_price = #{minPrice,jdbcType=DECIMAL},
+      max_price = #{maxPrice,jdbcType=DECIMAL},
+      creator = #{creator,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=BIGINT},
+      modify_time = now(),
+      version = version+1
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+
+  <resultMap id="HouseTypeResultMap" type="com.shfc.building.dto.HouseTypeDTO">
+    <id column="buildingId" property="buildingId" jdbcType="BIGINT"/>
+    <result column="houseTypeName" property="houseTypeName" jdbcType="VARCHAR"/>
+    <result column="coverPiclUrl" property="coverPiclUrl" jdbcType="VARCHAR"/>
+    <result column="isMain" property="isMain" jdbcType="TINYINT"/>
+    <result column="room" property="room" jdbcType="VARCHAR"/>
+    <result column="hall" property="hall" jdbcType="VARCHAR"/>
+    <result column="bathroom" property="bathroom" jdbcType="DECIMAL"/>
+    <result column="kitchen" property="kitchen" jdbcType="VARCHAR"/>
+    <result column="area" property="area" jdbcType="VARCHAR"/>
+    <result column="paramId" property="paramId"/>
+    <collection property="paramList" column="paramId" ofType="com.shfc.building.dto.BaseParameterDTO" javaType="ArrayList"
+                select="queryParamListByBuildingId">
+      <id property="id" column="id"/>
+      <id property="type" column="type"/>
+      <id property="typeName" column="typeName"/>
+      <id property="name" column="name"/>
+      <id property="key" column="key"/>
+      <id property="status" column="status"/>
+    </collection>
+  </resultMap>
+
+  <select id="queryParamListByBuildingId" parameterType="java.lang.String" resultType="com.shfc.building.dto.BaseParameterDTO">
+    SELECT
+    bp.id,
+    bp.type,
+    bp.type_name as typeName,
+    bp.`key`,
+    bp.`name`,
+    bp.`status`
+    from base_parameter bp
+    where bp.id in (#{paramId})
+    and bp.status=0
+  </select>
+
+  <select id="queryHouseTypeList" parameterType="java.lang.Long" resultMap="HouseTypeResultMap">
+   select
+     name as houseTypeName,
+     is_main as isMain,
+     building_id as buildingId,
+     room,
+     hall,
+     bathroom,
+     kitchen,
+     area,
+     param_id as paramId,
+     cover_pic_url as coverPiclUrl
+   from building_household
+   where building_id=#{buildingId,jdbcType=BIGINT}
+  </select>
+</mapper>

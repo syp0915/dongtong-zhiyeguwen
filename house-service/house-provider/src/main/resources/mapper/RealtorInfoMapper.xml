@@ -1,0 +1,524 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shfc.house.dao.RealtorInfoMapper">
+  <resultMap id="BaseResultMap" type="com.shfc.house.domain.RealtorInfo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="realtor_id" jdbcType="BIGINT" property="realtorId" />
+    <result column="telphone" jdbcType="VARCHAR" property="telphone" />
+    <result column="store_id" jdbcType="BIGINT" property="storeId" />
+    <result column="store_name" jdbcType="VARCHAR" property="storeName" />
+    <result column="com_id" jdbcType="BIGINT" property="comId" />
+    <result column="com_name" jdbcType="VARCHAR" property="comName" />
+    <result column="real_name" jdbcType="VARCHAR" property="realName" />
+    <result column="user_autograph" jdbcType="VARCHAR" property="userAutograph" />
+    <result column="gender" jdbcType="INTEGER" property="gender" />
+    <result column="position" jdbcType="INTEGER" property="position" />
+    <result column="store_code" jdbcType="VARCHAR" property="storeCode" />
+    <result column="identity_no" jdbcType="VARCHAR" property="identityNo" />
+    <result column="identity_no_img" jdbcType="VARCHAR" property="identityNoImg" />
+    <result column="certificate_no" jdbcType="VARCHAR" property="certificateNo" />
+    <result column="bank_account" jdbcType="VARCHAR" property="bankAccount" />
+    <result column="card_img" jdbcType="VARCHAR" property="cardImg" />
+    <result column="head_portrait" jdbcType="VARCHAR" property="headPortrait" />
+    <result column="work_time_limit" jdbcType="INTEGER" property="workTimeLimit" />
+    <result column="district_id" jdbcType="BIGINT" property="districtId" />
+    <result column="district_name" jdbcType="VARCHAR" property="districtName" />
+    <result column="block_id" jdbcType="BIGINT" property="blockId" />
+    <result column="block_name" jdbcType="VARCHAR" property="blockName" />
+    <result column="building_name_list" jdbcType="VARCHAR" property="buildingNameList" />
+    <result column="is_auth" jdbcType="BIT" property="isAuth" />
+    <result column="level" jdbcType="REAL" property="level" />
+    <result column="realtor_number" jdbcType="VARCHAR" property="realtorNumber" />
+    <result column="invitation_code" jdbcType="VARCHAR" property="invitationCode" />
+    <result column="creater" jdbcType="BIGINT" property="creater" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, realtor_id, telphone, store_id, store_name, com_id, com_name, real_name, user_autograph, 
+    gender, position, store_code, identity_no, identity_no_img, certificate_no, bank_account, 
+    card_img, head_portrait, work_time_limit, district_id, district_name, block_id, block_name, 
+    building_name_list, is_auth, level, realtor_number,invitation_code, creater, create_time, modifier,
+    modify_time, version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--
+    开发负责人：lv bin
+    功能说明：根据主键获取一条数据库记录
+    是否有缓存：无
+    -->
+    select 
+    <include refid="Base_Column_List" />
+    from realtor_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--
+    开发负责人：lv bin
+    功能说明：根据主键删除数据库的记录
+    是否有缓存：无
+    -->
+    delete from realtor_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.shfc.house.domain.RealtorInfo" useGeneratedKeys="true">
+    <!--
+    开发负责人：lv bin
+    功能说明：插入数据库记录
+    是否有缓存：无
+    -->
+    insert into realtor_info (id, realtor_id, telphone, 
+      store_id, store_name, com_id, 
+      com_name, real_name, user_autograph, 
+      gender, position, store_code, 
+      identity_no, identity_no_img, certificate_no, 
+      bank_account, card_img, head_portrait, 
+      work_time_limit, district_id, district_name, 
+      block_id, block_name, building_name_list, 
+      is_auth, level, realtor_number, invitation_code,
+      creater, create_time, modifier, 
+      modify_time, version)
+    values (#{id,jdbcType=BIGINT}, #{realtorId,jdbcType=BIGINT}, #{telphone,jdbcType=VARCHAR}, 
+      #{storeId,jdbcType=BIGINT}, #{storeName,jdbcType=VARCHAR}, #{comId,jdbcType=BIGINT}, 
+      #{comName,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, #{userAutograph,jdbcType=VARCHAR}, 
+      #{gender,jdbcType=INTEGER}, #{position,jdbcType=INTEGER}, #{storeCode,jdbcType=VARCHAR}, 
+      #{identityNo,jdbcType=VARCHAR}, #{identityNoImg,jdbcType=VARCHAR}, #{certificateNo,jdbcType=VARCHAR}, 
+      #{bankAccount,jdbcType=VARCHAR}, #{cardImg,jdbcType=VARCHAR}, #{headPortrait,jdbcType=VARCHAR}, 
+      #{workTimeLimit,jdbcType=INTEGER}, #{districtId,jdbcType=BIGINT}, #{districtName,jdbcType=VARCHAR}, 
+      #{blockId,jdbcType=BIGINT}, #{blockName,jdbcType=VARCHAR}, #{buildingNameList,jdbcType=VARCHAR}, 
+      #{isAuth,jdbcType=BIT}, #{level,jdbcType=REAL}, #{realtorNumber,jdbcType=VARCHAR}, #{invitationCode,jdbcType=VARCHAR},
+      #{creater,jdbcType=BIGINT}, now(), #{modifier,jdbcType=BIGINT}, 
+      #{modifyTime,jdbcType=TIMESTAMP}, 0)
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.shfc.house.domain.RealtorInfo" useGeneratedKeys="true">
+    <!--
+    开发负责人：lv bin
+    功能说明：选择性插入数据库记录
+    是否有缓存：无
+    -->
+    insert into realtor_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="realtorId != null">
+        realtor_id,
+      </if>
+      <if test="telphone != null">
+        telphone,
+      </if>
+      <if test="storeId != null">
+        store_id,
+      </if>
+      <if test="storeName != null">
+        store_name,
+      </if>
+      <if test="comId != null">
+        com_id,
+      </if>
+      <if test="comName != null">
+        com_name,
+      </if>
+      <if test="realName != null">
+        real_name,
+      </if>
+      <if test="userAutograph != null">
+        user_autograph,
+      </if>
+      <if test="gender != null">
+        gender,
+      </if>
+      <if test="position != null">
+        position,
+      </if>
+      <if test="storeCode != null">
+        store_code,
+      </if>
+      <if test="identityNo != null">
+        identity_no,
+      </if>
+      <if test="identityNoImg != null">
+        identity_no_img,
+      </if>
+      <if test="certificateNo != null">
+        certificate_no,
+      </if>
+      <if test="bankAccount != null">
+        bank_account,
+      </if>
+      <if test="cardImg != null">
+        card_img,
+      </if>
+      <if test="headPortrait != null">
+        head_portrait,
+      </if>
+      <if test="workTimeLimit != null">
+        work_time_limit,
+      </if>
+      <if test="districtId != null">
+        district_id,
+      </if>
+      <if test="districtName != null">
+        district_name,
+      </if>
+      <if test="blockId != null">
+        block_id,
+      </if>
+      <if test="blockName != null">
+        block_name,
+      </if>
+      <if test="buildingNameList != null">
+        building_name_list,
+      </if>
+      <if test="isAuth != null">
+        is_auth,
+      </if>
+      <if test="level != null">
+        level,
+      </if>
+      <if test="realtorNumber != null">
+        realtor_number,
+      </if>
+      <if test="invitationCode != null">
+        invitation_code,
+      </if>
+      <if test="creater != null">
+        creater,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="realtorId != null">
+        #{realtorId,jdbcType=BIGINT},
+      </if>
+      <if test="telphone != null">
+        #{telphone,jdbcType=VARCHAR},
+      </if>
+      <if test="storeId != null">
+        #{storeId,jdbcType=BIGINT},
+      </if>
+      <if test="storeName != null">
+        #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="comId != null">
+        #{comId,jdbcType=BIGINT},
+      </if>
+      <if test="comName != null">
+        #{comName,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null">
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="userAutograph != null">
+        #{userAutograph,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="position != null">
+        #{position,jdbcType=INTEGER},
+      </if>
+      <if test="storeCode != null">
+        #{storeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="identityNo != null">
+        #{identityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="identityNoImg != null">
+        #{identityNoImg,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateNo != null">
+        #{certificateNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAccount != null">
+        #{bankAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="cardImg != null">
+        #{cardImg,jdbcType=VARCHAR},
+      </if>
+      <if test="headPortrait != null">
+        #{headPortrait,jdbcType=VARCHAR},
+      </if>
+      <if test="workTimeLimit != null">
+        #{workTimeLimit,jdbcType=INTEGER},
+      </if>
+      <if test="districtId != null">
+        #{districtId,jdbcType=BIGINT},
+      </if>
+      <if test="districtName != null">
+        #{districtName,jdbcType=VARCHAR},
+      </if>
+      <if test="blockId != null">
+        #{blockId,jdbcType=BIGINT},
+      </if>
+      <if test="blockName != null">
+        #{blockName,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingNameList != null">
+        #{buildingNameList,jdbcType=VARCHAR},
+      </if>
+      <if test="isAuth != null">
+        #{isAuth,jdbcType=BIT},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=REAL},
+      </if>
+      <if test="realtorNumber != null">
+        #{realtorNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="invitationCode != null">
+        #{invitationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shfc.house.domain.RealtorInfo">
+    <!--
+    开发负责人：lv bin
+    功能说明：根据主键来更新对应数据库字段
+    是否有缓存：无
+    -->
+    update realtor_info
+    <set>
+      <if test="realtorId != null">
+        realtor_id = #{realtorId,jdbcType=BIGINT},
+      </if>
+      <if test="telphone != null">
+        telphone = #{telphone,jdbcType=VARCHAR},
+      </if>
+      <if test="storeId != null">
+        store_id = #{storeId,jdbcType=BIGINT},
+      </if>
+      <if test="storeName != null">
+        store_name = #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="comId != null">
+        com_id = #{comId,jdbcType=BIGINT},
+      </if>
+      <if test="comName != null">
+        com_name = #{comName,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null">
+        real_name = #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="userAutograph != null">
+        user_autograph = #{userAutograph,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        gender = #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="position != null">
+        position = #{position,jdbcType=INTEGER},
+      </if>
+      <if test="storeCode != null">
+        store_code = #{storeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="identityNo != null">
+        identity_no = #{identityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="identityNoImg != null">
+        identity_no_img = #{identityNoImg,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateNo != null">
+        certificate_no = #{certificateNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAccount != null">
+        bank_account = #{bankAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="cardImg != null">
+        card_img = #{cardImg,jdbcType=VARCHAR},
+      </if>
+      <if test="headPortrait != null">
+        head_portrait = #{headPortrait,jdbcType=VARCHAR},
+      </if>
+      <if test="workTimeLimit != null">
+        work_time_limit = #{workTimeLimit,jdbcType=INTEGER},
+      </if>
+      <if test="districtId != null">
+        district_id = #{districtId,jdbcType=BIGINT},
+      </if>
+      <if test="districtName != null">
+        district_name = #{districtName,jdbcType=VARCHAR},
+      </if>
+      <if test="blockId != null">
+        block_id = #{blockId,jdbcType=BIGINT},
+      </if>
+      <if test="blockName != null">
+        block_name = #{blockName,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingNameList != null">
+        building_name_list = #{buildingNameList,jdbcType=VARCHAR},
+      </if>
+      <if test="isAuth != null">
+        is_auth = #{isAuth,jdbcType=BIT},
+      </if>
+      <if test="level != null">
+        level = #{level,jdbcType=REAL},
+      </if>
+      <if test="realtorNumber != null">
+        realtor_number = #{realtorNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="invitationCode != null">
+        invitation_code = #{invitationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null">
+        creater = #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shfc.house.domain.RealtorInfo">
+    <!--
+    开发负责人：lv bin
+    功能说明：根据主键来更新数据库记录
+    是否有缓存：无
+    -->
+    update realtor_info
+    set realtor_id = #{realtorId,jdbcType=BIGINT},
+      telphone = #{telphone,jdbcType=VARCHAR},
+      store_id = #{storeId,jdbcType=BIGINT},
+      store_name = #{storeName,jdbcType=VARCHAR},
+      com_id = #{comId,jdbcType=BIGINT},
+      com_name = #{comName,jdbcType=VARCHAR},
+      real_name = #{realName,jdbcType=VARCHAR},
+      user_autograph = #{userAutograph,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=INTEGER},
+      position = #{position,jdbcType=INTEGER},
+      store_code = #{storeCode,jdbcType=VARCHAR},
+      identity_no = #{identityNo,jdbcType=VARCHAR},
+      identity_no_img = #{identityNoImg,jdbcType=VARCHAR},
+      certificate_no = #{certificateNo,jdbcType=VARCHAR},
+      bank_account = #{bankAccount,jdbcType=VARCHAR},
+      card_img = #{cardImg,jdbcType=VARCHAR},
+      head_portrait = #{headPortrait,jdbcType=VARCHAR},
+      work_time_limit = #{workTimeLimit,jdbcType=INTEGER},
+      district_id = #{districtId,jdbcType=BIGINT},
+      district_name = #{districtName,jdbcType=VARCHAR},
+      block_id = #{blockId,jdbcType=BIGINT},
+      block_name = #{blockName,jdbcType=VARCHAR},
+      building_name_list = #{buildingNameList,jdbcType=VARCHAR},
+      is_auth = #{isAuth,jdbcType=BIT},
+      level = #{level,jdbcType=REAL},
+      realtor_number = #{realtorNumber,jdbcType=VARCHAR},
+      invitation_code = #{invitationCode,jdbcType=VARCHAR},
+      creater = #{creater,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=BIGINT},
+      modify_time = now(),
+      version = version+1
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+
+  <select id="findCompanyStoreByStoreCode" resultType="com.shfc.house.dto.CompanyStoreDTO" parameterType="java.lang.String">
+    SELECT t2.id as 'comId',t2.com_name as 'comName',t1.id as 'storeId',t1.store_name as 'storeName'  from realtor_store t1 INNER JOIN realtor_company t2 ON t1.realtor_company_id = t2.id
+    where t1.store_code=#{storeCode,jdbcType=VARCHAR}  LIMIT 1
+  </select>
+
+  <select id="companyStoreInfo" resultType="com.shfc.house.dto.CompanyStoreDTO" parameterType="java.lang.String">
+     SELECT t1.store_code as 'storeCode',t2.id as 'comId',t2.com_name as 'comName',t1.id as 'storeId',t1.store_name as 'storeName' ,
+      d.id as 'districtId',d.district_name as 'districtName',bl.id as 'blockId',bl.block_name as 'blockName'
+      from realtor_store t1
+      LEFT JOIN  realtor_company t2 ON t1.realtor_company_id = t2.id
+      LEFT JOIN realtor_store_ext_rel t3 on t1.id = t3.store_id and t3.rel_type='0' and t3.`status`='0'
+      LEFT JOIN base_district d on d.id = t3.rel_id
+      LEFT JOIN realtor_store_ext_rel t4 on t1.id = t4.store_id and t4.rel_type='1' and t4.`status`='0'
+      LEFT JOIN base_block bl on bl.id = t4.rel_id
+    where t1.store_code=#{storeCode,jdbcType=VARCHAR};
+  </select>
+
+  <select id="queryStoreById" resultType="com.shfc.house.dto.CompanyStoreDTO" parameterType="java.lang.Long">
+    SELECT t1.store_code as 'storeCode',t2.id as 'comId',t2.com_name as 'comName',t1.id as 'storeId',t1.store_name as 'storeName' ,
+    d.id as 'districtId',d.district_name as 'districtName',bl.id as 'blockId',bl.block_name as 'blockName'
+    from realtor_store t1
+    LEFT JOIN  realtor_company t2 ON t1.realtor_company_id = t2.id
+    LEFT JOIN realtor_store_ext_rel t3 on t1.id = t3.store_id and t3.rel_type='0' and t3.`status`='0'
+    LEFT JOIN base_district d on d.id = t3.rel_id
+    LEFT JOIN realtor_store_ext_rel t4 on t1.id = t4.store_id and t4.rel_type='1' and t4.`status`='0'
+    LEFT JOIN base_block bl on bl.id = t4.rel_id
+    where t1.id=#{storeId,jdbcType=BIGINT};
+  </select>
+
+  <select id="findComIdByPhone" resultType="java.lang.Long" parameterType="java.lang.String">
+    SELECT t2.com_id as 'comId' from realtor_unitive_account t1  LEFT JOIN realtor_info t2 on t1.id = t2.realtor_id
+    where t1.`disable` = '1' and t1.phone = #{phone,jdbcType=VARCHAR};
+  </select>
+
+  <select id="selectByAccountId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    SELECT t2.* from realtor_unitive_account  t1 LEFT JOIN realtor_info t2 on t1.id = t2.realtor_id
+    where t1.`disable`='0' and t1.id = #{accountId,jdbcType=BIGINT};
+  </select>
+
+  <select id="showCompleteInfo" resultType="com.shfc.house.dto.RealtorInfoDTO" parameterType="java.lang.Long">
+   SELECT t1.telphone as 'telphone' ,t1.real_name as 'realName',t1.head_portrait as 'headPortrait',t1.gender,t1.identity_no as 'identityNo',t1.card_img as cardImg,t1.position as 'position',
+       t1.certificate_no as 'certificateNo',t1.com_name as 'comName',t1.com_id as 'comId',t1.store_code as 'storeCode',t1.store_id as 'storeId',
+    t1.store_name as 'storeName',t1.user_autograph as 'userAutograph',t1.district_id as 'districtId',t2.district_name as 'districtName',t1.block_id as 'blockId',t3.block_name as 'blockName',t1.building_name_list as 'buildingNameList'
+       from  realtor_info t1
+       LEFT JOIN base_district t2 on t1.district_id=t2.id
+       LEFT JOIN base_block t3 on t1.block_id = t3.id
+       where t1.realtor_id =#{realtorId,jdbcType=BIGINT}
+  </select>
+
+  <select id="myInfo" resultType="com.shfc.house.dto.RealtorInfoDTO" parameterType="java.lang.Long">
+      SELECT t.id as 'realtorId',t1.real_name as 'realName',t1.position as 'position',t1.realtor_number as 'realtorNumber',t1.head_portrait as 'headPortrait',t1.com_name as 'comName',t1.com_id AS 'comId',
+         t1.store_name as 'storeName', t1.building_name_list as 'buildingNameList',
+         (CASE WHEN t2.status IS NULL THEN 2 ELSE t2.status END) AS 'status',
+        (case when t2.status=0 then CONCAT(DATE_FORMAT(t2.deadline, '%Y年%m月%d日'),'到期') when t2.status=1 then '已过期' else '未开通' end) as 'describe',
+        t1.invitation_code as invitationCode
+		 from realtor_unitive_account t  LEFT JOIN realtor_info t1 on t.id = t1.realtor_id LEFT JOIN leads_realtor_member t2 ON t.id = t2.realtor_id
+		  where t.id=#{realtorId,jdbcType=BIGINT}
+  </select>
+
+  <select id="selectByRealtorId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    select * from realtor_info where realtor_id = #{realtorId,jdbcType=BIGINT} limit 1
+  </select>
+
+
+  <select id="queryCardByUrl" resultType="java.lang.Integer">
+    select COUNT(*) as num from realtor_info where card_img = #{cardImg,jdbcType=VARCHAR}
+  </select>
+
+  <select id="queryStatusByRealtorId" resultType="com.shfc.house.dto.RealtorInfoDTO" parameterType="java.lang.Long">
+     SELECT
+    t1.id as realtorId,t1.phone as telphone,t1.status as status,t2.head_portrait as headPortrait
+ from realtor_unitive_account  t1 LEFT JOIN realtor_info t2 on t1.id = t2.realtor_id
+    where t1.`disable`='0' and t1.id = #{accountId,jdbcType=BIGINT};
+  </select>
+</mapper>

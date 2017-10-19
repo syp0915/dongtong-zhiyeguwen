@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shfc.building.dao.BuildingPicMapper">
+  <resultMap id="BaseResultMap" type="com.shfc.building.domain.BuildingPic">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="associate_id" jdbcType="BIGINT" property="associateId" />
+    <result column="biz_type" jdbcType="TINYINT" property="bizType" />
+    <result column="catalog1" jdbcType="TINYINT" property="catalog1" />
+    <result column="catalog2" jdbcType="TINYINT" property="catalog2" />
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+    <result column="check_status" jdbcType="TINYINT" property="checkStatus" />
+    <result column="width" jdbcType="INTEGER" property="width" />
+    <result column="height" jdbcType="INTEGER" property="height" />
+    <result column="coordinate_x" jdbcType="DECIMAL" property="coordinateX" />
+    <result column="coordinate_y" jdbcType="DECIMAL" property="coordinateY" />
+    <result column="pic_index" jdbcType="INTEGER" property="picIndex" />
+    <result column="pattern" jdbcType="VARCHAR" property="pattern" />
+    <result column="creator" jdbcType="BIGINT" property="creator" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.shfc.building.domain.BuildingPic">
+    <result column="pic_url" jdbcType="LONGVARCHAR" property="picUrl" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, associate_id, biz_type, catalog1, catalog2, is_delete, check_status, width, 
+    height, coordinate_x, coordinate_y, pic_index, pattern, creator, create_time, modifier, 
+    modify_time, version
+  </sql>
+  <sql id="Blob_Column_List">
+    pic_url
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from building_pic
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from building_pic
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.shfc.building.domain.BuildingPic" useGeneratedKeys="true">
+    insert into building_pic (id, name, associate_id, 
+      biz_type, catalog1, catalog2, 
+      is_delete, check_status, width, 
+      height, coordinate_x, coordinate_y, 
+      pic_index, pattern, creator, 
+      create_time, modifier, modify_time, 
+      version, pic_url)
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{associateId,jdbcType=BIGINT}, 
+      #{bizType,jdbcType=TINYINT}, #{catalog1,jdbcType=TINYINT}, #{catalog2,jdbcType=TINYINT}, 
+      #{isDelete,jdbcType=TINYINT}, #{checkStatus,jdbcType=TINYINT}, #{width,jdbcType=INTEGER}, 
+      #{height,jdbcType=INTEGER}, #{coordinateX,jdbcType=DECIMAL}, #{coordinateY,jdbcType=DECIMAL}, 
+      #{picIndex,jdbcType=INTEGER}, #{pattern,jdbcType=VARCHAR}, #{creator,jdbcType=BIGINT}, 
+      now(), #{modifier,jdbcType=BIGINT}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      0, #{picUrl,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.shfc.building.domain.BuildingPic" useGeneratedKeys="true">
+    insert into building_pic
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="associateId != null">
+        associate_id,
+      </if>
+      <if test="bizType != null">
+        biz_type,
+      </if>
+      <if test="catalog1 != null">
+        catalog1,
+      </if>
+      <if test="catalog2 != null">
+        catalog2,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="checkStatus != null">
+        check_status,
+      </if>
+      <if test="width != null">
+        width,
+      </if>
+      <if test="height != null">
+        height,
+      </if>
+      <if test="coordinateX != null">
+        coordinate_x,
+      </if>
+      <if test="coordinateY != null">
+        coordinate_y,
+      </if>
+      <if test="picIndex != null">
+        pic_index,
+      </if>
+      <if test="pattern != null">
+        pattern,
+      </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+      <if test="picUrl != null">
+        pic_url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="associateId != null">
+        #{associateId,jdbcType=BIGINT},
+      </if>
+      <if test="bizType != null">
+        #{bizType,jdbcType=TINYINT},
+      </if>
+      <if test="catalog1 != null">
+        #{catalog1,jdbcType=TINYINT},
+      </if>
+      <if test="catalog2 != null">
+        #{catalog2,jdbcType=TINYINT},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="checkStatus != null">
+        #{checkStatus,jdbcType=TINYINT},
+      </if>
+      <if test="width != null">
+        #{width,jdbcType=INTEGER},
+      </if>
+      <if test="height != null">
+        #{height,jdbcType=INTEGER},
+      </if>
+      <if test="coordinateX != null">
+        #{coordinateX,jdbcType=DECIMAL},
+      </if>
+      <if test="coordinateY != null">
+        #{coordinateY,jdbcType=DECIMAL},
+      </if>
+      <if test="picIndex != null">
+        #{picIndex,jdbcType=INTEGER},
+      </if>
+      <if test="pattern != null">
+        #{pattern,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+      <if test="picUrl != null">
+        #{picUrl,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shfc.building.domain.BuildingPic">
+    update building_pic
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="associateId != null">
+        associate_id = #{associateId,jdbcType=BIGINT},
+      </if>
+      <if test="bizType != null">
+        biz_type = #{bizType,jdbcType=TINYINT},
+      </if>
+      <if test="catalog1 != null">
+        catalog1 = #{catalog1,jdbcType=TINYINT},
+      </if>
+      <if test="catalog2 != null">
+        catalog2 = #{catalog2,jdbcType=TINYINT},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="checkStatus != null">
+        check_status = #{checkStatus,jdbcType=TINYINT},
+      </if>
+      <if test="width != null">
+        width = #{width,jdbcType=INTEGER},
+      </if>
+      <if test="height != null">
+        height = #{height,jdbcType=INTEGER},
+      </if>
+      <if test="coordinateX != null">
+        coordinate_x = #{coordinateX,jdbcType=DECIMAL},
+      </if>
+      <if test="coordinateY != null">
+        coordinate_y = #{coordinateY,jdbcType=DECIMAL},
+      </if>
+      <if test="picIndex != null">
+        pic_index = #{picIndex,jdbcType=INTEGER},
+      </if>
+      <if test="pattern != null">
+        pattern = #{pattern,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null">
+        creator = #{creator,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+      <if test="picUrl != null">
+        pic_url = #{picUrl,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.shfc.building.domain.BuildingPic">
+    update building_pic
+    set name = #{name,jdbcType=VARCHAR},
+      associate_id = #{associateId,jdbcType=BIGINT},
+      biz_type = #{bizType,jdbcType=TINYINT},
+      catalog1 = #{catalog1,jdbcType=TINYINT},
+      catalog2 = #{catalog2,jdbcType=TINYINT},
+      is_delete = #{isDelete,jdbcType=TINYINT},
+      check_status = #{checkStatus,jdbcType=TINYINT},
+      width = #{width,jdbcType=INTEGER},
+      height = #{height,jdbcType=INTEGER},
+      coordinate_x = #{coordinateX,jdbcType=DECIMAL},
+      coordinate_y = #{coordinateY,jdbcType=DECIMAL},
+      pic_index = #{picIndex,jdbcType=INTEGER},
+      pattern = #{pattern,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=BIGINT},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      version = #{version,jdbcType=BIGINT},
+      pic_url = #{picUrl,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shfc.building.domain.BuildingPic">
+    update building_pic
+    set name = #{name,jdbcType=VARCHAR},
+      associate_id = #{associateId,jdbcType=BIGINT},
+      biz_type = #{bizType,jdbcType=TINYINT},
+      catalog1 = #{catalog1,jdbcType=TINYINT},
+      catalog2 = #{catalog2,jdbcType=TINYINT},
+      is_delete = #{isDelete,jdbcType=TINYINT},
+      check_status = #{checkStatus,jdbcType=TINYINT},
+      width = #{width,jdbcType=INTEGER},
+      height = #{height,jdbcType=INTEGER},
+      coordinate_x = #{coordinateX,jdbcType=DECIMAL},
+      coordinate_y = #{coordinateY,jdbcType=DECIMAL},
+      pic_index = #{picIndex,jdbcType=INTEGER},
+      pattern = #{pattern,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=BIGINT},
+      modify_time = now(),
+      version = version+1
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+</mapper>

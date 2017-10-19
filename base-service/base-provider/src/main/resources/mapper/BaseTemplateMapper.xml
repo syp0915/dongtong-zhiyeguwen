@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shfc.base.dao.BaseTemplateMapper">
+  <resultMap id="BaseResultMap" type="com.shfc.base.domain.BaseTemplate">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="telpmate_title" jdbcType="VARCHAR" property="telpmateTitle" />
+    <result column="template_url" jdbcType="VARCHAR" property="templateUrl" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="creater" jdbcType="BIGINT" property="creater" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.shfc.base.domain.BaseTemplate">
+    <result column="template" jdbcType="LONGVARCHAR" property="template" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, telpmate_title, template_url, type, status, creater, create_time, modifier, modify_time, 
+    version
+  </sql>
+  <sql id="Blob_Column_List">
+    template
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    <!--
+    开发负责人：liaozm
+    功能说明：根据主键获取一条数据库记录
+    是否有缓存：无
+    -->
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from base_template
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--
+    开发负责人：liaozm
+    功能说明：根据主键删除数据库的记录
+    是否有缓存：无
+    -->
+    delete from base_template
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.shfc.base.domain.BaseTemplate" useGeneratedKeys="true">
+    <!--
+    开发负责人：liaozm
+    功能说明：插入数据库记录
+    是否有缓存：无
+    -->
+    insert into base_template (id, telpmate_title, template_url, 
+      type, status, creater, 
+      create_time, modifier, modify_time, 
+      version, template)
+    values (#{id,jdbcType=BIGINT}, #{telpmateTitle,jdbcType=VARCHAR}, #{templateUrl,jdbcType=VARCHAR}, 
+      #{type,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{creater,jdbcType=BIGINT}, 
+      now(), #{modifier,jdbcType=BIGINT}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      0, #{template,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.shfc.base.domain.BaseTemplate" useGeneratedKeys="true">
+    <!--
+    开发负责人：liaozm
+    功能说明：选择性插入数据库记录
+    是否有缓存：无
+    -->
+    insert into base_template
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="telpmateTitle != null">
+        telpmate_title,
+      </if>
+      <if test="templateUrl != null">
+        template_url,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="creater != null">
+        creater,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+      <if test="template != null">
+        template,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="telpmateTitle != null">
+        #{telpmateTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="templateUrl != null">
+        #{templateUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+      <if test="template != null">
+        #{template,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shfc.base.domain.BaseTemplate">
+    <!--
+    开发负责人：liaozm
+    功能说明：根据主键来更新对应数据库字段
+    是否有缓存：无
+    -->
+    update base_template
+    <set>
+      <if test="telpmateTitle != null">
+        telpmate_title = #{telpmateTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="templateUrl != null">
+        template_url = #{templateUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="creater != null">
+        creater = #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+      <if test="template != null">
+        template = #{template,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.shfc.base.domain.BaseTemplate">
+    <!--
+    开发负责人：liaozm
+    是否有缓存：无
+    -->
+    update base_template
+    set telpmate_title = #{telpmateTitle,jdbcType=VARCHAR},
+      template_url = #{templateUrl,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      creater = #{creater,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=BIGINT},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      version = #{version,jdbcType=BIGINT},
+      template = #{template,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shfc.base.domain.BaseTemplate">
+    <!--
+    开发负责人：liaozm
+    功能说明：根据主键来更新数据库记录
+    是否有缓存：无
+    -->
+    update base_template
+    set telpmate_title = #{telpmateTitle,jdbcType=VARCHAR},
+      template_url = #{templateUrl,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      creater = #{creater,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=BIGINT},
+      modify_time = now(),
+      version = version+1
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPage" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" /> 
+    from base_template
+    order by create_time desc 
+  </select>
+  
+  <resultMap id="posterList" type="com.shfc.base.dto.TemplateDTO">
+    <id column="templateId" property="templateId" jdbcType="BIGINT"/>
+    <result column="template" property="template" jdbcType="VARCHAR"/>
+    <result column="templateTitle" property="templateTitle" jdbcType="VARCHAR"/>
+    <result column="templateUrl" property="templateUrl" jdbcType="VARCHAR"/>
+    <collection property="list" column="templateId" ofType="java.lang.String" javaType="java.util.ArrayList"
+    select="templateColor">
+      <id column="color" />
+    </collection>
+
+  </resultMap>
+
+  <select id="templateList" resultMap="posterList">
+    SELECT
+    id AS templateId,
+    telpmate_title AS templateTitle,
+    template_url AS templateUrl,
+    template
+    FROM
+    base_template
+    WHERE
+    type = #{type} AND status = 1
+  </select>
+
+  <select id="templateColor" resultType="java.lang.String">
+    SELECT
+    template_color as color
+    FROM
+    base_template_color
+    where template_id=#{templateId}
+  </select>
+
+  <select id="queryTemplateById" resultType="com.shfc.base.dto.TemplateDTO">
+    SELECT
+    id AS templateId,
+    telpmate_title AS templateTitle,
+    template
+    FROM
+    base_template
+    WHERE
+    id = #{id} and type=#{type} AND status = 1
+  </select>
+</mapper>

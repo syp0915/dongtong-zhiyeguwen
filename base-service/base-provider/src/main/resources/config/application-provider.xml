@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd"
+       default-lazy-init="true">
+
+    <!--com.alibaba.dubbo.config.spring.ServiceBean-->
+    <bean id="serviceBean" class="com.shfc.dubbo.ServiceBean" abstract="true">
+        <property name="application" ref="dubboApplicationConfig"/>
+        <property name="registry" ref="dubboRegistryConfig"/>
+        <property name="protocol" ref="dubboProtocolConfig"/>
+        <property name="version" value="${provider.default_version}"/>
+        <property name="timeout" value="${provider.timeout}"/>
+    </bean>
+
+    <!-- baseTagService -->
+    <bean id="baseTagService" parent="serviceBean">
+        <property name="interface" value="com.shfc.base.service.BaseTagService"/>
+    </bean>
+    <!--areaExtService-->
+    <bean id="areaExtService" parent="serviceBean">
+        <property name="interface" value="com.shfc.base.service.AreaExtService"/>
+    </bean>
+
+    <!--advertisementService-->
+    <bean id="advertisementService" parent="serviceBean">
+        <property name="interface" value="com.shfc.base.service.AdvertisementService"/>
+    </bean>
+
+    <!--advertisementService-->
+    <bean id="reactionService" parent="serviceBean">
+        <property name="interface" value="com.shfc.base.service.ReactionService"/>
+    </bean>
+
+    <!--advertisementService-->
+    <bean id="queryHotPlotService" parent="serviceBean">
+        <property name="interface" value="com.shfc.base.service.QueryHotPlotService"/>
+    </bean>
+
+    <!--SMS消息服务-->
+    <bean id="smsRemoteService" parent="serviceBean">
+        <property name="timeout" value="10000"/>
+        <property name="interface" value="com.shfc.base.service.SmsRemoteService"/>
+    </bean>
+
+    <!--本地通知服务-->
+    <bean id="sysMessageService" parent="serviceBean">
+        <property name="interface" value="com.shfc.base.service.SysMessageService"/>
+    </bean>
+
+    <!--邮件消息服务-->
+    <bean id="mailService" parent="serviceBean">
+        <property name="timeout" value="8000"/>
+        <property name="interface" value="com.shfc.base.service.MailService"/>
+    </bean>
+
+    <bean id="appService" parent="serviceBean">
+        <property name="interface" value="com.shfc.base.service.AppService"/>
+    </bean>
+
+    <bean id="templateService" parent="serviceBean">
+        <property name="interface" value="com.shfc.base.service.TemplateService"/>
+    </bean>
+</beans>

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shfc.house.dao.LeadsCustomerFlowMapper">
+  <resultMap id="BaseResultMap" type="com.shfc.house.domain.LeadsCustomerFlow">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="leads_customer_id" jdbcType="BIGINT" property="leadsCustomerId" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="creator" jdbcType="BIGINT" property="creator" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, leads_customer_id, status, creator, create_time, modifier, modify_time, version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--
+    开发负责人：lv bin
+    功能说明：根据主键获取一条数据库记录
+    是否有缓存：无
+    -->
+    select 
+    <include refid="Base_Column_List" />
+    from leads_customer_flow
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--
+    开发负责人：lv bin
+    功能说明：根据主键删除数据库的记录
+    是否有缓存：无
+    -->
+    delete from leads_customer_flow
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.shfc.house.domain.LeadsCustomerFlow" useGeneratedKeys="true">
+    <!--
+    开发负责人：lv bin
+    功能说明：插入数据库记录
+    是否有缓存：无
+    -->
+    insert into leads_customer_flow (id, leads_customer_id, status, 
+      creator, create_time, modifier, 
+      modify_time, version)
+    values (#{id,jdbcType=BIGINT}, #{leadsCustomerId,jdbcType=BIGINT}, #{status,jdbcType=TINYINT}, 
+      #{creator,jdbcType=BIGINT}, now(), #{modifier,jdbcType=BIGINT}, 
+      #{modifyTime,jdbcType=TIMESTAMP}, 0)
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.shfc.house.domain.LeadsCustomerFlow" useGeneratedKeys="true">
+    <!--
+    开发负责人：lv bin
+    功能说明：选择性插入数据库记录
+    是否有缓存：无
+    -->
+    insert into leads_customer_flow
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="leadsCustomerId != null">
+        leads_customer_id,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="leadsCustomerId != null">
+        #{leadsCustomerId,jdbcType=BIGINT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shfc.house.domain.LeadsCustomerFlow">
+    <!--
+    开发负责人：lv bin
+    功能说明：根据主键来更新对应数据库字段
+    是否有缓存：无
+    -->
+    update leads_customer_flow
+    <set>
+      <if test="leadsCustomerId != null">
+        leads_customer_id = #{leadsCustomerId,jdbcType=BIGINT},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="creator != null">
+        creator = #{creator,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shfc.house.domain.LeadsCustomerFlow">
+    <!--
+    开发负责人：lv bin
+    功能说明：根据主键来更新数据库记录
+    是否有缓存：无
+    -->
+    update leads_customer_flow
+    set leads_customer_id = #{leadsCustomerId,jdbcType=BIGINT},
+      status = #{status,jdbcType=TINYINT},
+      creator = #{creator,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=BIGINT},
+      modify_time = now(),
+      version = version+1
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+
+  <select id="queryStatusList" parameterType="long" resultType="com.shfc.house.dto.CustomerFlowDTO">
+    select
+    date_format(MAX(create_time), '%Y-%m-%d %H:%i:%s') as changeTime,
+    status as customerStatus
+    from leads_customer_flow
+    where leads_customer_id=#{reportId,jdbcType=BIGINT}
+    GROUP BY status order by changeTime desc
+  </select>
+</mapper>

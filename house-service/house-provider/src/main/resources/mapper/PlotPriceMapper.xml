@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shfc.house.dao.PlotPriceMapper">
+  <resultMap id="BaseResultMap" type="com.shfc.house.domain.PlotPrice">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="biz_id" jdbcType="BIGINT" property="bizId" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="deal_avg_price1st" jdbcType="DECIMAL" property="dealAvgPrice1st" />
+    <result column="deal_avg_price2nd" jdbcType="DECIMAL" property="dealAvgPrice2nd" />
+    <result column="deal_count1st" jdbcType="INTEGER" property="dealCount1st" />
+    <result column="deal_count2nd" jdbcType="INTEGER" property="dealCount2nd" />
+    <result column="month" jdbcType="INTEGER" property="month" />
+    <result column="creator" jdbcType="BIGINT" property="creator" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, biz_id, type, deal_avg_price1st, deal_avg_price2nd, deal_count1st, deal_count2nd, 
+    month, creator, create_time, modifier, modify_time, version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--
+    开发负责人：lv bin
+    功能说明：根据主键获取一条数据库记录
+    是否有缓存：无
+    -->
+    select 
+    <include refid="Base_Column_List" />
+    from plot_price
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--
+    开发负责人：lv bin
+    功能说明：根据主键删除数据库的记录
+    是否有缓存：无
+    -->
+    delete from plot_price
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.shfc.house.domain.PlotPrice" useGeneratedKeys="true">
+    <!--
+    开发负责人：lv bin
+    功能说明：插入数据库记录
+    是否有缓存：无
+    -->
+    insert into plot_price (id, biz_id, type, 
+      deal_avg_price1st, deal_avg_price2nd, deal_count1st, 
+      deal_count2nd, month, creator, 
+      create_time, modifier, modify_time, 
+      version)
+    values (#{id,jdbcType=BIGINT}, #{bizId,jdbcType=BIGINT}, #{type,jdbcType=TINYINT}, 
+      #{dealAvgPrice1st,jdbcType=DECIMAL}, #{dealAvgPrice2nd,jdbcType=DECIMAL}, #{dealCount1st,jdbcType=INTEGER}, 
+      #{dealCount2nd,jdbcType=INTEGER}, #{month,jdbcType=INTEGER}, #{creator,jdbcType=BIGINT}, 
+      now(), #{modifier,jdbcType=BIGINT}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      0)
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.shfc.house.domain.PlotPrice" useGeneratedKeys="true">
+    <!--
+    开发负责人：lv bin
+    功能说明：选择性插入数据库记录
+    是否有缓存：无
+    -->
+    insert into plot_price
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="bizId != null">
+        biz_id,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="dealAvgPrice1st != null">
+        deal_avg_price1st,
+      </if>
+      <if test="dealAvgPrice2nd != null">
+        deal_avg_price2nd,
+      </if>
+      <if test="dealCount1st != null">
+        deal_count1st,
+      </if>
+      <if test="dealCount2nd != null">
+        deal_count2nd,
+      </if>
+      <if test="month != null">
+        month,
+      </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="bizId != null">
+        #{bizId,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=TINYINT},
+      </if>
+      <if test="dealAvgPrice1st != null">
+        #{dealAvgPrice1st,jdbcType=DECIMAL},
+      </if>
+      <if test="dealAvgPrice2nd != null">
+        #{dealAvgPrice2nd,jdbcType=DECIMAL},
+      </if>
+      <if test="dealCount1st != null">
+        #{dealCount1st,jdbcType=INTEGER},
+      </if>
+      <if test="dealCount2nd != null">
+        #{dealCount2nd,jdbcType=INTEGER},
+      </if>
+      <if test="month != null">
+        #{month,jdbcType=INTEGER},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shfc.house.domain.PlotPrice">
+    <!--
+    开发负责人：lv bin
+    功能说明：根据主键来更新对应数据库字段
+    是否有缓存：无
+    -->
+    update plot_price
+    <set>
+      <if test="bizId != null">
+        biz_id = #{bizId,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="dealAvgPrice1st != null">
+        deal_avg_price1st = #{dealAvgPrice1st,jdbcType=DECIMAL},
+      </if>
+      <if test="dealAvgPrice2nd != null">
+        deal_avg_price2nd = #{dealAvgPrice2nd,jdbcType=DECIMAL},
+      </if>
+      <if test="dealCount1st != null">
+        deal_count1st = #{dealCount1st,jdbcType=INTEGER},
+      </if>
+      <if test="dealCount2nd != null">
+        deal_count2nd = #{dealCount2nd,jdbcType=INTEGER},
+      </if>
+      <if test="month != null">
+        month = #{month,jdbcType=INTEGER},
+      </if>
+      <if test="creator != null">
+        creator = #{creator,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shfc.house.domain.PlotPrice">
+    <!--
+    开发负责人：lv bin
+    功能说明：根据主键来更新数据库记录
+    是否有缓存：无
+    -->
+    update plot_price
+    set biz_id = #{bizId,jdbcType=BIGINT},
+      type = #{type,jdbcType=TINYINT},
+      deal_avg_price1st = #{dealAvgPrice1st,jdbcType=DECIMAL},
+      deal_avg_price2nd = #{dealAvgPrice2nd,jdbcType=DECIMAL},
+      deal_count1st = #{dealCount1st,jdbcType=INTEGER},
+      deal_count2nd = #{dealCount2nd,jdbcType=INTEGER},
+      month = #{month,jdbcType=INTEGER},
+      creator = #{creator,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=BIGINT},
+      modify_time = now(),
+      version = version+1
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+
+  <select id="findPlotPrice" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from plot_price
+    where type = #{query.type} and biz_id = #{query.bizId} and month = #{query.month}
+    limit 1
+  </select>
+
+  <select id="queryPlotPrice" resultType="com.shfc.house.dto.PlotPriceDTO">
+    select
+    p.biz_id as bizId,
+    p.type,
+    substring(p.month, 1, 4) as year,
+    substring(p.month, 5) as month,
+    p.deal_avg_price1st as dealAvgPrice1st,
+    p.deal_avg_price2nd as dealAvgPrice2nd,
+    p.deal_count1st as dealCount1st,
+    p.deal_count2nd as dealCount2nd,
+    p.deal_avg_price2nd as price
+    from plot_price p
+    where p.type = #{query.type} and p.biz_id = #{query.bizId} and p.month &gt;= #{month}
+    order by p.month asc limit 0, ${count}
+  </select>
+</mapper>

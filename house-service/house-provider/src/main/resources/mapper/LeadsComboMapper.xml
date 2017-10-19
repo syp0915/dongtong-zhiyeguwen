@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shfc.house.dao.LeadsComboMapper">
+  <resultMap id="BaseResultMap" type="com.shfc.house.domain.LeadsCombo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="combo_name" jdbcType="VARCHAR" property="comboName" />
+    <result column="combo_price" jdbcType="DECIMAL" property="comboPrice" />
+    <result column="period_unit" jdbcType="INTEGER" property="periodUnit" />
+    <result column="effective_date" jdbcType="TIMESTAMP" property="effectiveDate" />
+    <result column="overdue_date" jdbcType="TIMESTAMP" property="overdueDate" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="creater" jdbcType="BIGINT" property="creater" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, combo_name, combo_price, period_unit, effective_date, overdue_date, status, creater, 
+    create_time, modifier, modify_time, version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from leads_combo
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from leads_combo
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.shfc.house.domain.LeadsCombo" useGeneratedKeys="true">
+    insert into leads_combo (id, combo_name, combo_price, 
+      period_unit, effective_date, overdue_date, 
+      status, creater, create_time, 
+      modifier, modify_time, version
+      )
+    values (#{id,jdbcType=BIGINT}, #{comboName,jdbcType=VARCHAR}, #{comboPrice,jdbcType=DECIMAL}, 
+      #{periodUnit,jdbcType=INTEGER}, #{effectiveDate,jdbcType=TIMESTAMP}, #{overdueDate,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=TINYINT}, #{creater,jdbcType=BIGINT}, now(), 
+      #{modifier,jdbcType=BIGINT}, #{modifyTime,jdbcType=TIMESTAMP}, 0
+      )
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.shfc.house.domain.LeadsCombo" useGeneratedKeys="true">
+    insert into leads_combo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="comboName != null">
+        combo_name,
+      </if>
+      <if test="comboPrice != null">
+        combo_price,
+      </if>
+      <if test="periodUnit != null">
+        period_unit,
+      </if>
+      <if test="effectiveDate != null">
+        effective_date,
+      </if>
+      <if test="overdueDate != null">
+        overdue_date,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="creater != null">
+        creater,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="comboName != null">
+        #{comboName,jdbcType=VARCHAR},
+      </if>
+      <if test="comboPrice != null">
+        #{comboPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="periodUnit != null">
+        #{periodUnit,jdbcType=INTEGER},
+      </if>
+      <if test="effectiveDate != null">
+        #{effectiveDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="overdueDate != null">
+        #{overdueDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shfc.house.domain.LeadsCombo">
+    update leads_combo
+    <set>
+      <if test="comboName != null">
+        combo_name = #{comboName,jdbcType=VARCHAR},
+      </if>
+      <if test="comboPrice != null">
+        combo_price = #{comboPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="periodUnit != null">
+        period_unit = #{periodUnit,jdbcType=INTEGER},
+      </if>
+      <if test="effectiveDate != null">
+        effective_date = #{effectiveDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="overdueDate != null">
+        overdue_date = #{overdueDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="creater != null">
+        creater = #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shfc.house.domain.LeadsCombo">
+    update leads_combo
+    set combo_name = #{comboName,jdbcType=VARCHAR},
+      combo_price = #{comboPrice,jdbcType=DECIMAL},
+      period_unit = #{periodUnit,jdbcType=INTEGER},
+      effective_date = #{effectiveDate,jdbcType=TIMESTAMP},
+      overdue_date = #{overdueDate,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=TINYINT},
+      creater = #{creater,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=BIGINT},
+      modify_time = now(),
+      version = version+1
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectTodayAlreadyEffectCombo" resultType="java.lang.Integer">
+    SELECT COUNT(*) from leads_combo t where DATE_FORMAT(t.effective_date,'%Y-%m-%d') = CURDATE() and t.`status` =0;
+  </select>
+  <select id="todayEffectCombo" resultType="java.lang.Integer">
+    SELECT COUNT(*) from leads_combo t where DATE_FORMAT(t.effective_date,'%Y-%m-%d') = CURDATE() and t.`status` =2 ;
+  </select>
+
+  <update id="updateTodayEffectCombo">
+    UPDATE leads_combo set `status`=0,overdue_date=CURDATE()  where id =(
+    SELECT m1.id FROM (SELECT id from leads_combo t where DATE_FORMAT(t.effective_date,'%Y-%m-%d') = CURDATE() and t.`status` =2 ORDER BY t.create_time DESC  LIMIT 1) m1
+    )
+  </update>
+
+  <update id="updateLoseEffectCombo">
+    UPDATE leads_combo set `status`=1 ,modify_time = NOW() where id in (
+    SELECT m1.id from (SELECT id from leads_combo t where t.`status` =0 and DATE_FORMAT(t.effective_date,'%Y-%m-%d') &lt; CURDATE()) m1
+    );
+  </update>
+</mapper>

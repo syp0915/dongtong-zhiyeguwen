@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shfc.building.dao.BuildingHouseMapper">
+  <resultMap id="BaseResultMap" type="com.shfc.building.domain.BuildingHouse">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="building_id" jdbcType="BIGINT" property="buildingId" />
+    <result column="building_unit_id" jdbcType="BIGINT" property="buildingUnitId" />
+    <result column="house_no" jdbcType="VARCHAR" property="houseNo" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="house_hold_id" jdbcType="BIGINT" property="houseHoldId" />
+    <result column="actual_floor" jdbcType="INTEGER" property="actualFloor" />
+    <result column="structure_area" jdbcType="DECIMAL" property="structureArea" />
+    <result column="inner_area" jdbcType="DECIMAL" property="innerArea" />
+    <result column="underground_area" jdbcType="DECIMAL" property="undergroundArea" />
+    <result column="share_area" jdbcType="DECIMAL" property="shareArea" />
+    <result column="completeType" jdbcType="TINYINT" property="completetype" />
+    <result column="creator" jdbcType="BIGINT" property="creator" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, building_id, building_unit_id, house_no, status, house_hold_id, actual_floor, 
+    structure_area, inner_area, underground_area, share_area, completeType, creator, 
+    create_time, modifier, modify_time, version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from building_house
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from building_house
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.shfc.building.domain.BuildingHouse" useGeneratedKeys="true">
+    insert into building_house (id, building_id, building_unit_id, 
+      house_no, status, house_hold_id, 
+      actual_floor, structure_area, inner_area, 
+      underground_area, share_area, completeType, 
+      creator, create_time, modifier, 
+      modify_time, version)
+    values (#{id,jdbcType=BIGINT}, #{buildingId,jdbcType=BIGINT}, #{buildingUnitId,jdbcType=BIGINT}, 
+      #{houseNo,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{houseHoldId,jdbcType=BIGINT}, 
+      #{actualFloor,jdbcType=INTEGER}, #{structureArea,jdbcType=DECIMAL}, #{innerArea,jdbcType=DECIMAL}, 
+      #{undergroundArea,jdbcType=DECIMAL}, #{shareArea,jdbcType=DECIMAL}, #{completetype,jdbcType=TINYINT}, 
+      #{creator,jdbcType=BIGINT}, now(), #{modifier,jdbcType=BIGINT}, 
+      #{modifyTime,jdbcType=TIMESTAMP}, 0)
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.shfc.building.domain.BuildingHouse" useGeneratedKeys="true">
+    insert into building_house
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="buildingId != null">
+        building_id,
+      </if>
+      <if test="buildingUnitId != null">
+        building_unit_id,
+      </if>
+      <if test="houseNo != null">
+        house_no,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="houseHoldId != null">
+        house_hold_id,
+      </if>
+      <if test="actualFloor != null">
+        actual_floor,
+      </if>
+      <if test="structureArea != null">
+        structure_area,
+      </if>
+      <if test="innerArea != null">
+        inner_area,
+      </if>
+      <if test="undergroundArea != null">
+        underground_area,
+      </if>
+      <if test="shareArea != null">
+        share_area,
+      </if>
+      <if test="completetype != null">
+        completeType,
+      </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="buildingId != null">
+        #{buildingId,jdbcType=BIGINT},
+      </if>
+      <if test="buildingUnitId != null">
+        #{buildingUnitId,jdbcType=BIGINT},
+      </if>
+      <if test="houseNo != null">
+        #{houseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="houseHoldId != null">
+        #{houseHoldId,jdbcType=BIGINT},
+      </if>
+      <if test="actualFloor != null">
+        #{actualFloor,jdbcType=INTEGER},
+      </if>
+      <if test="structureArea != null">
+        #{structureArea,jdbcType=DECIMAL},
+      </if>
+      <if test="innerArea != null">
+        #{innerArea,jdbcType=DECIMAL},
+      </if>
+      <if test="undergroundArea != null">
+        #{undergroundArea,jdbcType=DECIMAL},
+      </if>
+      <if test="shareArea != null">
+        #{shareArea,jdbcType=DECIMAL},
+      </if>
+      <if test="completetype != null">
+        #{completetype,jdbcType=TINYINT},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shfc.building.domain.BuildingHouse">
+    update building_house
+    <set>
+      <if test="buildingId != null">
+        building_id = #{buildingId,jdbcType=BIGINT},
+      </if>
+      <if test="buildingUnitId != null">
+        building_unit_id = #{buildingUnitId,jdbcType=BIGINT},
+      </if>
+      <if test="houseNo != null">
+        house_no = #{houseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="houseHoldId != null">
+        house_hold_id = #{houseHoldId,jdbcType=BIGINT},
+      </if>
+      <if test="actualFloor != null">
+        actual_floor = #{actualFloor,jdbcType=INTEGER},
+      </if>
+      <if test="structureArea != null">
+        structure_area = #{structureArea,jdbcType=DECIMAL},
+      </if>
+      <if test="innerArea != null">
+        inner_area = #{innerArea,jdbcType=DECIMAL},
+      </if>
+      <if test="undergroundArea != null">
+        underground_area = #{undergroundArea,jdbcType=DECIMAL},
+      </if>
+      <if test="shareArea != null">
+        share_area = #{shareArea,jdbcType=DECIMAL},
+      </if>
+      <if test="completetype != null">
+        completeType = #{completetype,jdbcType=TINYINT},
+      </if>
+      <if test="creator != null">
+        creator = #{creator,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shfc.building.domain.BuildingHouse">
+    update building_house
+    set building_id = #{buildingId,jdbcType=BIGINT},
+      building_unit_id = #{buildingUnitId,jdbcType=BIGINT},
+      house_no = #{houseNo,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      house_hold_id = #{houseHoldId,jdbcType=BIGINT},
+      actual_floor = #{actualFloor,jdbcType=INTEGER},
+      structure_area = #{structureArea,jdbcType=DECIMAL},
+      inner_area = #{innerArea,jdbcType=DECIMAL},
+      underground_area = #{undergroundArea,jdbcType=DECIMAL},
+      share_area = #{shareArea,jdbcType=DECIMAL},
+      completeType = #{completetype,jdbcType=TINYINT},
+      creator = #{creator,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=BIGINT},
+      modify_time = now(),
+      version = version+1
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+</mapper>

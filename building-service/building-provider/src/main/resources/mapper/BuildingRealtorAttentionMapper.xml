@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shfc.building.dao.BuildingRealtorAttentionMapper">
+  <resultMap id="BaseResultMap" type="com.shfc.building.domain.BuildingRealtorAttention">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="building_id" jdbcType="BIGINT" property="buildingId" />
+    <result column="realtor_id" jdbcType="BIGINT" property="realtorId" />
+    <result column="creator" jdbcType="BIGINT" property="creator" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="moidfy_time" jdbcType="TIMESTAMP" property="moidfyTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, building_id, realtor_id, creator, create_time, modifier, moidfy_time, version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from building_realtor_attention
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from building_realtor_attention
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insert" keyProperty="id" parameterType="com.shfc.building.domain.BuildingRealtorAttention" useGeneratedKeys="true">
+    insert into building_realtor_attention (id, building_id, realtor_id, 
+      creator, create_time, modifier, 
+      moidfy_time, version)
+    values (#{id,jdbcType=BIGINT}, #{buildingId,jdbcType=BIGINT}, #{realtorId,jdbcType=BIGINT}, 
+      #{creator,jdbcType=BIGINT}, now(), #{modifier,jdbcType=BIGINT}, 
+      #{moidfyTime,jdbcType=TIMESTAMP}, 0)
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.shfc.building.domain.BuildingRealtorAttention" useGeneratedKeys="true">
+    insert into building_realtor_attention
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="buildingId != null">
+        building_id,
+      </if>
+      <if test="realtorId != null">
+        realtor_id,
+      </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="moidfyTime != null">
+        moidfy_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="buildingId != null">
+        #{buildingId,jdbcType=BIGINT},
+      </if>
+      <if test="realtorId != null">
+        #{realtorId,jdbcType=BIGINT},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="moidfyTime != null">
+        #{moidfyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shfc.building.domain.BuildingRealtorAttention">
+    update building_realtor_attention
+    <set>
+      <if test="buildingId != null">
+        building_id = #{buildingId,jdbcType=BIGINT},
+      </if>
+      <if test="realtorId != null">
+        realtor_id = #{realtorId,jdbcType=BIGINT},
+      </if>
+      <if test="creator != null">
+        creator = #{creator,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="moidfyTime != null">
+        moidfy_time = #{moidfyTime,jdbcType=TIMESTAMP},
+      </if>
+      version = version+1
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shfc.building.domain.BuildingRealtorAttention">
+    update building_realtor_attention
+    set building_id = #{buildingId,jdbcType=BIGINT},
+      realtor_id = #{realtorId,jdbcType=BIGINT},
+      creator = #{creator,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=BIGINT},
+      moidfy_time = #{moidfyTime,jdbcType=TIMESTAMP},
+      version = version+1
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+
+  <select id="checkIsAttentionExist" resultType="java.lang.Integer">
+    select COUNT(0) FROM building_realtor_attention WHERE building_id = #{buildingId,jdbcType=BIGINT} AND realtor_id = #{realtorId,jdbcType=BIGINT}
+  </select>
+
+  <delete id="cancelAttention">
+    DELETE FROM building_realtor_attention WHERE building_id = #{buildingId,jdbcType=BIGINT} AND realtor_id = #{realtorId,jdbcType=BIGINT}
+  </delete>
+</mapper>

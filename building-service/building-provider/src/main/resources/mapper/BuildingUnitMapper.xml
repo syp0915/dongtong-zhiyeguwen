@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shfc.building.dao.BuildingUnitMapper">
+  <resultMap id="BaseResultMap" type="com.shfc.building.domain.BuildingUnit">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="building_id" jdbcType="BIGINT" property="buildingId" />
+    <result column="unit_no" jdbcType="TINYINT" property="unitNo" />
+    <result column="cover_pic_url" jdbcType="VARCHAR" property="coverPicUrl" />
+    <result column="floor_count" jdbcType="INTEGER" property="floorCount" />
+    <result column="houset_countt" jdbcType="INTEGER" property="housetCountt" />
+    <result column="stair_house_ratio" jdbcType="TINYINT" property="stairHouseRatio" />
+    <result column="decorate_type" jdbcType="TINYINT" property="decorateType" />
+    <result column="sales_status" jdbcType="TINYINT" property="salesStatus" />
+    <result column="stairs" jdbcType="TINYINT" property="stairs" />
+    <result column="creator" jdbcType="BIGINT" property="creator" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, building_id, unit_no, cover_pic_url, floor_count, houset_countt, stair_house_ratio, 
+    decorate_type, sales_status, stairs, creator, create_time, modifier, modify_time, 
+    version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from building_unit
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from building_unit
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.shfc.building.domain.BuildingUnit" useGeneratedKeys="true">
+    insert into building_unit (id, building_id, unit_no, 
+      cover_pic_url, floor_count, houset_countt, 
+      stair_house_ratio, decorate_type, sales_status, 
+      stairs, creator, create_time, 
+      modifier, modify_time, version
+      )
+    values (#{id,jdbcType=BIGINT}, #{buildingId,jdbcType=BIGINT}, #{unitNo,jdbcType=TINYINT}, 
+      #{coverPicUrl,jdbcType=VARCHAR}, #{floorCount,jdbcType=INTEGER}, #{housetCountt,jdbcType=INTEGER}, 
+      #{stairHouseRatio,jdbcType=TINYINT}, #{decorateType,jdbcType=TINYINT}, #{salesStatus,jdbcType=TINYINT}, 
+      #{stairs,jdbcType=TINYINT}, #{creator,jdbcType=BIGINT}, now(), 
+      #{modifier,jdbcType=BIGINT}, #{modifyTime,jdbcType=TIMESTAMP}, 0
+      )
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.shfc.building.domain.BuildingUnit" useGeneratedKeys="true">
+    insert into building_unit
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="buildingId != null">
+        building_id,
+      </if>
+      <if test="unitNo != null">
+        unit_no,
+      </if>
+      <if test="coverPicUrl != null">
+        cover_pic_url,
+      </if>
+      <if test="floorCount != null">
+        floor_count,
+      </if>
+      <if test="housetCountt != null">
+        houset_countt,
+      </if>
+      <if test="stairHouseRatio != null">
+        stair_house_ratio,
+      </if>
+      <if test="decorateType != null">
+        decorate_type,
+      </if>
+      <if test="salesStatus != null">
+        sales_status,
+      </if>
+      <if test="stairs != null">
+        stairs,
+      </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="buildingId != null">
+        #{buildingId,jdbcType=BIGINT},
+      </if>
+      <if test="unitNo != null">
+        #{unitNo,jdbcType=TINYINT},
+      </if>
+      <if test="coverPicUrl != null">
+        #{coverPicUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="floorCount != null">
+        #{floorCount,jdbcType=INTEGER},
+      </if>
+      <if test="housetCountt != null">
+        #{housetCountt,jdbcType=INTEGER},
+      </if>
+      <if test="stairHouseRatio != null">
+        #{stairHouseRatio,jdbcType=TINYINT},
+      </if>
+      <if test="decorateType != null">
+        #{decorateType,jdbcType=TINYINT},
+      </if>
+      <if test="salesStatus != null">
+        #{salesStatus,jdbcType=TINYINT},
+      </if>
+      <if test="stairs != null">
+        #{stairs,jdbcType=TINYINT},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shfc.building.domain.BuildingUnit">
+    update building_unit
+    <set>
+      <if test="buildingId != null">
+        building_id = #{buildingId,jdbcType=BIGINT},
+      </if>
+      <if test="unitNo != null">
+        unit_no = #{unitNo,jdbcType=TINYINT},
+      </if>
+      <if test="coverPicUrl != null">
+        cover_pic_url = #{coverPicUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="floorCount != null">
+        floor_count = #{floorCount,jdbcType=INTEGER},
+      </if>
+      <if test="housetCountt != null">
+        houset_countt = #{housetCountt,jdbcType=INTEGER},
+      </if>
+      <if test="stairHouseRatio != null">
+        stair_house_ratio = #{stairHouseRatio,jdbcType=TINYINT},
+      </if>
+      <if test="decorateType != null">
+        decorate_type = #{decorateType,jdbcType=TINYINT},
+      </if>
+      <if test="salesStatus != null">
+        sales_status = #{salesStatus,jdbcType=TINYINT},
+      </if>
+      <if test="stairs != null">
+        stairs = #{stairs,jdbcType=TINYINT},
+      </if>
+      <if test="creator != null">
+        creator = #{creator,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shfc.building.domain.BuildingUnit">
+    update building_unit
+    set building_id = #{buildingId,jdbcType=BIGINT},
+      unit_no = #{unitNo,jdbcType=TINYINT},
+      cover_pic_url = #{coverPicUrl,jdbcType=VARCHAR},
+      floor_count = #{floorCount,jdbcType=INTEGER},
+      houset_countt = #{housetCountt,jdbcType=INTEGER},
+      stair_house_ratio = #{stairHouseRatio,jdbcType=TINYINT},
+      decorate_type = #{decorateType,jdbcType=TINYINT},
+      sales_status = #{salesStatus,jdbcType=TINYINT},
+      stairs = #{stairs,jdbcType=TINYINT},
+      creator = #{creator,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=BIGINT},
+      modify_time = now(),
+      version = version+1
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+</mapper>

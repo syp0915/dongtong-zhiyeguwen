@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shfc.house.dao.LeadsRealtorMemberMapper">
+  <resultMap id="BaseResultMap" type="com.shfc.house.domain.LeadsRealtorMember">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="realtor_id" jdbcType="BIGINT" property="realtorId" />
+    <result column="deadline" jdbcType="TIMESTAMP" property="deadline" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="creater" jdbcType="BIGINT" property="creater" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, realtor_id, deadline, status, creater, create_time, modifier, modify_time, version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from leads_realtor_member
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from leads_realtor_member
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.shfc.house.domain.LeadsRealtorMember" useGeneratedKeys="true">
+    insert into leads_realtor_member (id, realtor_id, deadline, 
+      status, creater, create_time, 
+      modifier, modify_time, version
+      )
+    values (#{id,jdbcType=BIGINT}, #{realtorId,jdbcType=BIGINT}, #{deadline,jdbcType=TIMESTAMP}, 
+      0, #{creater,jdbcType=BIGINT}, now(),
+      #{modifier,jdbcType=BIGINT}, #{modifyTime,jdbcType=TIMESTAMP}, 0
+      )
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.shfc.house.domain.LeadsRealtorMember" useGeneratedKeys="true">
+    insert into leads_realtor_member
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="realtorId != null">
+        realtor_id,
+      </if>
+      <if test="deadline != null">
+        deadline,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="creater != null">
+        creater,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="realtorId != null">
+        #{realtorId,jdbcType=BIGINT},
+      </if>
+      <if test="deadline != null">
+        #{deadline,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shfc.house.domain.LeadsRealtorMember">
+    update leads_realtor_member
+    <set>
+      <if test="realtorId != null">
+        realtor_id = #{realtorId,jdbcType=BIGINT},
+      </if>
+      <if test="deadline != null">
+        deadline = #{deadline,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="creater != null">
+        creater = #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shfc.house.domain.LeadsRealtorMember">
+    update leads_realtor_member
+    set realtor_id = #{realtorId,jdbcType=BIGINT},
+      deadline = #{deadline,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=TINYINT},
+      creater = #{creater,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=BIGINT},
+      modify_time = now(),
+      version = version+1
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+
+
+  <select id="queryStatusByRealtorId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from leads_realtor_member
+    where realtor_id = #{realtor_id,jdbcType=BIGINT}
+  </select>
+
+  <select id="selectByRealtorId" parameterType="java.lang.Long"  resultType="com.shfc.house.dto.MemberCentreDTO">
+    SELECT t1.`status` as 'realtorStatus',t2.head_portrait as 'headPortrait',t2.real_name as 'realName',t2.realtor_number as 'realtorNumber'
+    ,t3.`status` as 'status',DATE_FORMAT(t3.deadline,'%Y-%m-%d %H:%i:%s') as 'deadline'
+     from realtor_unitive_account t1
+     LEFT JOIN realtor_info t2 on t1.id = t2.realtor_id
+    LEFT JOIN leads_realtor_member t3 on t1.id = t3.realtor_id
+    where t1.id=#{realtorId,jdbcType=BIGINT};
+  </select>
+
+  <select id="validComboList" parameterType="java.lang.Long" resultType="com.shfc.house.dto.ComboDTO">
+       SELECT m1.comboId,m1.comboName,m1.comboPrice,m2.houseNum,m2.phoneNum from (
+        SELECT DISTINCT t3.id as 'comboId',t3.combo_name as 'comboName',t3.combo_price as 'comboPrice' from leads_realtor_combo_rel t1
+        LEFT JOIN leads_order t2 on t1.order_id = t2.id
+        LEFT JOIN leads_combo t3 on t1.combo_id = t3.id
+        where t1.realtor_id = #{realtorId,jdbcType=BIGINT}  and t2.`status`=1 ORDER BY t1.create_time DESC )m1 ,(
+        SELECT house_num as 'houseNum',phone_num as 'phoneNum' from leads_combo_detail  where `status`=0
+        )m2
+  </select>
+
+  <select id="allComboList" parameterType="java.lang.Long" resultType="com.shfc.house.dto.ComboDTO">
+    SELECT  m1.comboId,m1.comboName,m1.comboPrice,m2.houseNum,m2.phoneNum from (
+      SELECT  t1.id as 'comboId',t1.combo_name as 'comboName',t1.combo_price as 'comboPrice' from leads_combo t1 where t1.`status`=0  ORDER BY t1.create_time DESC LIMIT 1
+      )m1 ,
+      (
+      SELECT  t2.house_num as 'houseNum',t2.phone_num as 'phoneNum' from leads_combo_detail t2 where t2.`status`=0 ORDER BY t2.create_time DESC LIMIT 1
+      ) m2
+  </select>
+
+<!--  <select id="queryInterestByDay" resultType="com.shfc.house.dto.InterestDTO">
+    SELECT m.*,IFNULL(n.house_num,0) as 'noMemberHouseNum',IFNULL(n.phone_num,0) as 'noMemberPhoneNum'
+    from (SELECT t1.id as 'comboId',t1.combo_name as 'comboName',IFNULL(t2.house_num,0) as 'houseNum',IFNULL(t2.phone_num,0) as 'phoneNum'
+    from leads_combo t1 LEFT JOIN leads_combo_detail t2 on t1.id = t2.combo_id
+     where t1.`status`='0' and t2.`status`='0') m ,leads_nonmember_detail n where n.`status`='0';
+  </select>-->
+  <select id="queryInterestByDay" resultType="com.shfc.house.dto.InterestDTO">
+    SELECT  m1.comboId,m1.comboName,m2.houseNum,m2.phoneNum ,m3.noMemberHouseNum,m3.noMemberPhoneNum from (
+      SELECT  t1.id as 'comboId',t1.combo_name as 'comboName' from leads_combo t1 where t1.`status`=0  ORDER BY t1.create_time DESC LIMIT 1
+      )m1 ,
+      (
+      SELECT  t2.house_num as 'houseNum',t2.phone_num as 'phoneNum' from leads_combo_detail t2 where t2.`status`=0 ORDER BY t2.create_time DESC LIMIT 1
+      ) m2 ,
+    (SELECT IFNULL(t.house_num,0) as 'noMemberHouseNum',IFNULL(t.phone_num,0) as 'noMemberPhoneNum' from leads_nonmember_detail t
+    where t.`status`=0 ORDER BY t.create_time DESC LIMIT 1) m3
+  </select>
+
+  <select id="selectUniqueByRealtorId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List" />
+    from leads_realtor_member where realtor_id=#{realtorId,jdbcType=BIGINT} LIMIT 1;
+  </select>
+
+  <update id="updateRealtorMemberList">
+    UPDATE  leads_realtor_member  set `status` ='1' , modify_time = NOW(), version = version +1
+    where id in (
+      SELECT tmp.id FROM (SELECT id from leads_realtor_member where `status`='0'
+      and DATE_FORMAT(deadline,'%Y-%m-%d') &lt;DATE_FORMAT(NOW(),'%Y-%m-%d')) tmp
+    );
+  </update>
+<select id="pastMemberList" resultType="com.shfc.house.dto.RealtorMemberDTO">
+  SELECT  t1.realtor_id as 'realtorId',t1.`status` as 'memberStatus',t2.phone as 'phone',t2.os_type as 'osType',t2.device_id as 'deviceId'
+  from  leads_realtor_member t1 LEFT JOIN realtor_unitive_account t2 on t1.realtor_id = t2.id
+  where t1.status=0
+  and DATE_FORMAT(deadline,'%Y-%m-%d') &lt; DATE_FORMAT(NOW(),'%Y-%m-%d')
+</select>
+  <select id="threeDayPastMemberList" resultType="com.shfc.house.dto.RealtorMemberDTO">
+    SELECT  t1.realtor_id as 'realtorId',t1.`status` as 'memberStatus',t2.phone as 'phone',t2.os_type as 'osType',t2.device_id as 'deviceId'
+     from  leads_realtor_member t1 LEFT JOIN realtor_unitive_account t2 on t1.realtor_id = t2.id
+    where t1.status=0 and DATEDIFF(DATE_FORMAT(deadline,'%Y-%m-%d'),DATE_FORMAT(NOW(),'%Y-%m-%d'))=2;
+  </select>
+</mapper>

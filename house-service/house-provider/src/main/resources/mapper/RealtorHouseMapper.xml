@@ -1,0 +1,593 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shfc.house.dao.RealtorHouseMapper">
+  <resultMap id="BaseResultMap" type="com.shfc.house.domain.RealtorHouse">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="house_code" jdbcType="VARCHAR" property="houseCode" />
+    <result column="city_id" jdbcType="BIGINT" property="cityId" />
+    <result column="district_id" jdbcType="BIGINT" property="districtId" />
+    <result column="block_id" jdbcType="BIGINT" property="blockId" />
+    <result column="plot_id" jdbcType="BIGINT" property="plotId" />
+    <result column="plot_name" jdbcType="VARCHAR" property="plotName" />
+    <result column="import_plot_name" jdbcType="VARCHAR" property="importPlotName" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="longitude" jdbcType="DECIMAL" property="longitude" />
+    <result column="latitude" jdbcType="DECIMAL" property="latitude" />
+    <result column="unit_no" jdbcType="VARCHAR" property="unitNo" />
+    <result column="house_no" jdbcType="VARCHAR" property="houseNo" />
+    <result column="room" jdbcType="TINYINT" property="room" />
+    <result column="hall" jdbcType="TINYINT" property="hall" />
+    <result column="bathroom" jdbcType="TINYINT" property="bathroom" />
+    <result column="orientation" jdbcType="TINYINT" property="orientation" />
+    <result column="area" jdbcType="REAL" property="area" />
+    <result column="floor" jdbcType="INTEGER" property="floor" />
+    <result column="total_floor" jdbcType="INTEGER" property="totalFloor" />
+    <result column="total_price" jdbcType="DECIMAL" property="totalPrice" />
+    <result column="realtor_id" jdbcType="BIGINT" property="realtorId" />
+    <result column="audit_time" jdbcType="TIMESTAMP" property="auditTime" />
+    <result column="auditor" jdbcType="BIGINT" property="auditor" />
+    <result column="audit_status" jdbcType="TINYINT" property="auditStatus" />
+    <result column="audit_log" jdbcType="VARCHAR" property="auditLog" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+    <result column="creater" jdbcType="BIGINT" property="creater" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, house_code, city_id, district_id, block_id, plot_id, plot_name, import_plot_name, 
+    address, longitude, latitude, unit_no, house_no, room, hall, bathroom, orientation, 
+    area, floor, total_floor, total_price, realtor_id, audit_time, auditor, audit_status, 
+    audit_log, status, is_delete, creater, create_time, modifier, modify_time, version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--
+    开发负责人：syp
+    功能说明：根据主键获取一条数据库记录
+    是否有缓存：无
+    -->
+    select 
+    <include refid="Base_Column_List" />
+    from realtor_house
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--
+    开发负责人：syp
+    功能说明：根据主键删除数据库的记录
+    是否有缓存：无
+    -->
+    delete from realtor_house
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.shfc.house.domain.RealtorHouse" useGeneratedKeys="true">
+    <!--
+    开发负责人：syp
+    功能说明：插入数据库记录
+    是否有缓存：无
+    -->
+    insert into realtor_house (id, house_code, city_id, 
+      district_id, block_id, plot_id, 
+      plot_name, import_plot_name, address, 
+      longitude, latitude, unit_no, 
+      house_no, room, hall, 
+      bathroom, orientation, area, 
+      floor, total_floor, total_price, 
+      realtor_id, audit_time, auditor, 
+      audit_status, audit_log, status, 
+      is_delete, creater, create_time, 
+      modifier, modify_time, version
+      )
+    values (#{id,jdbcType=BIGINT}, #{houseCode,jdbcType=VARCHAR}, #{cityId,jdbcType=BIGINT}, 
+      #{districtId,jdbcType=BIGINT}, #{blockId,jdbcType=BIGINT}, #{plotId,jdbcType=BIGINT}, 
+      #{plotName,jdbcType=VARCHAR}, #{importPlotName,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{longitude,jdbcType=DECIMAL}, #{latitude,jdbcType=DECIMAL}, #{unitNo,jdbcType=VARCHAR}, 
+      #{houseNo,jdbcType=VARCHAR}, #{room,jdbcType=TINYINT}, #{hall,jdbcType=TINYINT}, 
+      #{bathroom,jdbcType=TINYINT}, #{orientation,jdbcType=TINYINT}, #{area,jdbcType=REAL}, 
+      #{floor,jdbcType=INTEGER}, #{totalFloor,jdbcType=INTEGER}, #{totalPrice,jdbcType=DECIMAL}, 
+      #{realtorId,jdbcType=BIGINT}, #{auditTime,jdbcType=TIMESTAMP}, #{auditor,jdbcType=BIGINT}, 
+      #{auditStatus,jdbcType=TINYINT}, #{auditLog,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, 
+      #{isDelete,jdbcType=TINYINT}, #{creater,jdbcType=BIGINT}, now(), 
+      #{modifier,jdbcType=BIGINT}, #{modifyTime,jdbcType=TIMESTAMP}, 0
+      )
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.shfc.house.domain.RealtorHouse" useGeneratedKeys="true">
+    <!--
+    开发负责人：syp
+    功能说明：选择性插入数据库记录
+    是否有缓存：无
+    -->
+    insert into realtor_house
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="houseCode != null">
+        house_code,
+      </if>
+      <if test="cityId != null">
+        city_id,
+      </if>
+      <if test="districtId != null">
+        district_id,
+      </if>
+      <if test="blockId != null">
+        block_id,
+      </if>
+      <if test="plotId != null">
+        plot_id,
+      </if>
+      <if test="plotName != null">
+        plot_name,
+      </if>
+      <if test="importPlotName != null">
+        import_plot_name,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="longitude != null">
+        longitude,
+      </if>
+      <if test="latitude != null">
+        latitude,
+      </if>
+      <if test="unitNo != null">
+        unit_no,
+      </if>
+      <if test="houseNo != null">
+        house_no,
+      </if>
+      <if test="room != null">
+        room,
+      </if>
+      <if test="hall != null">
+        hall,
+      </if>
+      <if test="bathroom != null">
+        bathroom,
+      </if>
+      <if test="orientation != null">
+        orientation,
+      </if>
+      <if test="area != null">
+        area,
+      </if>
+      <if test="floor != null">
+        floor,
+      </if>
+      <if test="totalFloor != null">
+        total_floor,
+      </if>
+      <if test="totalPrice != null">
+        total_price,
+      </if>
+      <if test="realtorId != null">
+        realtor_id,
+      </if>
+      <if test="auditTime != null">
+        audit_time,
+      </if>
+      <if test="auditor != null">
+        auditor,
+      </if>
+      <if test="auditStatus != null">
+        audit_status,
+      </if>
+      <if test="auditLog != null">
+        audit_log,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="creater != null">
+        creater,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="houseCode != null">
+        #{houseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cityId != null">
+        #{cityId,jdbcType=BIGINT},
+      </if>
+      <if test="districtId != null">
+        #{districtId,jdbcType=BIGINT},
+      </if>
+      <if test="blockId != null">
+        #{blockId,jdbcType=BIGINT},
+      </if>
+      <if test="plotId != null">
+        #{plotId,jdbcType=BIGINT},
+      </if>
+      <if test="plotName != null">
+        #{plotName,jdbcType=VARCHAR},
+      </if>
+      <if test="importPlotName != null">
+        #{importPlotName,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null">
+        #{longitude,jdbcType=DECIMAL},
+      </if>
+      <if test="latitude != null">
+        #{latitude,jdbcType=DECIMAL},
+      </if>
+      <if test="unitNo != null">
+        #{unitNo,jdbcType=VARCHAR},
+      </if>
+      <if test="houseNo != null">
+        #{houseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="room != null">
+        #{room,jdbcType=TINYINT},
+      </if>
+      <if test="hall != null">
+        #{hall,jdbcType=TINYINT},
+      </if>
+      <if test="bathroom != null">
+        #{bathroom,jdbcType=TINYINT},
+      </if>
+      <if test="orientation != null">
+        #{orientation,jdbcType=TINYINT},
+      </if>
+      <if test="area != null">
+        #{area,jdbcType=REAL},
+      </if>
+      <if test="floor != null">
+        #{floor,jdbcType=INTEGER},
+      </if>
+      <if test="totalFloor != null">
+        #{totalFloor,jdbcType=INTEGER},
+      </if>
+      <if test="totalPrice != null">
+        #{totalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="realtorId != null">
+        #{realtorId,jdbcType=BIGINT},
+      </if>
+      <if test="auditTime != null">
+        #{auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditor != null">
+        #{auditor,jdbcType=BIGINT},
+      </if>
+      <if test="auditStatus != null">
+        #{auditStatus,jdbcType=TINYINT},
+      </if>
+      <if test="auditLog != null">
+        #{auditLog,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shfc.house.domain.RealtorHouse">
+    <!--
+    开发负责人：syp
+    功能说明：根据主键来更新对应数据库字段
+    是否有缓存：无
+    -->
+    update realtor_house
+    <set>
+      <if test="houseCode != null">
+        house_code = #{houseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cityId != null">
+        city_id = #{cityId,jdbcType=BIGINT},
+      </if>
+      <if test="districtId != null">
+        district_id = #{districtId,jdbcType=BIGINT},
+      </if>
+      <if test="blockId != null">
+        block_id = #{blockId,jdbcType=BIGINT},
+      </if>
+      <if test="plotId != null">
+        plot_id = #{plotId,jdbcType=BIGINT},
+      </if>
+      <if test="plotName != null">
+        plot_name = #{plotName,jdbcType=VARCHAR},
+      </if>
+      <if test="importPlotName != null">
+        import_plot_name = #{importPlotName,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null">
+        longitude = #{longitude,jdbcType=DECIMAL},
+      </if>
+      <if test="latitude != null">
+        latitude = #{latitude,jdbcType=DECIMAL},
+      </if>
+      <if test="unitNo != null">
+        unit_no = #{unitNo,jdbcType=VARCHAR},
+      </if>
+      <if test="houseNo != null">
+        house_no = #{houseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="room != null">
+        room = #{room,jdbcType=TINYINT},
+      </if>
+      <if test="hall != null">
+        hall = #{hall,jdbcType=TINYINT},
+      </if>
+      <if test="bathroom != null">
+        bathroom = #{bathroom,jdbcType=TINYINT},
+      </if>
+      <if test="orientation != null">
+        orientation = #{orientation,jdbcType=TINYINT},
+      </if>
+      <if test="area != null">
+        area = #{area,jdbcType=REAL},
+      </if>
+      <if test="floor != null">
+        floor = #{floor,jdbcType=INTEGER},
+      </if>
+      <if test="totalFloor != null">
+        total_floor = #{totalFloor,jdbcType=INTEGER},
+      </if>
+      <if test="totalPrice != null">
+        total_price = #{totalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="realtorId != null">
+        realtor_id = #{realtorId,jdbcType=BIGINT},
+      </if>
+      <if test="auditTime != null">
+        audit_time = #{auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditor != null">
+        auditor = #{auditor,jdbcType=BIGINT},
+      </if>
+      <if test="auditStatus != null">
+        audit_status = #{auditStatus,jdbcType=TINYINT},
+      </if>
+      <if test="auditLog != null">
+        audit_log = #{auditLog,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="creater != null">
+        creater = #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shfc.house.domain.RealtorHouse">
+    <!--
+    开发负责人：syp
+    功能说明：根据主键来更新数据库记录
+    是否有缓存：无
+    -->
+    update realtor_house
+    set house_code = #{houseCode,jdbcType=VARCHAR},
+      city_id = #{cityId,jdbcType=BIGINT},
+      district_id = #{districtId,jdbcType=BIGINT},
+      block_id = #{blockId,jdbcType=BIGINT},
+      plot_id = #{plotId,jdbcType=BIGINT},
+      plot_name = #{plotName,jdbcType=VARCHAR},
+      import_plot_name = #{importPlotName,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      longitude = #{longitude,jdbcType=DECIMAL},
+      latitude = #{latitude,jdbcType=DECIMAL},
+      unit_no = #{unitNo,jdbcType=VARCHAR},
+      house_no = #{houseNo,jdbcType=VARCHAR},
+      room = #{room,jdbcType=TINYINT},
+      hall = #{hall,jdbcType=TINYINT},
+      bathroom = #{bathroom,jdbcType=TINYINT},
+      orientation = #{orientation,jdbcType=TINYINT},
+      area = #{area,jdbcType=REAL},
+      floor = #{floor,jdbcType=INTEGER},
+      total_floor = #{totalFloor,jdbcType=INTEGER},
+      total_price = #{totalPrice,jdbcType=DECIMAL},
+      realtor_id = #{realtorId,jdbcType=BIGINT},
+      audit_time = #{auditTime,jdbcType=TIMESTAMP},
+      auditor = #{auditor,jdbcType=BIGINT},
+      audit_status = #{auditStatus,jdbcType=TINYINT},
+      audit_log = #{auditLog,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      is_delete = #{isDelete,jdbcType=TINYINT},
+      creater = #{creater,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=BIGINT},
+      modify_time = now(),
+      version = version+1
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  
+  <select id="queryHousebyCondition" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from realtor_house
+    where import_plot_name=#{plotName} and unit_no=#{unitNo}
+    and house_no=#{houseNo} and realtor_id=#{realtorId}
+    and is_delete=1
+    limit 1
+  </select>
+
+  <select id="findHouseByCode" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from realtor_house
+    where house_code = #{houseCode}
+  </select>
+
+  <sql id="column_List">
+        (SELECT district_name from base_district WHERE id = rh.district_id limit 1) as districtName,
+        (SELECT block_name FROM base_block WHERE id = rh.block_id limit 1) as blockName,
+        import_plot_name as plotName,
+        room,
+        hall,
+        bathroom,
+        audit_status as auditStatus,
+        audit_log as reason,
+        `status`
+  </sql>
+
+  <!--二手房基本信息-->
+  <resultMap id="RealtorHouseBasicResultMap" type="com.shfc.house.dto.RealtorHouseDetailDTO">
+    <id column="id" jdbcType="BIGINT" property="houseId" />
+    <result column="house_code" jdbcType="VARCHAR" property="houseCode" />
+    <result column="districtName" jdbcType="BIGINT" property="districtName" />
+    <result column="blockName" jdbcType="BIGINT" property="blockName" />
+    <result column="plotName" jdbcType="VARCHAR" property="plotName" />
+    <result column="importPlotName" jdbcType="VARCHAR" property="importPlotName" />
+    <result column="address" jdbcType="VARCHAR" property="plotAddress" />
+    <result column="unit_no" jdbcType="VARCHAR" property="unitNo" />
+    <result column="house_no" jdbcType="VARCHAR" property="houseNo" />
+    <result column="room" jdbcType="TINYINT" property="room" />
+    <result column="hall" jdbcType="TINYINT" property="hall" />
+    <result column="bathroom" jdbcType="TINYINT" property="bathroom" />
+    <result column="orientation" jdbcType="TINYINT" property="orientation" />
+    <result column="area" jdbcType="REAL" property="totalArea" />
+    <result column="floor" jdbcType="INTEGER" property="floor" />
+    <result column="total_floor" jdbcType="INTEGER" property="totalFloor" />
+    <result column="total_price" jdbcType="DECIMAL" property="totalPrice" />
+    <result column="auditStatus" jdbcType="TINYINT" property="auditStatus" />
+    <result column="reason" jdbcType="VARCHAR" property="reason" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="publishTime" jdbcType="TIMESTAMP" property="publishTime" />
+    <collection property="tags" column="id" ofType="com.shfc.house.dto.BaseTagDTO" javaType="java.util.ArrayList"
+                select="queryTagByHouseId">
+      <id column="id" property="id" />
+      <id column="name" property="name"/>
+      <id column="color" property="color"/>
+    </collection>
+    <collection property="entrustUrls" column="id" ofType="java.lang.String" javaType="java.util.ArrayList"
+                select="queryEntrustProtocolByHouseId">
+      <id column="protocolUrl" />
+    </collection>
+  </resultMap>
+
+
+  <!-- 标签集合 com.shfc.house.dto.BaseTagDTO -->
+  <select id="queryTagByHouseId" parameterType="java.lang.Long" resultType="com.shfc.house.dto.BaseTagDTO">
+  SELECT t1.id as id ,t1.tag_name as name ,t1.tag_color as color
+  FROM realtor_house_tag_rel t left join base_tag t1 on t1.id=t.tag_id
+  WHERE t.house_id=#{houseId,jdbcType=BIGINT} and t1.status=0
+</select>
+
+
+<!-- 委托协议集合 -->
+  <select id="queryEntrustProtocolByHouseId" parameterType="java.lang.Long" resultType="java.lang.String">
+    SELECT
+        ep.protocol_url as protocolUrl
+    FROM
+        realtor_house_entrust_protocol ep,
+        realtor_house rh
+    WHERE
+        ep.house_id = rh.id
+    AND ep.is_delete = 1
+    AND house_id =#{houseId,jdbcType=BIGINT}
+  </select>
+
+
+  <select id="queryHouseList" resultType="com.shfc.house.dto.RealtorHouseInfoDTO">
+     select
+        id as houseId,
+        area,
+        cast(total_price/10000 as decimal(10,2)) as price,
+    <include refid="column_List" />
+    from
+        realtor_house rh
+    where
+        rh.is_delete=1 and rh.realtor_id=#{realtorId,jdbcType=BIGINT}
+    ORDER BY
+        create_time desc
+  </select>
+
+  <select id="queryHouseDatail" resultMap="RealtorHouseBasicResultMap" parameterType="long">
+    SELECT
+        id,
+        house_code,
+        address,
+        unit_no,
+        house_no,
+        orientation,
+        area,
+        floor,
+        total_floor,
+        total_price,
+        date_format(create_time, '%Y-%m-%d %H:%i:%s') as publishTime,
+       <include refid="column_List" />
+    FROM
+        realtor_house rh
+    WHERE
+        rh.is_delete = 1 and rh.id=#{houseId,jdbcType=BIGINT} and rh.realtor_id=#{realtorId,jdbcType=BIGINT}
+    ORDER BY
+        create_time DESC
+  </select>
+
+
+  <update id="updOperation" parameterType="com.shfc.house.domain.RealtorHouse">
+    update realtor_house rh
+    SET
+    <if test="status != null">
+      rh.`status`=#{status,jdbcType=TINYINT},
+    </if>
+    <if test="isDelete != null">
+      rh.is_delete=#{isDelete,jdbcType=TINYINT},
+    </if>
+    rh.modifier = #{modifier,jdbcType=BIGINT},
+    rh.modify_time = now()
+    where
+    rh.is_delete = 1
+    <if test="status != null">
+      and rh.audit_status=2
+    </if>
+    and rh.id=#{id,jdbcType=BIGINT} and rh.realtor_id=#{realtorId,jdbcType=BIGINT}
+  </update>
+</mapper>

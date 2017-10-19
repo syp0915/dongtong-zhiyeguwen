@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd"
+       default-lazy-init="true">
+
+    <!--com.alibaba.dubbo.config.spring.ServiceBean-->
+    <bean id="serviceBean" class="com.shfc.dubbo.ServiceBean" abstract="true">
+        <property name="application" ref="dubboApplicationConfig"/>
+        <property name="registry" ref="dubboRegistryConfig"/>
+        <property name="protocol" ref="dubboProtocolConfig"/>
+        <property name="version" value="${provider.default_version}"/>
+        <property name="timeout" value="${provider.timeout}"/>
+    </bean>
+
+    <bean id="houseEstimateService" parent="serviceBean">
+        <property name="timeout" value="8000"/>
+        <property name="interface" value="com.shfc.house.service.HouseEstimateService"/>
+    </bean>
+
+    <bean id="plotService" parent="serviceBean">
+        <property name="timeout" value="8000"/>
+        <property name="interface" value="com.shfc.house.service.PlotService"/>
+    </bean>
+
+    <bean id="nnsHouseService" parent="serviceBean">
+        <property name="interface" value="com.shfc.house.service.NnsHouseService"/>
+    </bean>
+
+    <bean id="realtorService" parent="serviceBean">
+        <property name="interface" value="com.shfc.house.service.RealtorService"/>
+    </bean>
+
+    <bean id="nnsEntrustProtocolService" parent="serviceBean">
+        <property name="interface" value="com.shfc.house.service.NnsEntrustProtocolService"/>
+    </bean>
+
+    <bean id="entrustService" parent="serviceBean">
+        <property name="interface" value="com.shfc.house.service.EntrustService"/>
+    </bean>
+
+
+    <bean id="wxRealtorAccountService" parent="serviceBean">
+        <property name="interface" value="com.shfc.house.service.WxRealtorAccountService"/>
+    </bean>
+
+    <!--红包活动的服务-->
+    <bean id="activityService" parent="serviceBean">
+        <property name="timeout" value="8000"/>
+        <property name="interface" value="com.shfc.house.service.ActivityService"/>
+    </bean>
+
+    <bean id="prizeRecordService" parent="serviceBean">
+        <property name="interface" value="com.shfc.house.service.HbPrizeRecordService"/>
+    </bean>
+
+    <!-- leads house 房源接口 -->
+    <bean id="leadsHouseService" parent="serviceBean">
+        <property name="interface" value="com.shfc.house.service.LeadsHouseService"/>
+    </bean>
+
+    <bean id="memberService" parent="serviceBean">
+        <property name="timeout" value="6000"/>
+        <property name="interface" value="com.shfc.house.service.MemberService"/>
+    </bean>
+
+    <bean id="orderService" parent="serviceBean">
+        <property name="retries" value="0"/>
+        <property name="timeout" value="6000"/>
+        <property name="interface" value="com.shfc.house.service.OrderService"/>
+    </bean>
+
+    <bean id="realtorCompanyService" parent="serviceBean">
+        <property name="interface" value="com.shfc.house.service.RealtorCompanyService"/>
+    </bean>
+
+    <bean id="importDataService" parent="serviceBean">
+        <property name="interface" value="com.shfc.house.service.ImportDataService"/>
+    </bean>
+
+    <bean id="leadsAdpdedService" parent="serviceBean">
+        <property name="interface" value="com.shfc.house.service.LeadsAddedService"/>
+    </bean>
+
+    <bean id="personalCenterService" parent="serviceBean">
+        <property name="interface" value="com.shfc.house.service.PersonalCenterService"/>
+    </bean>
+
+    <bean id="realtorHouseService" parent="serviceBean">
+        <property name="interface" value="com.shfc.house.service.RealtorHouseService"/>
+        <property name="timeout" value="10000"/>
+    </bean>
+
+</beans>

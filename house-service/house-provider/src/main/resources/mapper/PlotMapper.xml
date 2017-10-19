@@ -1,0 +1,570 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shfc.house.dao.PlotMapper">
+  <resultMap id="BaseResultMap" type="com.shfc.house.domain.Plot">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="residence_id" jdbcType="BIGINT" property="residenceId" />
+    <result column="city_id" jdbcType="BIGINT" property="cityId" />
+    <result column="block_id" jdbcType="BIGINT" property="blockId" />
+    <result column="district_id" jdbcType="BIGINT" property="districtId" />
+    <result column="plot_name" jdbcType="VARCHAR" property="plotName" />
+    <result column="plot_alias" jdbcType="VARCHAR" property="plotAlias" />
+    <result column="plot_pinyin" jdbcType="VARCHAR" property="plotPinyin" />
+    <result column="plot_pinyin_abbr" jdbcType="VARCHAR" property="plotPinyinAbbr" />
+    <result column="plot_address" jdbcType="VARCHAR" property="plotAddress" />
+    <result column="plot_postcode" jdbcType="VARCHAR" property="plotPostcode" />
+    <result column="longtitude" jdbcType="VARCHAR" property="longtitude" />
+    <result column="latitude" jdbcType="VARCHAR" property="latitude" />
+    <result column="plot_type" jdbcType="TINYINT" property="plotType" />
+    <result column="plot_build_type" jdbcType="TINYINT" property="plotBuildType" />
+    <result column="plot_build_year" jdbcType="INTEGER" property="plotBuildYear" />
+    <result column="plot_land_area" jdbcType="DECIMAL" property="plotLandArea" />
+    <result column="plot_build_area" jdbcType="DECIMAL" property="plotBuildArea" />
+    <result column="plot_volume_ratio" jdbcType="DECIMAL" property="plotVolumeRatio" />
+    <result column="plot_green_ratio" jdbcType="DECIMAL" property="plotGreenRatio" />
+    <result column="plot_construction_ratio" jdbcType="DECIMAL" property="plotConstructionRatio" />
+    <result column="building_count" jdbcType="SMALLINT" property="buildingCount" />
+    <result column="house_count" jdbcType="INTEGER" property="houseCount" />
+    <result column="ground_parking_count" jdbcType="INTEGER" property="groundParkingCount" />
+    <result column="underground_parking_count" jdbcType="INTEGER" property="undergroundParkingCount" />
+    <result column="property_fee" jdbcType="DECIMAL" property="propertyFee" />
+    <result column="plot_cover_pic_url" jdbcType="VARCHAR" property="plotCoverPicUrl" />
+    <result column="plot_status" jdbcType="TINYINT" property="plotStatus" />
+    <result column="average_price" jdbcType="INTEGER" property="averagePrice" />
+    <result column="plot_discount_info" jdbcType="VARCHAR" property="plotDiscountInfo" />
+    <result column="heat_method" jdbcType="VARCHAR" property="heatMethod" />
+    <result column="developer_id" jdbcType="BIGINT" property="developerId" />
+    <result column="developer_name" jdbcType="VARCHAR" property="developerName" />
+    <result column="property_right" jdbcType="INTEGER" property="propertyRight" />
+    <result column="loop_location" jdbcType="VARCHAR" property="loopLocation" />
+    <result column="complete_date" jdbcType="DATE" property="completeDate" />
+    <result column="creator" jdbcType="BIGINT" property="creator" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, residence_id, city_id, block_id, district_id, plot_name, plot_alias, plot_pinyin, 
+    plot_pinyin_abbr, plot_address, plot_postcode, longtitude, latitude, plot_type, plot_build_type, 
+    plot_build_year, plot_land_area, plot_build_area, plot_volume_ratio, plot_green_ratio, 
+    plot_construction_ratio, building_count, house_count, ground_parking_count, underground_parking_count, 
+    property_fee, plot_cover_pic_url, plot_status, average_price, plot_discount_info, 
+    heat_method, developer_id, developer_name, property_right, loop_location, complete_date, 
+    creator, create_time, modifier, modify_time, version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--
+    开发负责人：lv bin
+    功能说明：根据主键获取一条数据库记录
+    是否有缓存：无
+    -->
+    select 
+    <include refid="Base_Column_List" />
+    from plot
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--
+    开发负责人：lv bin
+    功能说明：根据主键删除数据库的记录
+    是否有缓存：无
+    -->
+    delete from plot
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.shfc.house.domain.Plot" useGeneratedKeys="true">
+    <!--
+    开发负责人：lv bin
+    功能说明：插入数据库记录
+    是否有缓存：无
+    -->
+    insert into plot (id, residence_id, city_id, 
+      block_id, district_id, plot_name, 
+      plot_alias, plot_pinyin, plot_pinyin_abbr, 
+      plot_address, plot_postcode, longtitude, 
+      latitude, plot_type, plot_build_type, 
+      plot_build_year, plot_land_area, plot_build_area, 
+      plot_volume_ratio, plot_green_ratio, plot_construction_ratio, 
+      building_count, house_count, ground_parking_count, 
+      underground_parking_count, property_fee, plot_cover_pic_url, 
+      plot_status, average_price, plot_discount_info, 
+      heat_method, developer_id, developer_name, 
+      property_right, loop_location, complete_date, 
+      creator, create_time, modifier, 
+      modify_time, version)
+    values (#{id,jdbcType=BIGINT}, #{residenceId,jdbcType=BIGINT}, #{cityId,jdbcType=BIGINT}, 
+      #{blockId,jdbcType=BIGINT}, #{districtId,jdbcType=BIGINT}, #{plotName,jdbcType=VARCHAR}, 
+      #{plotAlias,jdbcType=VARCHAR}, #{plotPinyin,jdbcType=VARCHAR}, #{plotPinyinAbbr,jdbcType=VARCHAR}, 
+      #{plotAddress,jdbcType=VARCHAR}, #{plotPostcode,jdbcType=VARCHAR}, #{longtitude,jdbcType=VARCHAR}, 
+      #{latitude,jdbcType=VARCHAR}, #{plotType,jdbcType=TINYINT}, #{plotBuildType,jdbcType=TINYINT}, 
+      #{plotBuildYear,jdbcType=INTEGER}, #{plotLandArea,jdbcType=DECIMAL}, #{plotBuildArea,jdbcType=DECIMAL}, 
+      #{plotVolumeRatio,jdbcType=DECIMAL}, #{plotGreenRatio,jdbcType=DECIMAL}, #{plotConstructionRatio,jdbcType=DECIMAL}, 
+      #{buildingCount,jdbcType=SMALLINT}, #{houseCount,jdbcType=INTEGER}, #{groundParkingCount,jdbcType=INTEGER}, 
+      #{undergroundParkingCount,jdbcType=INTEGER}, #{propertyFee,jdbcType=DECIMAL}, #{plotCoverPicUrl,jdbcType=VARCHAR}, 
+      #{plotStatus,jdbcType=TINYINT}, #{averagePrice,jdbcType=INTEGER}, #{plotDiscountInfo,jdbcType=VARCHAR}, 
+      #{heatMethod,jdbcType=VARCHAR}, #{developerId,jdbcType=BIGINT}, #{developerName,jdbcType=VARCHAR}, 
+      #{propertyRight,jdbcType=INTEGER}, #{loopLocation,jdbcType=VARCHAR}, #{completeDate,jdbcType=DATE}, 
+      #{creator,jdbcType=BIGINT}, now(), #{modifier,jdbcType=BIGINT}, 
+      #{modifyTime,jdbcType=TIMESTAMP}, 0)
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.shfc.house.domain.Plot" useGeneratedKeys="true">
+    <!--
+    开发负责人：lv bin
+    功能说明：选择性插入数据库记录
+    是否有缓存：无
+    -->
+    insert into plot
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="residenceId != null">
+        residence_id,
+      </if>
+      <if test="cityId != null">
+        city_id,
+      </if>
+      <if test="blockId != null">
+        block_id,
+      </if>
+      <if test="districtId != null">
+        district_id,
+      </if>
+      <if test="plotName != null">
+        plot_name,
+      </if>
+      <if test="plotAlias != null">
+        plot_alias,
+      </if>
+      <if test="plotPinyin != null">
+        plot_pinyin,
+      </if>
+      <if test="plotPinyinAbbr != null">
+        plot_pinyin_abbr,
+      </if>
+      <if test="plotAddress != null">
+        plot_address,
+      </if>
+      <if test="plotPostcode != null">
+        plot_postcode,
+      </if>
+      <if test="longtitude != null">
+        longtitude,
+      </if>
+      <if test="latitude != null">
+        latitude,
+      </if>
+      <if test="plotType != null">
+        plot_type,
+      </if>
+      <if test="plotBuildType != null">
+        plot_build_type,
+      </if>
+      <if test="plotBuildYear != null">
+        plot_build_year,
+      </if>
+      <if test="plotLandArea != null">
+        plot_land_area,
+      </if>
+      <if test="plotBuildArea != null">
+        plot_build_area,
+      </if>
+      <if test="plotVolumeRatio != null">
+        plot_volume_ratio,
+      </if>
+      <if test="plotGreenRatio != null">
+        plot_green_ratio,
+      </if>
+      <if test="plotConstructionRatio != null">
+        plot_construction_ratio,
+      </if>
+      <if test="buildingCount != null">
+        building_count,
+      </if>
+      <if test="houseCount != null">
+        house_count,
+      </if>
+      <if test="groundParkingCount != null">
+        ground_parking_count,
+      </if>
+      <if test="undergroundParkingCount != null">
+        underground_parking_count,
+      </if>
+      <if test="propertyFee != null">
+        property_fee,
+      </if>
+      <if test="plotCoverPicUrl != null">
+        plot_cover_pic_url,
+      </if>
+      <if test="plotStatus != null">
+        plot_status,
+      </if>
+      <if test="averagePrice != null">
+        average_price,
+      </if>
+      <if test="plotDiscountInfo != null">
+        plot_discount_info,
+      </if>
+      <if test="heatMethod != null">
+        heat_method,
+      </if>
+      <if test="developerId != null">
+        developer_id,
+      </if>
+      <if test="developerName != null">
+        developer_name,
+      </if>
+      <if test="propertyRight != null">
+        property_right,
+      </if>
+      <if test="loopLocation != null">
+        loop_location,
+      </if>
+      <if test="completeDate != null">
+        complete_date,
+      </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="residenceId != null">
+        #{residenceId,jdbcType=BIGINT},
+      </if>
+      <if test="cityId != null">
+        #{cityId,jdbcType=BIGINT},
+      </if>
+      <if test="blockId != null">
+        #{blockId,jdbcType=BIGINT},
+      </if>
+      <if test="districtId != null">
+        #{districtId,jdbcType=BIGINT},
+      </if>
+      <if test="plotName != null">
+        #{plotName,jdbcType=VARCHAR},
+      </if>
+      <if test="plotAlias != null">
+        #{plotAlias,jdbcType=VARCHAR},
+      </if>
+      <if test="plotPinyin != null">
+        #{plotPinyin,jdbcType=VARCHAR},
+      </if>
+      <if test="plotPinyinAbbr != null">
+        #{plotPinyinAbbr,jdbcType=VARCHAR},
+      </if>
+      <if test="plotAddress != null">
+        #{plotAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="plotPostcode != null">
+        #{plotPostcode,jdbcType=VARCHAR},
+      </if>
+      <if test="longtitude != null">
+        #{longtitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null">
+        #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="plotType != null">
+        #{plotType,jdbcType=TINYINT},
+      </if>
+      <if test="plotBuildType != null">
+        #{plotBuildType,jdbcType=TINYINT},
+      </if>
+      <if test="plotBuildYear != null">
+        #{plotBuildYear,jdbcType=INTEGER},
+      </if>
+      <if test="plotLandArea != null">
+        #{plotLandArea,jdbcType=DECIMAL},
+      </if>
+      <if test="plotBuildArea != null">
+        #{plotBuildArea,jdbcType=DECIMAL},
+      </if>
+      <if test="plotVolumeRatio != null">
+        #{plotVolumeRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="plotGreenRatio != null">
+        #{plotGreenRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="plotConstructionRatio != null">
+        #{plotConstructionRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="buildingCount != null">
+        #{buildingCount,jdbcType=SMALLINT},
+      </if>
+      <if test="houseCount != null">
+        #{houseCount,jdbcType=INTEGER},
+      </if>
+      <if test="groundParkingCount != null">
+        #{groundParkingCount,jdbcType=INTEGER},
+      </if>
+      <if test="undergroundParkingCount != null">
+        #{undergroundParkingCount,jdbcType=INTEGER},
+      </if>
+      <if test="propertyFee != null">
+        #{propertyFee,jdbcType=DECIMAL},
+      </if>
+      <if test="plotCoverPicUrl != null">
+        #{plotCoverPicUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="plotStatus != null">
+        #{plotStatus,jdbcType=TINYINT},
+      </if>
+      <if test="averagePrice != null">
+        #{averagePrice,jdbcType=INTEGER},
+      </if>
+      <if test="plotDiscountInfo != null">
+        #{plotDiscountInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="heatMethod != null">
+        #{heatMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="developerId != null">
+        #{developerId,jdbcType=BIGINT},
+      </if>
+      <if test="developerName != null">
+        #{developerName,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyRight != null">
+        #{propertyRight,jdbcType=INTEGER},
+      </if>
+      <if test="loopLocation != null">
+        #{loopLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="completeDate != null">
+        #{completeDate,jdbcType=DATE},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shfc.house.domain.Plot">
+    <!--
+    开发负责人：lv bin
+    功能说明：根据主键来更新对应数据库字段
+    是否有缓存：无
+    -->
+    update plot
+    <set>
+      <if test="residenceId != null">
+        residence_id = #{residenceId,jdbcType=BIGINT},
+      </if>
+      <if test="cityId != null">
+        city_id = #{cityId,jdbcType=BIGINT},
+      </if>
+      <if test="blockId != null">
+        block_id = #{blockId,jdbcType=BIGINT},
+      </if>
+      <if test="districtId != null">
+        district_id = #{districtId,jdbcType=BIGINT},
+      </if>
+      <if test="plotName != null">
+        plot_name = #{plotName,jdbcType=VARCHAR},
+      </if>
+      <if test="plotAlias != null">
+        plot_alias = #{plotAlias,jdbcType=VARCHAR},
+      </if>
+      <if test="plotPinyin != null">
+        plot_pinyin = #{plotPinyin,jdbcType=VARCHAR},
+      </if>
+      <if test="plotPinyinAbbr != null">
+        plot_pinyin_abbr = #{plotPinyinAbbr,jdbcType=VARCHAR},
+      </if>
+      <if test="plotAddress != null">
+        plot_address = #{plotAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="plotPostcode != null">
+        plot_postcode = #{plotPostcode,jdbcType=VARCHAR},
+      </if>
+      <if test="longtitude != null">
+        longtitude = #{longtitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null">
+        latitude = #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="plotType != null">
+        plot_type = #{plotType,jdbcType=TINYINT},
+      </if>
+      <if test="plotBuildType != null">
+        plot_build_type = #{plotBuildType,jdbcType=TINYINT},
+      </if>
+      <if test="plotBuildYear != null">
+        plot_build_year = #{plotBuildYear,jdbcType=INTEGER},
+      </if>
+      <if test="plotLandArea != null">
+        plot_land_area = #{plotLandArea,jdbcType=DECIMAL},
+      </if>
+      <if test="plotBuildArea != null">
+        plot_build_area = #{plotBuildArea,jdbcType=DECIMAL},
+      </if>
+      <if test="plotVolumeRatio != null">
+        plot_volume_ratio = #{plotVolumeRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="plotGreenRatio != null">
+        plot_green_ratio = #{plotGreenRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="plotConstructionRatio != null">
+        plot_construction_ratio = #{plotConstructionRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="buildingCount != null">
+        building_count = #{buildingCount,jdbcType=SMALLINT},
+      </if>
+      <if test="houseCount != null">
+        house_count = #{houseCount,jdbcType=INTEGER},
+      </if>
+      <if test="groundParkingCount != null">
+        ground_parking_count = #{groundParkingCount,jdbcType=INTEGER},
+      </if>
+      <if test="undergroundParkingCount != null">
+        underground_parking_count = #{undergroundParkingCount,jdbcType=INTEGER},
+      </if>
+      <if test="propertyFee != null">
+        property_fee = #{propertyFee,jdbcType=DECIMAL},
+      </if>
+      <if test="plotCoverPicUrl != null">
+        plot_cover_pic_url = #{plotCoverPicUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="plotStatus != null">
+        plot_status = #{plotStatus,jdbcType=TINYINT},
+      </if>
+      <if test="averagePrice != null">
+        average_price = #{averagePrice,jdbcType=INTEGER},
+      </if>
+      <if test="plotDiscountInfo != null">
+        plot_discount_info = #{plotDiscountInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="heatMethod != null">
+        heat_method = #{heatMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="developerId != null">
+        developer_id = #{developerId,jdbcType=BIGINT},
+      </if>
+      <if test="developerName != null">
+        developer_name = #{developerName,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyRight != null">
+        property_right = #{propertyRight,jdbcType=INTEGER},
+      </if>
+      <if test="loopLocation != null">
+        loop_location = #{loopLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="completeDate != null">
+        complete_date = #{completeDate,jdbcType=DATE},
+      </if>
+      <if test="creator != null">
+        creator = #{creator,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shfc.house.domain.Plot">
+    <!--
+    开发负责人：lv bin
+    功能说明：根据主键来更新数据库记录
+    是否有缓存：无
+    -->
+    update plot
+    set residence_id = #{residenceId,jdbcType=BIGINT},
+      city_id = #{cityId,jdbcType=BIGINT},
+      block_id = #{blockId,jdbcType=BIGINT},
+      district_id = #{districtId,jdbcType=BIGINT},
+      plot_name = #{plotName,jdbcType=VARCHAR},
+      plot_alias = #{plotAlias,jdbcType=VARCHAR},
+      plot_pinyin = #{plotPinyin,jdbcType=VARCHAR},
+      plot_pinyin_abbr = #{plotPinyinAbbr,jdbcType=VARCHAR},
+      plot_address = #{plotAddress,jdbcType=VARCHAR},
+      plot_postcode = #{plotPostcode,jdbcType=VARCHAR},
+      longtitude = #{longtitude,jdbcType=VARCHAR},
+      latitude = #{latitude,jdbcType=VARCHAR},
+      plot_type = #{plotType,jdbcType=TINYINT},
+      plot_build_type = #{plotBuildType,jdbcType=TINYINT},
+      plot_build_year = #{plotBuildYear,jdbcType=INTEGER},
+      plot_land_area = #{plotLandArea,jdbcType=DECIMAL},
+      plot_build_area = #{plotBuildArea,jdbcType=DECIMAL},
+      plot_volume_ratio = #{plotVolumeRatio,jdbcType=DECIMAL},
+      plot_green_ratio = #{plotGreenRatio,jdbcType=DECIMAL},
+      plot_construction_ratio = #{plotConstructionRatio,jdbcType=DECIMAL},
+      building_count = #{buildingCount,jdbcType=SMALLINT},
+      house_count = #{houseCount,jdbcType=INTEGER},
+      ground_parking_count = #{groundParkingCount,jdbcType=INTEGER},
+      underground_parking_count = #{undergroundParkingCount,jdbcType=INTEGER},
+      property_fee = #{propertyFee,jdbcType=DECIMAL},
+      plot_cover_pic_url = #{plotCoverPicUrl,jdbcType=VARCHAR},
+      plot_status = #{plotStatus,jdbcType=TINYINT},
+      average_price = #{averagePrice,jdbcType=INTEGER},
+      plot_discount_info = #{plotDiscountInfo,jdbcType=VARCHAR},
+      heat_method = #{heatMethod,jdbcType=VARCHAR},
+      developer_id = #{developerId,jdbcType=BIGINT},
+      developer_name = #{developerName,jdbcType=VARCHAR},
+      property_right = #{propertyRight,jdbcType=INTEGER},
+      loop_location = #{loopLocation,jdbcType=VARCHAR},
+      complete_date = #{completeDate,jdbcType=DATE},
+      creator = #{creator,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=BIGINT},
+      modify_time = now(),
+      version = version+1
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+
+  <select id="queryPlotByKeyword" resultType="com.shfc.house.dto.PlotAddressDTO">
+    select
+    id,
+    plot_name as plotName,
+    plot_address as plotAddress,
+    longtitude,
+    latitude,
+    plot_type as plotType,
+    district_id as districtId,
+    block_id as blockId
+    from plot
+    where  plot_status = 0
+      and (plot_name like CONCAT('%','${keyword}','%') or  plot_address like CONCAT('%','${keyword}','%'))
+  </select>
+
+  <select id="queryNearbyPlotGPS" resultType="com.shfc.house.dto.PlotAddressDTO">
+    select * from (
+    select id, plot_name as plotName, plot_address as plotAddress,
+    longtitude, latitude, district_id as districtId, block_id as blockId, plot_type as plotType,
+    fun_distance(#{query.latitude}, #{query.longitude}, latitude, longtitude) distance
+    from plot where plot_status = 0 and longtitude != '' and latitude != '') a
+    where a.distance &lt; 5
+    order by distance asc
+  </select>
+</mapper>

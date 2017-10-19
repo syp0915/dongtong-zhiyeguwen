@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shfc.house.dao.LeadsAddedServicesMapper">
+  <resultMap id="BaseResultMap" type="com.shfc.house.domain.LeadsAddedServices">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="banner_id" jdbcType="BIGINT" property="bannerId" />
+    <result column="services_name" jdbcType="VARCHAR" property="servicesName" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="commission" jdbcType="VARCHAR" property="commission" />
+    <result column="conditional" jdbcType="VARCHAR" property="conditional" />
+    <result column="merchanism_id" jdbcType="BIGINT" property="merchanismId" />
+    <result column="creator" jdbcType="BIGINT" property="creator" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.shfc.house.domain.LeadsAddedServices">
+    <result column="services_official" jdbcType="LONGVARCHAR" property="servicesOfficial" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, banner_id, services_name, type, commission, conditional, merchanism_id, creator, 
+    create_time, modifier, modify_time, version
+  </sql>
+  <sql id="Blob_Column_List">
+    services_official
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    <!--
+    开发负责人：lv bin
+    功能说明：根据主键获取一条数据库记录
+    是否有缓存：无
+    -->
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from leads_added_services
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--
+    开发负责人：lv bin
+    功能说明：根据主键删除数据库的记录
+    是否有缓存：无
+    -->
+    delete from leads_added_services
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.shfc.house.domain.LeadsAddedServices" useGeneratedKeys="true">
+    <!--
+    开发负责人：lv bin
+    功能说明：插入数据库记录
+    是否有缓存：无
+    -->
+    insert into leads_added_services (id, banner_id, services_name, 
+      type, commission, conditional, 
+      merchanism_id, creator, create_time, 
+      modifier, modify_time, version, 
+      services_official)
+    values (#{id,jdbcType=BIGINT}, #{bannerId,jdbcType=BIGINT}, #{servicesName,jdbcType=VARCHAR}, 
+      #{type,jdbcType=TINYINT}, #{commission,jdbcType=VARCHAR}, #{conditional,jdbcType=VARCHAR}, 
+      #{merchanismId,jdbcType=BIGINT}, #{creator,jdbcType=BIGINT}, now(), 
+      #{modifier,jdbcType=BIGINT}, #{modifyTime,jdbcType=TIMESTAMP}, 0, 
+      #{servicesOfficial,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.shfc.house.domain.LeadsAddedServices" useGeneratedKeys="true">
+    <!--
+    开发负责人：lv bin
+    功能说明：选择性插入数据库记录
+    是否有缓存：无
+    -->
+    insert into leads_added_services
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="bannerId != null">
+        banner_id,
+      </if>
+      <if test="servicesName != null">
+        services_name,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="commission != null">
+        commission,
+      </if>
+      <if test="conditional != null">
+        conditional,
+      </if>
+      <if test="merchanismId != null">
+        merchanism_id,
+      </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+      <if test="servicesOfficial != null">
+        services_official,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="bannerId != null">
+        #{bannerId,jdbcType=BIGINT},
+      </if>
+      <if test="servicesName != null">
+        #{servicesName,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=TINYINT},
+      </if>
+      <if test="commission != null">
+        #{commission,jdbcType=VARCHAR},
+      </if>
+      <if test="conditional != null">
+        #{conditional,jdbcType=VARCHAR},
+      </if>
+      <if test="merchanismId != null">
+        #{merchanismId,jdbcType=BIGINT},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+      <if test="servicesOfficial != null">
+        #{servicesOfficial,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shfc.house.domain.LeadsAddedServices">
+    <!--
+    开发负责人：lv bin
+    功能说明：根据主键来更新对应数据库字段
+    是否有缓存：无
+    -->
+    update leads_added_services
+    <set>
+      <if test="bannerId != null">
+        banner_id = #{bannerId,jdbcType=BIGINT},
+      </if>
+      <if test="servicesName != null">
+        services_name = #{servicesName,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="commission != null">
+        commission = #{commission,jdbcType=VARCHAR},
+      </if>
+      <if test="conditional != null">
+        conditional = #{conditional,jdbcType=VARCHAR},
+      </if>
+      <if test="merchanismId != null">
+        merchanism_id = #{merchanismId,jdbcType=BIGINT},
+      </if>
+      <if test="creator != null">
+        creator = #{creator,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+      <if test="servicesOfficial != null">
+        services_official = #{servicesOfficial,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.shfc.house.domain.LeadsAddedServices">
+    <!--
+    开发负责人：lv bin
+    是否有缓存：无
+    -->
+    update leads_added_services
+    set banner_id = #{bannerId,jdbcType=BIGINT},
+      services_name = #{servicesName,jdbcType=VARCHAR},
+      type = #{type,jdbcType=TINYINT},
+      commission = #{commission,jdbcType=VARCHAR},
+      conditional = #{conditional,jdbcType=VARCHAR},
+      merchanism_id = #{merchanismId,jdbcType=BIGINT},
+      creator = #{creator,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=BIGINT},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      version = #{version,jdbcType=BIGINT},
+      services_official = #{servicesOfficial,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shfc.house.domain.LeadsAddedServices">
+    <!--
+    开发负责人：lv bin
+    功能说明：根据主键来更新数据库记录
+    是否有缓存：无
+    -->
+    update leads_added_services
+    set banner_id = #{bannerId,jdbcType=BIGINT},
+      services_name = #{servicesName,jdbcType=VARCHAR},
+      type = #{type,jdbcType=TINYINT},
+      commission = #{commission,jdbcType=VARCHAR},
+      conditional = #{conditional,jdbcType=VARCHAR},
+      merchanism_id = #{merchanismId,jdbcType=BIGINT},
+      creator = #{creator,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=BIGINT},
+      modify_time = now(),
+      version = version+1
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  
+  
+  <select id="serviceDetail" resultType="com.shfc.house.dto.ServiceDTO" parameterType="java.lang.Long">
+    SELECT
+    id AS serviceId,
+    services_name AS serviceName,
+    merchanism_id AS  comId,
+    type AS serviceType,
+    services_official AS serviceDetail
+    FROM
+    leads_added_services
+    WHERE
+    id = #{serviceId,jdbcType=BIGINT}
+  </select>
+</mapper>

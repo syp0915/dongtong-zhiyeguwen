@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shfc.base.dao.BuildingPosterMapper">
+  <resultMap id="BaseResultMap" type="com.shfc.base.domain.BuildingPoster">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="building_name" jdbcType="VARCHAR" property="buildingName" />
+    <result column="building_address" jdbcType="VARCHAR" property="buildingAddress" />
+    <result column="longitude" jdbcType="VARCHAR" property="longitude" />
+    <result column="latitude" jdbcType="VARCHAR" property="latitude" />
+    <result column="building_picture_url" jdbcType="VARCHAR" property="buildingPictureUrl" />
+    <result column="poster_topic" jdbcType="VARCHAR" property="posterTopic" />
+    <result column="open_time" jdbcType="VARCHAR" property="openTime" />
+    <result column="area" jdbcType="VARCHAR" property="area" />
+    <result column="sale_price" jdbcType="VARCHAR" property="salePrice" />
+    <result column="sale_model" jdbcType="VARCHAR" property="saleModel" />
+    <result column="sale_area" jdbcType="VARCHAR" property="saleArea" />
+    <result column="selling_points" jdbcType="VARCHAR" property="sellingPoints" />
+    <result column="creater" jdbcType="BIGINT" property="creater" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, building_name, building_address, longitude, latitude, building_picture_url, poster_topic,
+    open_time, area, sale_price, sale_model, sale_area, selling_points, creater, create_time,
+    modifier, modify_time, version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--
+    开发负责人：liaozm
+    功能说明：根据主键获取一条数据库记录
+    是否有缓存：无
+    -->
+    select
+    <include refid="Base_Column_List" />
+    from building_poster
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--
+    开发负责人：liaozm
+    功能说明：根据主键删除数据库的记录
+    是否有缓存：无
+    -->
+    delete from building_poster
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.shfc.base.domain.BuildingPoster" useGeneratedKeys="true">
+    <!--
+    开发负责人：liaozm
+    功能说明：插入数据库记录
+    是否有缓存：无
+    -->
+    insert into building_poster (id, building_name, building_address,
+    longitude, latitude, building_picture_url,
+    poster_topic, open_time, area,
+    sale_price, sale_model, sale_area,
+    selling_points, creater, create_time,
+    modifier, modify_time, version
+    )
+    values (#{id,jdbcType=BIGINT}, #{buildingName,jdbcType=VARCHAR}, #{buildingAddress,jdbcType=VARCHAR},
+    #{longitude,jdbcType=VARCHAR}, #{latitude,jdbcType=VARCHAR}, #{buildingPictureUrl,jdbcType=VARCHAR},
+    #{posterTopic,jdbcType=VARCHAR}, #{openTime,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR},
+    #{salePrice,jdbcType=VARCHAR}, #{saleModel,jdbcType=VARCHAR}, #{saleArea,jdbcType=VARCHAR},
+    #{sellingPoints,jdbcType=VARCHAR}, #{creater,jdbcType=BIGINT}, now(),
+    #{modifier,jdbcType=BIGINT}, #{modifyTime,jdbcType=TIMESTAMP}, 0
+    )
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.shfc.base.domain.BuildingPoster" useGeneratedKeys="true">
+    <!--
+    开发负责人：liaozm
+    功能说明：选择性插入数据库记录
+    是否有缓存：无
+    -->
+    insert into building_poster
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="buildingName != null">
+        building_name,
+      </if>
+      <if test="buildingAddress != null">
+        building_address,
+      </if>
+      <if test="longitude != null">
+        longitude,
+      </if>
+      <if test="latitude != null">
+        latitude,
+      </if>
+      <if test="buildingPictureUrl != null">
+        building_picture_url,
+      </if>
+      <if test="posterTopic != null">
+        poster_topic,
+      </if>
+      <if test="openTime != null">
+        open_time,
+      </if>
+      <if test="area != null">
+        area,
+      </if>
+      <if test="salePrice != null">
+        sale_price,
+      </if>
+      <if test="saleModel != null">
+        sale_model,
+      </if>
+      <if test="saleArea != null">
+        sale_area,
+      </if>
+      <if test="sellingPoints != null">
+        selling_points,
+      </if>
+      <if test="creater != null">
+        creater,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="buildingName != null">
+        #{buildingName,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingAddress != null">
+        #{buildingAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null">
+        #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null">
+        #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingPictureUrl != null">
+        #{buildingPictureUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="posterTopic != null">
+        #{posterTopic,jdbcType=VARCHAR},
+      </if>
+      <if test="openTime != null">
+        #{openTime,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null">
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="salePrice != null">
+        #{salePrice,jdbcType=VARCHAR},
+      </if>
+      <if test="saleModel != null">
+        #{saleModel,jdbcType=VARCHAR},
+      </if>
+      <if test="saleArea != null">
+        #{saleArea,jdbcType=VARCHAR},
+      </if>
+      <if test="sellingPoints != null">
+        #{sellingPoints,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shfc.base.domain.BuildingPoster">
+    <!--
+    开发负责人：liaozm
+    功能说明：根据主键来更新对应数据库字段
+    是否有缓存：无
+    -->
+    update building_poster
+    <set>
+      <if test="buildingName != null">
+        building_name = #{buildingName,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingAddress != null">
+        building_address = #{buildingAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null">
+        longitude = #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null">
+        latitude = #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingPictureUrl != null">
+        building_picture_url = #{buildingPictureUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="posterTopic != null">
+        poster_topic = #{posterTopic,jdbcType=VARCHAR},
+      </if>
+      <if test="openTime != null">
+        open_time = #{openTime,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null">
+        area = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="salePrice != null">
+        sale_price = #{salePrice,jdbcType=VARCHAR},
+      </if>
+      <if test="saleModel != null">
+        sale_model = #{saleModel,jdbcType=VARCHAR},
+      </if>
+      <if test="saleArea != null">
+        sale_area = #{saleArea,jdbcType=VARCHAR},
+      </if>
+      <if test="sellingPoints != null">
+        selling_points = #{sellingPoints,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null">
+        creater = #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shfc.base.domain.BuildingPoster">
+    <!--
+    开发负责人：liaozm
+    功能说明：根据主键来更新数据库记录
+    是否有缓存：无
+    -->
+    update building_poster
+    set building_name = #{buildingName,jdbcType=VARCHAR},
+    building_address = #{buildingAddress,jdbcType=VARCHAR},
+    longitude = #{longitude,jdbcType=VARCHAR},
+    latitude = #{latitude,jdbcType=VARCHAR},
+    building_picture_url = #{buildingPictureUrl,jdbcType=VARCHAR},
+    poster_topic = #{posterTopic,jdbcType=VARCHAR},
+    open_time = #{openTime,jdbcType=VARCHAR},
+    area = #{area,jdbcType=VARCHAR},
+    sale_price = #{salePrice,jdbcType=VARCHAR},
+    sale_model = #{saleModel,jdbcType=VARCHAR},
+    sale_area = #{saleArea,jdbcType=VARCHAR},
+    selling_points = #{sellingPoints,jdbcType=VARCHAR},
+    creater = #{creater,jdbcType=BIGINT},
+    create_time = #{createTime,jdbcType=TIMESTAMP},
+    modifier = #{modifier,jdbcType=BIGINT},
+    modify_time = now(),
+    version = version+1
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPage" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from building_poster
+    order by create_time desc
+  </select>
+</mapper>

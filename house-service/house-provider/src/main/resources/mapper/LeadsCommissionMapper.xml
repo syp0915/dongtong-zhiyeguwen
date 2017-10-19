@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shfc.house.dao.LeadsCommissionMapper">
+    <resultMap id="BaseResultMap" type="com.shfc.house.domain.LeadsCommission">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="leads_customer_id" jdbcType="BIGINT" property="leadsCustomerId" />
+        <result column="number" jdbcType="VARCHAR" property="number" />
+        <result column="commission" jdbcType="DECIMAL" property="commission" />
+        <result column="status" jdbcType="TINYINT" property="status" />
+        <result column="creator" jdbcType="BIGINT" property="creator" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="modifier" jdbcType="BIGINT" property="modifier" />
+        <result column="moidfy_time" jdbcType="TIMESTAMP" property="moidfyTime" />
+        <result column="version" jdbcType="BIGINT" property="version" />
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, leads_customer_id, number, commission, status, creator, create_time, modifier, 
+    moidfy_time, version
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        <!--
+        开发负责人：lv bin
+        功能说明：根据主键获取一条数据库记录
+        是否有缓存：无
+        -->
+        select
+        <include refid="Base_Column_List" />
+        from leads_commission
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        <!--
+        开发负责人：lv bin
+        功能说明：根据主键删除数据库的记录
+        是否有缓存：无
+        -->
+        delete from leads_commission
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" keyProperty="id" parameterType="com.shfc.house.domain.LeadsCommission" useGeneratedKeys="true">
+        <!--
+        开发负责人：lv bin
+        功能说明：插入数据库记录
+        是否有缓存：无
+        -->
+        insert into leads_commission (id, leads_customer_id, number,
+        commission, status, creator,
+        create_time, modifier, moidfy_time,
+        version)
+        values (#{id,jdbcType=BIGINT}, #{leadsCustomerId,jdbcType=BIGINT}, #{number,jdbcType=VARCHAR},
+        #{commission,jdbcType=DECIMAL}, #{status,jdbcType=TINYINT}, #{creator,jdbcType=BIGINT},
+        now(), #{modifier,jdbcType=BIGINT}, #{moidfyTime,jdbcType=TIMESTAMP},
+        0)
+    </insert>
+    <insert id="insertSelective" keyProperty="id" parameterType="com.shfc.house.domain.LeadsCommission"
+        useGeneratedKeys="true">
+        <!--
+        开发负责人：lv bin
+        功能说明：选择性插入数据库记录
+        是否有缓存：无
+        -->
+        insert into leads_commission
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="leadsCustomerId != null">
+                leads_customer_id,
+            </if>
+            <if test="number != null">
+                number,
+            </if>
+            <if test="commission != null">
+                commission,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="creator != null">
+                creator,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="modifier != null">
+                modifier,
+            </if>
+            <if test="moidfyTime != null">
+                moidfy_time,
+            </if>
+            <if test="version != null">
+                version,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="leadsCustomerId != null">
+                #{leadsCustomerId,jdbcType=BIGINT},
+            </if>
+            <if test="number != null">
+                #{number,jdbcType=VARCHAR},
+            </if>
+            <if test="commission != null">
+                #{commission,jdbcType=DECIMAL},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=TINYINT},
+            </if>
+            <if test="creator != null">
+                #{creator,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+                now(),
+            </if>
+            <if test="modifier != null">
+                #{modifier,jdbcType=BIGINT},
+            </if>
+            <if test="moidfyTime != null">
+                #{moidfyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="version != null">
+                0,
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.shfc.house.domain.LeadsCommission">
+        <!--
+        开发负责人：lv bin
+        功能说明：根据主键来更新对应数据库字段
+        是否有缓存：无
+        -->
+        update leads_commission
+        <set>
+            <if test="leadsCustomerId != null">
+                leads_customer_id = #{leadsCustomerId,jdbcType=BIGINT},
+            </if>
+            <if test="number != null">
+                number = #{number,jdbcType=VARCHAR},
+            </if>
+            <if test="commission != null">
+                commission = #{commission,jdbcType=DECIMAL},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=TINYINT},
+            </if>
+            <if test="creator != null">
+                creator = #{creator,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifier != null">
+                modifier = #{modifier,jdbcType=BIGINT},
+            </if>
+            <if test="moidfyTime != null">
+                moidfy_time = #{moidfyTime,jdbcType=TIMESTAMP},
+            </if>
+            version = version+1
+        </set>
+        where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.shfc.house.domain.LeadsCommission">
+        <!--
+        开发负责人：lv bin
+        功能说明：根据主键来更新数据库记录
+        是否有缓存：无
+        -->
+        update leads_commission
+        set leads_customer_id = #{leadsCustomerId,jdbcType=BIGINT},
+        number = #{number,jdbcType=VARCHAR},
+        commission = #{commission,jdbcType=DECIMAL},
+        status = #{status,jdbcType=TINYINT},
+        creator = #{creator,jdbcType=BIGINT},
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+        modifier = #{modifier,jdbcType=BIGINT},
+        moidfy_time = #{moidfyTime,jdbcType=TIMESTAMP},
+        version = version+1
+        where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+    </update>
+
+    <!--
+        功能说明：根据推荐人Id和订单状态分组查询各状态下佣金总数
+        是否有缓存：无
+        -->
+    <select id="queryCommissionGroupByStatus" parameterType="long" resultType="com.shfc.house.dto.CommissionDTO">
+      select
+      SUM(com.commission) as Commission,
+      com.status
+      from leads_commission com LEFT JOIN leads_customer cus on cus.id=com.leads_customer_id
+      where cus.referrer_id=#{referrerId,jdbcType=BIGINT} GROUP BY com.status
+     </select>
+
+    <!--
+        功能说明：根据推荐人Id查询结算明细列表
+        是否有缓存：无
+        -->
+    <select id="querySettlementDetail" resultType="com.shfc.house.dto.SettlementDetailDTO">
+     select
+     com.number as orderNumber,
+     com.commission as commission,
+     com.`status` as orderStatus,
+     cus.`name` as customerName,
+     cus.phone as customerPhone,
+     ( select services_name from  leads_added_services ld where ld.id=cus.leads_services_id ) as servicesName,
+     ( select rc.name from  merchanism rc where rc.id=cus.merchanism_id ) as merchanismName
+     from leads_commission com LEFT JOIN leads_customer cus on cus.id=com.leads_customer_id
+     where cus.referrer_id=#{query.referrerId,jdbcType=BIGINT} and cus.`status`=5
+     order by com.create_time desc
+    </select>
+
+    <!--
+        功能说明：根据订单编号，更新订单状态
+        是否有缓存：无
+        -->
+    <update id="updateStatusByOrderNumber" parameterType="com.shfc.house.domain.LeadsCommission">
+        update leads_commission
+        set status = #{status,jdbcType=TINYINT}
+        where number = #{number,jdbcType=VARCHAR}
+    </update>
+
+    <select id="queryInfoByOrder" parameterType="string" resultMap="BaseResultMap">
+        SELECT id, leads_customer_id, commission, status from leads_commission
+        where number = #{number,jdbcType=VARCHAR}
+    </select>
+
+</mapper>

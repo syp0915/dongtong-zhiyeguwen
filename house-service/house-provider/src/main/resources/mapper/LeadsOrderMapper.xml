@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shfc.house.dao.LeadsOrderMapper">
+  <resultMap id="BaseResultMap" type="com.shfc.house.domain.LeadsOrder">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="combo_id" jdbcType="BIGINT" property="comboId" />
+    <result column="realtor_id" jdbcType="BIGINT" property="realtorId" />
+    <result column="order_num" jdbcType="VARCHAR" property="orderNum" />
+    <result column="pay_type" jdbcType="TINYINT" property="payType" />
+    <result column="order_pay_serial_num" jdbcType="VARCHAR" property="orderPaySerialNum" />
+    <result column="invitation_code" jdbcType="VARCHAR" property="invitationCode" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="financial_status" jdbcType="TINYINT" property="financialStatus" />
+    <result column="pay_time" jdbcType="TIMESTAMP" property="payTime" />
+    <result column="creater" jdbcType="BIGINT" property="creater" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, combo_id,realtor_id, order_num, pay_type, order_pay_serial_num, invitation_code, status,
+    financial_status, pay_time, creater, create_time, modifier, modify_time, version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from leads_order
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from leads_order
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.shfc.house.domain.LeadsOrder" useGeneratedKeys="true">
+    insert into leads_order (id, combo_id,realtor_id, order_num,
+      pay_type, order_pay_serial_num, invitation_code, 
+      status, financial_status, pay_time, 
+      creater, create_time, modifier, 
+      modify_time, version)
+    values (#{id,jdbcType=BIGINT}, #{comboId,jdbcType=BIGINT},#{realtorId,jdbcType=BIGINT}, #{orderNum,jdbcType=VARCHAR},
+      #{payType,jdbcType=TINYINT}, #{orderPaySerialNum,jdbcType=VARCHAR}, #{invitationCode,jdbcType=VARCHAR}, 
+      0, #{financialStatus,jdbcType=TINYINT}, #{payTime,jdbcType=TIMESTAMP},
+      #{creater,jdbcType=BIGINT}, now(), #{modifier,jdbcType=BIGINT}, 
+      #{modifyTime,jdbcType=TIMESTAMP}, 0)
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.shfc.house.domain.LeadsOrder" useGeneratedKeys="true">
+    insert into leads_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="comboId != null">
+        combo_id,
+      </if>
+      <if test="realtorId != null">
+        realtor_id,
+      </if>
+      <if test="orderNum != null">
+        order_num,
+      </if>
+      <if test="payType != null">
+        pay_type,
+      </if>
+      <if test="orderPaySerialNum != null">
+        order_pay_serial_num,
+      </if>
+      <if test="invitationCode != null">
+        invitation_code,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="financialStatus != null">
+        financial_status,
+      </if>
+      <if test="payTime != null">
+        pay_time,
+      </if>
+      <if test="creater != null">
+        creater,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="comboId != null">
+        #{comboId,jdbcType=BIGINT},
+      </if>
+      <if test="realtorId != null">
+        #{realtorId,jdbcType=BIGINT},
+      </if>
+      <if test="orderNum != null">
+        #{orderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="payType != null">
+        #{payType,jdbcType=TINYINT},
+      </if>
+      <if test="orderPaySerialNum != null">
+        #{orderPaySerialNum,jdbcType=VARCHAR},
+      </if>
+      <if test="invitationCode != null">
+        #{invitationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="financialStatus != null">
+        #{financialStatus,jdbcType=TINYINT},
+      </if>
+      <if test="payTime != null">
+        #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shfc.house.domain.LeadsOrder">
+    update leads_order
+    <set>
+      <if test="comboId != null">
+        combo_id = #{comboId,jdbcType=BIGINT},
+      </if>
+      <if test="realtorId != null">
+        realtor_id = #{realtorId,jdbcType=BIGINT},
+      </if>
+      <if test="orderNum != null">
+        order_num = #{orderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="payType != null">
+        pay_type = #{payType,jdbcType=TINYINT},
+      </if>
+      <if test="orderPaySerialNum != null">
+        order_pay_serial_num = #{orderPaySerialNum,jdbcType=VARCHAR},
+      </if>
+      <if test="invitationCode != null">
+        invitation_code = #{invitationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="financialStatus != null">
+        financial_status = #{financialStatus,jdbcType=TINYINT},
+      </if>
+      <if test="payTime != null">
+        pay_time = #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creater != null">
+        creater = #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shfc.house.domain.LeadsOrder">
+    update leads_order
+    set combo_id = #{comboId,jdbcType=BIGINT},
+      realtor_id = #{realtorId,jdbcType=BIGINT},
+      order_num = #{orderNum,jdbcType=VARCHAR},
+      pay_type = #{payType,jdbcType=TINYINT},
+      order_pay_serial_num = #{orderPaySerialNum,jdbcType=VARCHAR},
+      invitation_code = #{invitationCode,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      financial_status = #{financialStatus,jdbcType=TINYINT},
+      pay_time = #{payTime,jdbcType=TIMESTAMP},
+      creater = #{creater,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=BIGINT},
+      modify_time = now(),
+      version = version+1
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+
+  <select id="orderList" parameterType="com.shfc.house.dto.OrderParamDTO" resultType="com.shfc.house.dto.OrderListDTO">
+    SELECT DISTINCT t1.id as 'orderId',DATE_FORMAT(t1.create_time,'%Y-%m-%d %H:%i:%s') as 'oderCreateTime',t1.status as 'orderStatus',t2.combo_price as 'comboPrice'
+     from leads_order t1 LEFT JOIN leads_combo t2 on t1.combo_id = t2.id
+    LEFT JOIN leads_realtor_combo_rel t3 on t3.order_id = t1.id
+    where t1.realtor_id = #{query.realtorId} ORDER BY t1.create_time DESC
+  </select>
+
+  <select id="orderDetail" resultType="com.shfc.house.dto.OrderInfoDTO">
+   SELECT m1.* ,m2.* from (SELECT t1.id as 'orderId',t1.invitation_code as 'invitationCode',t1.order_num as 'orderNum',DATE_FORMAT(t1.create_time,'%Y-%m-%d %H:%i:%s')  as 'oderCreateTime',t1.status as 'orderStatus',
+    t2.id as 'comboId',t2.combo_name as 'comboName',t2.combo_price as 'comboPrice'
+     FROM leads_order t1
+    LEFT JOIN leads_combo t2 on t1.combo_id = t2.id
+    where t1.id = #{orderId,jdbcType=BIGINT} and t2.`status`=0 ) m1,(
+    SELECT  t2.house_num as 'houseNum',t2.phone_num as 'phoneNum' from leads_combo_detail t2 where t2.`status`=0 ORDER BY t2.create_time DESC LIMIT 1
+    )m2
+  </select>
+
+  <select id="noPaymentList" resultMap="BaseResultMap">
+    SELECT  <include refid="Base_Column_List" />
+    from leads_order t where t.`status`='0';
+  </select>
+
+  <update id="updateStatus" parameterType="com.shfc.house.domain.LeadsOrder">
+     update leads_order set status = #{status,jdbcType=TINYINT}, modify_time = now(),
+      <if test="payTime != null">
+        pay_time = #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderPaySerialNum != null">
+        order_pay_serial_num = #{orderPaySerialNum,jdbcType=VARCHAR},
+      </if>
+     version = version + 1
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+
+  <update id="updateInvitationCodeOrStatus" parameterType="com.shfc.house.domain.LeadsOrder">
+    update leads_order
+    <set>
+      <if test="payType != null">
+        pay_type = #{payType,jdbcType=TINYINT},
+      </if>
+      <if test="orderPaySerialNum != null">
+        order_pay_serial_num = #{orderPaySerialNum,jdbcType=VARCHAR},
+      </if>
+      <if test="invitationCode != null">
+        invitation_code = #{invitationCode,jdbcType=VARCHAR},
+      </if>
+      modify_time = now(),
+      version = version+1
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectByOrderNum" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT * from leads_order t where t.order_num = #{orderNum,jdbcType=VARCHAR} LIMIT 1;
+  </select>
+
+</mapper>

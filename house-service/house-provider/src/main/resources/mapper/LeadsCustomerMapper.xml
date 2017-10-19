@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shfc.house.dao.LeadsCustomerMapper">
+  <resultMap id="BaseResultMap" type="com.shfc.house.domain.LeadsCustomer">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="leads_services_id" jdbcType="BIGINT" property="leadsServicesId" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="gender" jdbcType="TINYINT" property="gender" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="merchanism_id" jdbcType="BIGINT" property="merchanismId" />
+    <result column="referrer_id" jdbcType="BIGINT" property="referrerId" />
+    <result column="referrer_name" jdbcType="VARCHAR" property="referrerName" />
+    <result column="referrer_phone" jdbcType="VARCHAR" property="referrerPhone" />
+    <result column="creator" jdbcType="BIGINT" property="creator" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, leads_services_id, phone, name, gender, status, merchanism_id, referrer_id, referrer_name, 
+    referrer_phone, creator, create_time, modifier, modify_time, version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--
+    开发负责人：lv bin
+    功能说明：根据主键获取一条数据库记录
+    是否有缓存：无
+    -->
+    select 
+    <include refid="Base_Column_List" />
+    from leads_customer
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--
+    开发负责人：lv bin
+    功能说明：根据主键删除数据库的记录
+    是否有缓存：无
+    -->
+    delete from leads_customer
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.shfc.house.domain.LeadsCustomer" useGeneratedKeys="true">
+    <!--
+    开发负责人：lv bin
+    功能说明：插入数据库记录
+    是否有缓存：无
+    -->
+    insert into leads_customer (id, leads_services_id, phone, 
+      name, gender, status, 
+      merchanism_id, referrer_id, referrer_name, 
+      referrer_phone, creator, create_time, 
+      modifier, modify_time, version
+      )
+    values (#{id,jdbcType=BIGINT}, #{leadsServicesId,jdbcType=BIGINT}, #{phone,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{gender,jdbcType=TINYINT}, #{status,jdbcType=TINYINT}, 
+      #{merchanismId,jdbcType=BIGINT}, #{referrerId,jdbcType=BIGINT}, #{referrerName,jdbcType=VARCHAR}, 
+      #{referrerPhone,jdbcType=VARCHAR}, #{creator,jdbcType=BIGINT}, now(), 
+      #{modifier,jdbcType=BIGINT}, #{modifyTime,jdbcType=TIMESTAMP}, 0
+      )
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.shfc.house.domain.LeadsCustomer" useGeneratedKeys="true">
+    <!--
+    开发负责人：lv bin
+    功能说明：选择性插入数据库记录
+    是否有缓存：无
+    -->
+    insert into leads_customer
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="leadsServicesId != null">
+        leads_services_id,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="gender != null">
+        gender,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="merchanismId != null">
+        merchanism_id,
+      </if>
+      <if test="referrerId != null">
+        referrer_id,
+      </if>
+      <if test="referrerName != null">
+        referrer_name,
+      </if>
+      <if test="referrerPhone != null">
+        referrer_phone,
+      </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="leadsServicesId != null">
+        #{leadsServicesId,jdbcType=BIGINT},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=TINYINT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="merchanismId != null">
+        #{merchanismId,jdbcType=BIGINT},
+      </if>
+      <if test="referrerId != null">
+        #{referrerId,jdbcType=BIGINT},
+      </if>
+      <if test="referrerName != null">
+        #{referrerName,jdbcType=VARCHAR},
+      </if>
+      <if test="referrerPhone != null">
+        #{referrerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shfc.house.domain.LeadsCustomer">
+    <!--
+    开发负责人：lv bin
+    功能说明：根据主键来更新对应数据库字段
+    是否有缓存：无
+    -->
+    update leads_customer
+    <set>
+      <if test="leadsServicesId != null">
+        leads_services_id = #{leadsServicesId,jdbcType=BIGINT},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        gender = #{gender,jdbcType=TINYINT},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="merchanismId != null">
+        merchanism_id = #{merchanismId,jdbcType=BIGINT},
+      </if>
+      <if test="referrerId != null">
+        referrer_id = #{referrerId,jdbcType=BIGINT},
+      </if>
+      <if test="referrerName != null">
+        referrer_name = #{referrerName,jdbcType=VARCHAR},
+      </if>
+      <if test="referrerPhone != null">
+        referrer_phone = #{referrerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null">
+        creator = #{creator,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shfc.house.domain.LeadsCustomer">
+    <!--
+    开发负责人：lv bin
+    功能说明：根据主键来更新数据库记录
+    是否有缓存：无
+    -->
+    update leads_customer
+    set leads_services_id = #{leadsServicesId,jdbcType=BIGINT},
+      phone = #{phone,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=TINYINT},
+      status = #{status,jdbcType=TINYINT},
+      merchanism_id = #{merchanismId,jdbcType=BIGINT},
+      referrer_id = #{referrerId,jdbcType=BIGINT},
+      referrer_name = #{referrerName,jdbcType=VARCHAR},
+      referrer_phone = #{referrerPhone,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=BIGINT},
+      modify_time = now(),
+      version = version+1
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+
+  <sql id="Customer_Column_List">
+    lc.id as reportId,
+    lc.name as customerName,
+    lc.phone as customerPhone,
+    lc.status as customerStatus,
+    ls.services_name as servicesName,
+    ls.commission as commissionAward,
+    (select rc.name from  merchanism rc where rc.id=lc.merchanism_id ) as merchanismName
+  </sql>
+  <!--
+    功能说明：根据推荐人Id查询报备客户列表
+    是否有缓存：无
+    -->
+  <select id="queryRepostList" parameterType="long" resultType="com.shfc.house.dto.ReportDetailDTO">
+    select
+    <include refid="Customer_Column_List"/>
+    from  leads_customer lc
+    LEFT JOIN leads_added_services ls on ls.id=lc.leads_services_id
+    where lc.referrer_id=#{query.referrerId,jdbcType=BIGINT} order by lc.create_time desc
+  </select>
+
+  <select id="queryCustomerDetail" parameterType="long" resultType="com.shfc.house.dto.CustomerDetailDTO">
+    select
+    lc.gender as customerGender,
+    <include refid="Customer_Column_List"/>
+   from  leads_customer lc
+   LEFT JOIN leads_added_services ls on ls.id=lc.leads_services_id
+   where lc.id=#{reportId,jdbcType=BIGINT}
+  </select>
+
+  <select id="queryReportIsExist" parameterType="long" resultType="int">
+    select
+    count(0)
+    from  leads_customer lc
+    where lc.id=#{reportId,jdbcType=BIGINT}
+  </select>
+
+  <select id="isReport" resultType="int">
+    select
+    count(0)
+    from  leads_customer
+    where referrer_id=#{referrerId} and leads_services_id=#{serviceId} and phone=#{customerPhone}
+    and status in (0,1,3,5)
+  </select>
+
+</mapper>

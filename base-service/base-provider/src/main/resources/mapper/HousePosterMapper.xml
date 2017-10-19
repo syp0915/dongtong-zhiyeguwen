@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shfc.base.dao.HousePosterMapper">
+  <resultMap id="BaseResultMap" type="com.shfc.base.domain.HousePoster">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="plot_name" jdbcType="VARCHAR" property="plotName" />
+    <result column="house_picture_url" jdbcType="VARCHAR" property="housePictureUrl" />
+    <result column="poster_topic" jdbcType="VARCHAR" property="posterTopic" />
+    <result column="longitude" jdbcType="VARCHAR" property="longitude" />
+    <result column="latitude" jdbcType="VARCHAR" property="latitude" />
+    <result column="room" jdbcType="TINYINT" property="room" />
+    <result column="hall" jdbcType="TINYINT" property="hall" />
+    <result column="bathroom" jdbcType="TINYINT" property="bathroom" />
+    <result column="orientation" jdbcType="TINYINT" property="orientation" />
+    <result column="floor" jdbcType="TINYINT" property="floor" />
+    <result column="total_floor" jdbcType="INTEGER" property="totalFloor" />
+    <result column="area" jdbcType="REAL" property="area" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="tags" jdbcType="VARCHAR" property="tags" />
+    <result column="house_detail" jdbcType="VARCHAR" property="houseDetail" />
+    <result column="creater" jdbcType="BIGINT" property="creater" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, plot_name, house_picture_url, poster_topic, longitude, latitude, room, hall, 
+    bathroom, orientation, floor, total_floor, area, price, tags, house_detail, creater, 
+    create_time, modifier, modify_time, version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--
+    开发负责人：liaozm
+    功能说明：根据主键获取一条数据库记录
+    是否有缓存：无
+    -->
+    select 
+    <include refid="Base_Column_List" />
+    from house_poster
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--
+    开发负责人：liaozm
+    功能说明：根据主键删除数据库的记录
+    是否有缓存：无
+    -->
+    delete from house_poster
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.shfc.base.domain.HousePoster" useGeneratedKeys="true">
+    <!--
+    开发负责人：liaozm
+    功能说明：插入数据库记录
+    是否有缓存：无
+    -->
+    insert into house_poster (id, plot_name, house_picture_url, 
+      poster_topic, longitude, latitude, 
+      room, hall, bathroom, 
+      orientation, floor, total_floor, 
+      area, price, tags, house_detail, 
+      creater, create_time, modifier, 
+      modify_time, version)
+    values (#{id,jdbcType=BIGINT}, #{plotName,jdbcType=VARCHAR}, #{housePictureUrl,jdbcType=VARCHAR}, 
+      #{posterTopic,jdbcType=VARCHAR}, #{longitude,jdbcType=VARCHAR}, #{latitude,jdbcType=VARCHAR}, 
+      #{room,jdbcType=TINYINT}, #{hall,jdbcType=TINYINT}, #{bathroom,jdbcType=TINYINT}, 
+      #{orientation,jdbcType=TINYINT}, #{floor,jdbcType=TINYINT}, #{totalFloor,jdbcType=INTEGER}, 
+      #{area,jdbcType=REAL}, #{price,jdbcType=DECIMAL}, #{tags,jdbcType=VARCHAR}, #{houseDetail,jdbcType=VARCHAR}, 
+      #{creater,jdbcType=BIGINT}, now(), #{modifier,jdbcType=BIGINT}, 
+      #{modifyTime,jdbcType=TIMESTAMP}, 0)
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.shfc.base.domain.HousePoster" useGeneratedKeys="true">
+    <!--
+    开发负责人：liaozm
+    功能说明：选择性插入数据库记录
+    是否有缓存：无
+    -->
+    insert into house_poster
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="plotName != null">
+        plot_name,
+      </if>
+      <if test="housePictureUrl != null">
+        house_picture_url,
+      </if>
+      <if test="posterTopic != null">
+        poster_topic,
+      </if>
+      <if test="longitude != null">
+        longitude,
+      </if>
+      <if test="latitude != null">
+        latitude,
+      </if>
+      <if test="room != null">
+        room,
+      </if>
+      <if test="hall != null">
+        hall,
+      </if>
+      <if test="bathroom != null">
+        bathroom,
+      </if>
+      <if test="orientation != null">
+        orientation,
+      </if>
+      <if test="floor != null">
+        floor,
+      </if>
+      <if test="totalFloor != null">
+        total_floor,
+      </if>
+      <if test="area != null">
+        area,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="tags != null">
+        tags,
+      </if>
+      <if test="houseDetail != null">
+        house_detail,
+      </if>
+      <if test="creater != null">
+        creater,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="plotName != null">
+        #{plotName,jdbcType=VARCHAR},
+      </if>
+      <if test="housePictureUrl != null">
+        #{housePictureUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="posterTopic != null">
+        #{posterTopic,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null">
+        #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null">
+        #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="room != null">
+        #{room,jdbcType=TINYINT},
+      </if>
+      <if test="hall != null">
+        #{hall,jdbcType=TINYINT},
+      </if>
+      <if test="bathroom != null">
+        #{bathroom,jdbcType=TINYINT},
+      </if>
+      <if test="orientation != null">
+        #{orientation,jdbcType=TINYINT},
+      </if>
+      <if test="floor != null">
+        #{floor,jdbcType=TINYINT},
+      </if>
+      <if test="totalFloor != null">
+        #{totalFloor,jdbcType=INTEGER},
+      </if>
+      <if test="area != null">
+        #{area,jdbcType=REAL},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="tags != null">
+        #{tags,jdbcType=VARCHAR},
+      </if>
+      <if test="houseDetail != null">
+        #{houseDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shfc.base.domain.HousePoster">
+    <!--
+    开发负责人：liaozm
+    功能说明：根据主键来更新对应数据库字段
+    是否有缓存：无
+    -->
+    update house_poster
+    <set>
+      <if test="plotName != null">
+        plot_name = #{plotName,jdbcType=VARCHAR},
+      </if>
+      <if test="housePictureUrl != null">
+        house_picture_url = #{housePictureUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="posterTopic != null">
+        poster_topic = #{posterTopic,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null">
+        longitude = #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null">
+        latitude = #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="room != null">
+        room = #{room,jdbcType=TINYINT},
+      </if>
+      <if test="hall != null">
+        hall = #{hall,jdbcType=TINYINT},
+      </if>
+      <if test="bathroom != null">
+        bathroom = #{bathroom,jdbcType=TINYINT},
+      </if>
+      <if test="orientation != null">
+        orientation = #{orientation,jdbcType=TINYINT},
+      </if>
+      <if test="floor != null">
+        floor = #{floor,jdbcType=TINYINT},
+      </if>
+      <if test="totalFloor != null">
+        total_floor = #{totalFloor,jdbcType=INTEGER},
+      </if>
+      <if test="area != null">
+        area = #{area,jdbcType=REAL},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="tags != null">
+        tags = #{tags,jdbcType=VARCHAR},
+      </if>
+      <if test="houseDetail != null">
+        house_detail = #{houseDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null">
+        creater = #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shfc.base.domain.HousePoster">
+    <!--
+    开发负责人：liaozm
+    功能说明：根据主键来更新数据库记录
+    是否有缓存：无
+    -->
+    update house_poster
+    set plot_name = #{plotName,jdbcType=VARCHAR},
+      house_picture_url = #{housePictureUrl,jdbcType=VARCHAR},
+      poster_topic = #{posterTopic,jdbcType=VARCHAR},
+      longitude = #{longitude,jdbcType=VARCHAR},
+      latitude = #{latitude,jdbcType=VARCHAR},
+      room = #{room,jdbcType=TINYINT},
+      hall = #{hall,jdbcType=TINYINT},
+      bathroom = #{bathroom,jdbcType=TINYINT},
+      orientation = #{orientation,jdbcType=TINYINT},
+      floor = #{floor,jdbcType=TINYINT},
+      total_floor = #{totalFloor,jdbcType=INTEGER},
+      area = #{area,jdbcType=REAL},
+      price = #{price,jdbcType=DECIMAL},
+      tags = #{tags,jdbcType=VARCHAR},
+      house_detail = #{houseDetail,jdbcType=VARCHAR},
+      creater = #{creater,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=BIGINT},
+      modify_time = now(),
+      version = version+1
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPage" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" /> 
+    from house_poster
+    order by create_time desc 
+  </select>
+
+
+
+</mapper>

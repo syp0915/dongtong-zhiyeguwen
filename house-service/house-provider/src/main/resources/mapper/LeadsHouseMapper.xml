@@ -1,0 +1,621 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shfc.house.dao.LeadsHouseMapper">
+  <resultMap id="BaseResultMap" type="com.shfc.house.domain.LeadsHouse">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="house_code" jdbcType="VARCHAR" property="houseCode" />
+    <result column="source" jdbcType="TINYINT" property="source" />
+    <result column="admin_id" jdbcType="BIGINT" property="adminId" />
+    <result column="longitude" jdbcType="VARCHAR" property="longitude" />
+    <result column="latitude" jdbcType="VARCHAR" property="latitude" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="import_plot_name" jdbcType="VARCHAR" property="importPlotName" />
+    <result column="plot_id" jdbcType="BIGINT" property="plotId" />
+    <result column="plot_name" jdbcType="VARCHAR" property="plotName" />
+    <result column="unit_no" jdbcType="VARCHAR" property="unitNo" />
+    <result column="house_no" jdbcType="VARCHAR" property="houseNo" />
+    <result column="city_id" jdbcType="BIGINT" property="cityId" />
+    <result column="district_id" jdbcType="BIGINT" property="districtId" />
+    <result column="block_id" jdbcType="BIGINT" property="blockId" />
+    <result column="area" jdbcType="REAL" property="area" />
+    <result column="room" jdbcType="TINYINT" property="room" />
+    <result column="hall" jdbcType="TINYINT" property="hall" />
+    <result column="bathroom" jdbcType="TINYINT" property="bathroom" />
+    <result column="kitchen" jdbcType="TINYINT" property="kitchen" />
+    <result column="floor" jdbcType="INTEGER" property="floor" />
+    <result column="total_floor" jdbcType="INTEGER" property="totalFloor" />
+    <result column="build_year" jdbcType="VARCHAR" property="buildYear" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="total_price" jdbcType="DECIMAL" property="totalPrice" />
+    <result column="owner_years" jdbcType="INTEGER" property="ownerYears" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+    <result column="grant_status" jdbcType="TINYINT" property="grantStatus" />
+    <result column="grant_time" jdbcType="TIMESTAMP" property="grantTime" />
+    <result column="grant_sms_time" jdbcType="TIMESTAMP" property="grantSmsTime" />
+    <result column="creater" jdbcType="BIGINT" property="creater" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, house_code, source, admin_id, longitude, latitude, address, import_plot_name,
+    plot_id, plot_name, unit_no, house_no, city_id, district_id, block_id, area, room,
+    hall, bathroom, kitchen, floor, total_floor, build_year, price, total_price, owner_years,
+    status, is_delete, grant_status, grant_time, grant_sms_time, creater, create_time,
+    modifier, modify_time, version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from leads_house
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from leads_house
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.shfc.house.domain.LeadsHouse" useGeneratedKeys="true">
+    insert into leads_house (id, house_code, source,
+    admin_id, longitude, latitude,
+    address, import_plot_name, plot_id,
+    plot_name, unit_no, house_no,
+    city_id, district_id, block_id,
+    area, room, hall, bathroom,
+    kitchen, floor, total_floor,
+    build_year, price, total_price,
+    owner_years, status, is_delete,
+    grant_status, grant_time, grant_sms_time,
+    creater, create_time, modifier,
+    modify_time, version)
+    values (#{id,jdbcType=BIGINT}, #{houseCode,jdbcType=VARCHAR}, #{source,jdbcType=TINYINT},
+    #{adminId,jdbcType=BIGINT}, #{longitude,jdbcType=VARCHAR}, #{latitude,jdbcType=VARCHAR},
+    #{address,jdbcType=VARCHAR}, #{importPlotName,jdbcType=VARCHAR}, #{plotId,jdbcType=BIGINT},
+    #{plotName,jdbcType=VARCHAR}, #{unitNo,jdbcType=VARCHAR}, #{houseNo,jdbcType=VARCHAR},
+    #{cityId,jdbcType=BIGINT}, #{districtId,jdbcType=BIGINT}, #{blockId,jdbcType=BIGINT},
+    #{area,jdbcType=REAL}, #{room,jdbcType=TINYINT}, #{hall,jdbcType=TINYINT}, #{bathroom,jdbcType=TINYINT},
+    #{kitchen,jdbcType=TINYINT}, #{floor,jdbcType=INTEGER}, #{totalFloor,jdbcType=INTEGER},
+    #{buildYear,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, #{totalPrice,jdbcType=DECIMAL},
+    #{ownerYears,jdbcType=INTEGER}, #{status,jdbcType=TINYINT}, #{isDelete,jdbcType=TINYINT},
+    #{grantStatus,jdbcType=TINYINT}, #{grantTime,jdbcType=TIMESTAMP}, #{grantSmsTime,jdbcType=TIMESTAMP},
+    #{creater,jdbcType=BIGINT}, now(), #{modifier,jdbcType=BIGINT},
+    #{modifyTime,jdbcType=TIMESTAMP}, 0)
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.shfc.house.domain.LeadsHouse" useGeneratedKeys="true">
+    insert into leads_house
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="houseCode != null">
+        house_code,
+      </if>
+      <if test="source != null">
+        source,
+      </if>
+      <if test="adminId != null">
+        admin_id,
+      </if>
+      <if test="longitude != null">
+        longitude,
+      </if>
+      <if test="latitude != null">
+        latitude,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="importPlotName != null">
+        import_plot_name,
+      </if>
+      <if test="plotId != null">
+        plot_id,
+      </if>
+      <if test="plotName != null">
+        plot_name,
+      </if>
+      <if test="unitNo != null">
+        unit_no,
+      </if>
+      <if test="houseNo != null">
+        house_no,
+      </if>
+      <if test="cityId != null">
+        city_id,
+      </if>
+      <if test="districtId != null">
+        district_id,
+      </if>
+      <if test="blockId != null">
+        block_id,
+      </if>
+      <if test="area != null">
+        area,
+      </if>
+      <if test="room != null">
+        room,
+      </if>
+      <if test="hall != null">
+        hall,
+      </if>
+      <if test="bathroom != null">
+        bathroom,
+      </if>
+      <if test="kitchen != null">
+        kitchen,
+      </if>
+      <if test="floor != null">
+        floor,
+      </if>
+      <if test="totalFloor != null">
+        total_floor,
+      </if>
+      <if test="buildYear != null">
+        build_year,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="totalPrice != null">
+        total_price,
+      </if>
+      <if test="ownerYears != null">
+        owner_years,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="grantStatus != null">
+        grant_status,
+      </if>
+      <if test="grantTime != null">
+        grant_time,
+      </if>
+      <if test="grantSmsTime != null">
+        grant_sms_time,
+      </if>
+      <if test="creater != null">
+        creater,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="houseCode != null">
+        #{houseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null">
+        #{source,jdbcType=TINYINT},
+      </if>
+      <if test="adminId != null">
+        #{adminId,jdbcType=BIGINT},
+      </if>
+      <if test="longitude != null">
+        #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null">
+        #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="importPlotName != null">
+        #{importPlotName,jdbcType=VARCHAR},
+      </if>
+      <if test="plotId != null">
+        #{plotId,jdbcType=BIGINT},
+      </if>
+      <if test="plotName != null">
+        #{plotName,jdbcType=VARCHAR},
+      </if>
+      <if test="unitNo != null">
+        #{unitNo,jdbcType=VARCHAR},
+      </if>
+      <if test="houseNo != null">
+        #{houseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cityId != null">
+        #{cityId,jdbcType=BIGINT},
+      </if>
+      <if test="districtId != null">
+        #{districtId,jdbcType=BIGINT},
+      </if>
+      <if test="blockId != null">
+        #{blockId,jdbcType=BIGINT},
+      </if>
+      <if test="area != null">
+        #{area,jdbcType=REAL},
+      </if>
+      <if test="room != null">
+        #{room,jdbcType=TINYINT},
+      </if>
+      <if test="hall != null">
+        #{hall,jdbcType=TINYINT},
+      </if>
+      <if test="bathroom != null">
+        #{bathroom,jdbcType=TINYINT},
+      </if>
+      <if test="kitchen != null">
+        #{kitchen,jdbcType=TINYINT},
+      </if>
+      <if test="floor != null">
+        #{floor,jdbcType=INTEGER},
+      </if>
+      <if test="totalFloor != null">
+        #{totalFloor,jdbcType=INTEGER},
+      </if>
+      <if test="buildYear != null">
+        #{buildYear,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="totalPrice != null">
+        #{totalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="ownerYears != null">
+        #{ownerYears,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="grantStatus != null">
+        #{grantStatus,jdbcType=TINYINT},
+      </if>
+      <if test="grantTime != null">
+        #{grantTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="grantSmsTime != null">
+        #{grantSmsTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shfc.house.domain.LeadsHouse">
+    update leads_house
+    <set>
+      <if test="houseCode != null">
+        house_code = #{houseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null">
+        source = #{source,jdbcType=TINYINT},
+      </if>
+      <if test="adminId != null">
+        admin_id = #{adminId,jdbcType=BIGINT},
+      </if>
+      <if test="longitude != null">
+        longitude = #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null">
+        latitude = #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="importPlotName != null">
+        import_plot_name = #{importPlotName,jdbcType=VARCHAR},
+      </if>
+      <if test="plotId != null">
+        plot_id = #{plotId,jdbcType=BIGINT},
+      </if>
+      <if test="plotName != null">
+        plot_name = #{plotName,jdbcType=VARCHAR},
+      </if>
+      <if test="unitNo != null">
+        unit_no = #{unitNo,jdbcType=VARCHAR},
+      </if>
+      <if test="houseNo != null">
+        house_no = #{houseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cityId != null">
+        city_id = #{cityId,jdbcType=BIGINT},
+      </if>
+      <if test="districtId != null">
+        district_id = #{districtId,jdbcType=BIGINT},
+      </if>
+      <if test="blockId != null">
+        block_id = #{blockId,jdbcType=BIGINT},
+      </if>
+      <if test="area != null">
+        area = #{area,jdbcType=REAL},
+      </if>
+      <if test="room != null">
+        room = #{room,jdbcType=TINYINT},
+      </if>
+      <if test="hall != null">
+        hall = #{hall,jdbcType=TINYINT},
+      </if>
+      <if test="bathroom != null">
+        bathroom = #{bathroom,jdbcType=TINYINT},
+      </if>
+      <if test="kitchen != null">
+        kitchen = #{kitchen,jdbcType=TINYINT},
+      </if>
+      <if test="floor != null">
+        floor = #{floor,jdbcType=INTEGER},
+      </if>
+      <if test="totalFloor != null">
+        total_floor = #{totalFloor,jdbcType=INTEGER},
+      </if>
+      <if test="buildYear != null">
+        build_year = #{buildYear,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="totalPrice != null">
+        total_price = #{totalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="ownerYears != null">
+        owner_years = #{ownerYears,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="grantStatus != null">
+        grant_status = #{grantStatus,jdbcType=TINYINT},
+      </if>
+      <if test="grantTime != null">
+        grant_time = #{grantTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="grantSmsTime != null">
+        grant_sms_time = #{grantSmsTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creater != null">
+        creater = #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shfc.house.domain.LeadsHouse">
+    update leads_house
+    set house_code = #{houseCode,jdbcType=VARCHAR},
+      source = #{source,jdbcType=TINYINT},
+      admin_id = #{adminId,jdbcType=BIGINT},
+      longitude = #{longitude,jdbcType=VARCHAR},
+      latitude = #{latitude,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      import_plot_name = #{importPlotName,jdbcType=VARCHAR},
+      plot_id = #{plotId,jdbcType=BIGINT},
+      plot_name = #{plotName,jdbcType=VARCHAR},
+      unit_no = #{unitNo,jdbcType=VARCHAR},
+      house_no = #{houseNo,jdbcType=VARCHAR},
+      city_id = #{cityId,jdbcType=BIGINT},
+      district_id = #{districtId,jdbcType=BIGINT},
+      block_id = #{blockId,jdbcType=BIGINT},
+      area = #{area,jdbcType=REAL},
+      room = #{room,jdbcType=TINYINT},
+      hall = #{hall,jdbcType=TINYINT},
+      bathroom = #{bathroom,jdbcType=TINYINT},
+      kitchen = #{kitchen,jdbcType=TINYINT},
+      floor = #{floor,jdbcType=INTEGER},
+      total_floor = #{totalFloor,jdbcType=INTEGER},
+      build_year = #{buildYear,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL},
+      total_price = #{totalPrice,jdbcType=DECIMAL},
+      owner_years = #{ownerYears,jdbcType=INTEGER},
+      status = #{status,jdbcType=TINYINT},
+      is_delete = #{isDelete,jdbcType=TINYINT},
+      grant_status = #{grantStatus,jdbcType=TINYINT},
+      grant_time = #{grantTime,jdbcType=TIMESTAMP},
+      grant_sms_time = #{grantSmsTime,jdbcType=TIMESTAMP},
+      creater = #{creater,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=BIGINT},
+      modify_time = now(),
+      version = version+1
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+
+  <sql id="Base_Leads_Columns">
+    h.id as id,
+    h.house_code as houseCode,
+    case when DATE_FORMAT(h.create_time,'%Y-%m-%d') = curdate() then 1 else 0 end as isNew,
+    h.plot_id as plotId,
+    h.plot_name as plotName,
+    h.district_id as districtId,
+    bd.district_name as districtName,
+    h.block_id as blockId,
+    bb.block_name as blockName,
+    h.price as price,
+    h.total_price as totalPrice,
+    h.room as room,
+    h.hall as hall,
+    h.bathroom as bathroom,
+    h.area as area
+  </sql>
+  
+  <select id="recommendLeadsHouse" resultType="com.shfc.house.dto.LeadsHouseDTO">
+    select
+      <include refid="Base_Leads_Columns"/>
+    from leads_house h
+    left join base_district bd on bd.id = h.district_id
+    left join base_block bb on bb.id = h.block_id
+    where
+    h.status = 1 and h.is_delete = 0 and h.grant_status != 4
+    <if test="plotNameList != null">
+      and find_in_set(h.plot_name, #{plotNameList})
+    </if>
+    <if test="leadsHouseIds != null">
+      and h.id not in
+      <foreach item="item" index="index" collection="leadsHouseIds" open="(" separator="," close=")">
+        #{item}
+      </foreach>
+    </if>
+    order by h.create_time desc
+    limit ${count}
+  </select>
+
+  <select id="queryLeadsHouse" resultType="com.shfc.house.dto.LeadsHouseDTO">
+    select
+      <include refid="Base_Leads_Columns"/>
+    from leads_house h
+    left join base_district bd on bd.id = h.district_id
+    left join base_block bb on bb.id = h.block_id
+    where
+    h.status = 1 and h.is_delete = 0 and h.grant_status != 4
+    <if test="query != null">
+      <if test="query.plotId != null">
+        and h.plot_id = #{query.plotId}
+      </if>
+      <if test="query.exclusionId != null">
+        and h.id != #{query.exclusionId}
+      </if>
+      <if test="query.districtId != null">
+        and h.district_id = #{query.districtId}
+      </if>
+      <if test="query.blockId != null">
+        and h.block_id = #{query.blockId}
+      </if>
+      <if test="query.minPrice != null">
+        and h.total_price &gt;= #{query.minPrice}
+      </if>
+      <if test="query.maxPrice != null">
+        and h.total_price &lt;= #{query.maxPrice}
+      </if>
+      <if test="query.minArea != null">
+        and h.area &gt;= #{query.minArea}
+      </if>
+      <if test="query.maxArea != null">
+        and h.area &lt;= #{query.maxArea}
+      </if>
+    </if>
+    order by h.create_time desc
+  </select>
+
+  <select id="queryByKeyword" resultType="com.shfc.house.dto.LeadsPlotDTO">
+    select
+      p.id as plotId,
+      p.plot_name as plotName,
+      p.district_id as districtId,
+      bd.district_name as districtName,
+      p.block_id as blockId,
+      bb.block_name as blockName,
+      p.plot_address as plotAddress,
+      r.houseCount as houseCount
+     from (select count(*) as houseCount, plot_id
+          from  leads_house where status = 1 and is_delete = 0 and grant_status != 4
+              and (position(#{keyword} in plot_name) or position(#{keyword} in address))
+          group by plot_id) r
+      left join plot p on p.id = r.plot_id
+     left join base_district bd on bd.id = p.district_id
+     left join base_block bb on bb.id = p.block_id
+     where  p.plot_status = 0
+     order by r.houseCount desc
+  </select>
+
+  <select id="scanLeadsHouse" resultType="com.shfc.house.dto.LeadsHouseDateDTO">
+    select
+    <include refid="Base_Leads_Columns"/>,
+    DATE_FORMAT(s.create_time,'%m月%d日') as dateStr
+    from leads_house_scan s
+    left join leads_house h on s.leads_house_id = h.id
+    left join base_district bd on bd.id = h.district_id
+    left join base_block bb on bb.id = h.block_id
+    where
+     s.status = 0 and s.realtor_id = #{realtorId}
+    order by s.create_time desc
+  </select>
+
+  <select id="callLeadsHouse" resultType="com.shfc.house.dto.LeadsHouseDateDTO">
+    select
+    <include refid="Base_Leads_Columns"/>,
+    DATE_FORMAT(s.create_time,'%m月%d日') as dateStr
+    from leads_house_call s
+    left join leads_house h on s.leads_house_id = h.id
+    left join base_district bd on bd.id = h.district_id
+    left join base_block bb on bb.id = h.block_id
+    where
+     s.status = 0 and s.realtor_id = #{realtorId}
+    order by s.create_time desc
+  </select>
+
+  <select id="getLeadsHouseById" resultType="com.shfc.house.dto.LeadsHouseDetailDTO">
+    select
+      <include refid="Base_Leads_Columns"/>,
+      h.status as status,
+      l.id as ownerId,
+      l.ownerAlias as ownerAlias,
+      l.mobile as ownerMobile,
+      h.address as address,
+      h.unit_no as unitNo,
+      h.house_no as houseNo,
+      DATE_FORMAT(h.create_time,'%m-%d %H:%i') as publishTime,
+      see.scanCount as scanCount
+    from leads_house h
+    left join (select count(*) as scanCount, leads_house_id from leads_house_see where leads_house_id = #{id}) see
+    on see.leads_house_id = h.id
+    left join (select id, leads_house_id, case when gender = 0 then  concat(left(owner, 1), '先生')
+                    else concat(left(owner, 1), '女士') end as ownerAlias,
+                    mobile
+                  from leads_house_owner where leads_house_id = #{id} and status = 0 order by create_time desc limit 1) l
+    on l.leads_house_id = h.id
+    left join base_district bd on bd.id = h.district_id
+    left join base_block bb on bb.id = h.block_id
+    where
+     h.is_delete = 0 and h.id = #{id}
+  </select>
+
+  <select id="nearbyLeadsHouse" resultType="com.shfc.house.dto.LeadsHouseDTO">
+    select
+     <include refid="Base_Leads_Columns"/>,
+     fun_distance(h.latitude, h.longitude, #{latitude}, #{longitude}) as distance
+    from leads_house h
+    left join base_district bd on bd.id = h.district_id
+    left join base_block bb on bb.id = h.block_id
+    where
+    h.status = 1 and h.is_delete = 0 and h.grant_status != 4
+	AND h.latitude is not null
+	AND h.latitude != ''
+	AND h.longitude is not null
+	AND h.longitude != ''
+    and fun_distance(h.latitude, h.longitude, #{latitude}, #{longitude}) &lt;= 3
+    order by distance asc
+    limit ${count}
+  </select>
+</mapper>

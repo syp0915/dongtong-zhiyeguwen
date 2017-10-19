@@ -1,0 +1,9 @@
+/srv/jar/base-service/current/log/user-service.log {
+    weekly
+    rotate 3
+    copytruncate
+    delaycompress
+    compress
+    notifempty
+    missingok
+}

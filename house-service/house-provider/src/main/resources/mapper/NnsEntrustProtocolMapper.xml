@@ -1,0 +1,477 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shfc.house.dao.NnsEntrustProtocolMapper">
+  <resultMap id="BaseResultMap" type="com.shfc.house.domain.NnsEntrustProtocol">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="realtor_id" jdbcType="BIGINT" property="realtorId" />
+    <result column="nns_house_id" jdbcType="BIGINT" property="nnsHouseId" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="total_price" jdbcType="DECIMAL" property="totalPrice" />
+    <result column="price_type" jdbcType="TINYINT" property="priceType" />
+    <result column="deadline" jdbcType="TINYINT" property="deadline" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="success_time" jdbcType="TIMESTAMP" property="successTime" />
+    <result column="overdue_time" jdbcType="TIMESTAMP" property="overdueTime" />
+    <result column="protocol_number" jdbcType="VARCHAR" property="protocolNumber" />
+    <result column="deal_url" jdbcType="VARCHAR" property="dealUrl" />
+    <result column="source" jdbcType="TINYINT" property="source" />
+    <result column="creater" jdbcType="BIGINT" property="creater" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.shfc.house.domain.NnsEntrustProtocol">
+    <result column="protocol_content" jdbcType="LONGVARCHAR" property="protocolContent" />
+  </resultMap>
+  <resultMap id="entrustDetailMap" type="com.shfc.house.dto.NnsHouseEntrustDetailDTO">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="create_time" jdbcType="VARCHAR" property="createTime" />
+    <result column="success_time" jdbcType="TIMESTAMP" property="successTime" />
+    <result column="overdue_time" jdbcType="TIMESTAMP" property="overdueTime" />
+    <result column="ownerPhone" jdbcType="VARCHAR" property="ownerPhone" />
+    <result column="nns_house_id" jdbcType="BIGINT" property="nnsHouseId" />
+    <result column="plot_name" jdbcType="VARCHAR" property="plotName" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="area" jdbcType="REAL" property="area" />
+    <result column="total_price" jdbcType="DECIMAL" property="totalPrice" />
+    <result column="room" jdbcType="TINYINT" property="room" />
+    <result column="hall" jdbcType="TINYINT" property="hall" />
+    <result column="bathroom" jdbcType="TINYINT" property="bathroom" />
+    <result column="kitchen" jdbcType="TINYINT" property="kitchen" />
+    <result column="protocol_content" jdbcType="LONGVARCHAR" property="protocolContent" />
+    <result column="deal_url" jdbcType="VARCHAR" property="dealUrl" />
+    <collection  property="tagList" column="nnsHouseId" ofType="com.shfc.house.dto.BaseTagDTO" javaType="ArrayList" select="selectHouseTag">
+      <id property="id" column="id"/>
+      <result property="name" column="name"/>
+      <result property="color" column="color"/>
+    </collection>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, realtor_id, nns_house_id, user_id, total_price, price_type, deadline,
+    type, status, success_time,overdue_time,protocol_number, deal_url,source, creater, create_time, modifier, modify_time,
+    version
+  </sql>
+  <sql id="Blob_Column_List">
+    protocol_content
+  </sql>
+
+  <!-- 查询标签对应房源 -->
+  <select id="selectHouseTag" parameterType="java.lang.Long"  resultType="com.shfc.house.dto.BaseTagDTO">
+    select
+    bt.id as id,
+    bt.tag_name as name,
+    bt.tag_color as color
+    from
+    nns_house_tag_rel htr left join base_tag bt on htr.tag_id = bt.id
+    where htr.nns_house_id = #{id}
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    <!--
+    开发负责人：lv bin
+    功能说明：根据主键获取一条数据库记录
+    是否有缓存：无
+    -->
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from nns_entrust_protocol
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--
+    开发负责人：lv bin
+    功能说明：根据主键删除数据库的记录
+    是否有缓存：无
+    -->
+    delete from nns_entrust_protocol
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.shfc.house.domain.NnsEntrustProtocol" useGeneratedKeys="true">
+    <!--
+    开发负责人：lv bin
+    功能说明：插入数据库记录
+    是否有缓存：无
+    -->
+    insert into nns_entrust_protocol (id, realtor_id,
+    nns_house_id, user_id, total_price,
+    price_type, deadline, type,
+    status, success_time, overdue_time,protocol_number,deal_url,source,
+    creater, create_time, modifier,
+    modify_time, version, protocol_content
+    )
+    values (#{id,jdbcType=BIGINT}, #{realtorId,jdbcType=BIGINT},
+    #{nnsHouseId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{totalPrice,jdbcType=DECIMAL},
+    #{priceType,jdbcType=TINYINT}, #{deadline,jdbcType=TINYINT}, #{type,jdbcType=TINYINT}, #{status,jdbcType=TINYINT},
+    #{successTime,jdbcType=TIMESTAMP},  #{overdueTime,jdbcType=TIMESTAMP},#{protocolNumber,jdbcType=VARCHAR},#{dealUrl,jdbcType=VARCHAR},#{source,jdbcType=TINYINT},
+    #{creater,jdbcType=BIGINT}, now(), #{modifier,jdbcType=BIGINT},
+    #{modifyTime,jdbcType=TIMESTAMP}, 0, #{protocolContent,jdbcType=LONGVARCHAR}
+    )
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.shfc.house.domain.NnsEntrustProtocol" useGeneratedKeys="true">
+    <!--
+    开发负责人：lv bin
+    功能说明：选择性插入数据库记录
+    是否有缓存：无
+    -->
+    insert into nns_entrust_protocol
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="realtorId != null">
+        realtor_id,
+      </if>
+      <if test="nnsHouseId != null">
+        nns_house_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="totalPrice != null">
+        total_price,
+      </if>
+      <if test="priceType != null">
+        price_type,
+      </if>
+      <if test="deadline != null">
+        deadline,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="successTime != null">
+        success_time,
+      </if>
+      <if test="overdueTime != null">
+        overdue_time,
+      </if>
+      <if test="protocolNumber != null">
+        protocol_number,
+      </if>
+      <if test="dealUrl != null">
+        deal_url,
+      </if>
+      <if test="source != null">
+        source,
+      </if>
+      <if test="creater != null">
+        creater,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+      <if test="protocolContent != null">
+        protocol_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="realtorId != null">
+        #{realtorId,jdbcType=BIGINT},
+      </if>
+      <if test="nnsHouseId != null">
+        #{nnsHouseId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="totalPrice != null">
+        #{totalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="priceType != null">
+        #{priceType,jdbcType=TINYINT},
+      </if>
+      <if test="deadline != null">
+        #{deadline,jdbcType=TINYINT},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=TINYINT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="successTime != null">
+        #{successTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="overdueTime != null">
+        #{overdueTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dealUrl != null">
+        #{dealUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null">
+        #{source,jdbcType=TINYINT},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+      <if test="protocolContent != null">
+        #{protocolContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shfc.house.domain.NnsEntrustProtocol">
+    <!--
+    开发负责人：lv bin
+    功能说明：根据主键来更新对应数据库字段
+    是否有缓存：无
+    -->
+    update nns_entrust_protocol
+    <set>
+      <if test="realtorId != null">
+        realtor_id = #{realtorId,jdbcType=BIGINT},
+      </if>
+      <if test="nnsHouseId != null">
+        nns_house_id = #{nnsHouseId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="totalPrice != null">
+        total_price = #{totalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="priceType != null">
+        price_type = #{priceType,jdbcType=TINYINT},
+      </if>
+      <if test="deadline != null">
+        deadline = #{deadline,jdbcType=TINYINT},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="successTime != null">
+        success_time = #{successTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="overdueTime != null">
+        overdue_time = #{overdueTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="protocolNumber != null">
+        protocol_number = #{protocolNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="protocolContent != null">
+        protocol_content = #{protocolContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="dealUrl != null">
+        deal_url = #{dealUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null">
+        source = #{source,jdbcType=TINYINT},
+      </if>
+      <if test="creater != null">
+        creater = #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.shfc.house.domain.NnsEntrustProtocol">
+    <!--
+    开发负责人：lv bin
+    是否有缓存：无
+    -->
+    update nns_entrust_protocol
+    set realtor_id = #{realtorId,jdbcType=BIGINT},
+    nns_house_id = #{nnsHouseId,jdbcType=BIGINT},
+    user_id = #{userId,jdbcType=BIGINT},
+    total_price = #{totalPrice,jdbcType=DECIMAL},
+    price_type = #{priceType,jdbcType=TINYINT},
+    deadline = #{deadline,jdbcType=TINYINT},
+    type = #{type,jdbcType=TINYINT},
+    status = #{status,jdbcType=TINYINT},
+    success_time = #{successTime,jdbcType=TIMESTAMP},
+    overdue_time = #{overdueTime,jdbcType=TIMESTAMP},
+    protocol_number = #{protocolNumber,jdbcType=VARCHAR},
+    protocol_content = #{protocolContent,jdbcType=LONGVARCHAR},
+    deal_url = #{dealUrl,jdbcType=VARCHAR},
+    source = #{source,jdbcType=TINYINT},
+    creater = #{creater,jdbcType=BIGINT},
+    create_time = #{createTime,jdbcType=TIMESTAMP},
+    modifier = #{modifier,jdbcType=BIGINT},
+    modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+    version = version+1
+    where id = #{id,jdbcType=BIGINT} and and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shfc.house.domain.NnsEntrustProtocol">
+    <!--
+    开发负责人：lv bin
+    功能说明：根据主键来更新数据库记录
+    是否有缓存：无
+    -->
+    update nns_entrust_protocol
+    set realtor_id = #{realtorId,jdbcType=BIGINT},
+    nns_house_id = #{nnsHouseId,jdbcType=BIGINT},
+    user_id = #{userId,jdbcType=BIGINT},
+    total_price = #{totalPrice,jdbcType=DECIMAL},
+    price_type = #{priceType,jdbcType=TINYINT},
+    deadline = #{deadline,jdbcType=TINYINT},
+    type = #{type,jdbcType=TINYINT},
+    status = #{status,jdbcType=TINYINT},
+    success_time = #{successTime,jdbcType=TIMESTAMP},
+    overdue_time = #{overdueTime,jdbcType=TIMESTAMP},
+    protocol_number = #{protocolNumber,jdbcType=VARCHAR},
+    deal_url = #{dealUrl,jdbcType=VARCHAR},
+    source = #{source,jdbcType=TINYINT},
+    creater = #{creater,jdbcType=BIGINT},
+    create_time = #{createTime,jdbcType=TIMESTAMP},
+    modifier = #{modifier,jdbcType=BIGINT},
+    modify_time = now(),
+    version = version+1
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <select id="houseEntrustList" resultType="com.shfc.house.dto.NnsHouseEntrustListDTO" parameterType="java.lang.Long">
+    SELECT  t1.id as 'protocolId',t1.`status` as 'status',t1.type as 'type',DATE_FORMAT(t1.create_time,'%Y-%m-%d %H:%i:%s') as 'createTime',t2.plot_name as 'plotName' ,t2.unit_no as 'unitNo',t2.house_no as 'houseNo',
+    t1.success_time as 'successTime',t1.overdue_time as 'overdueTime'
+    from nns_entrust_protocol t1 LEFT JOIN nns_house t2 on t1.nns_house_id = t2.id
+     where t1.realtor_id= #{realtorId,jdbcType=BIGINT} ORDER BY t1.create_time DESC
+  </select>
+
+  <select id="houseEntrustDetail" resultMap="entrustDetailMap"  parameterType="java.lang.Long">
+   	SELECT  t1.id as 'protocolId',t1.`status` as 'status',t1.type as 'type',DATE_FORMAT(t1.create_time,'%Y-%m-%d %H:%i:%s') as 'createTime',
+    t1.success_time as 'successTime',t1.overdue_time as 'overdueTime',
+    t1.protocol_content as 'protocolContent',t1.deal_url as 'dealUrl',
+    t3.phone as 'ownerPhone',t2.id as 'nnsHouseId',t2.plot_name as 'plotName' ,t2.address as 'address',
+      t2.unit_no as 'unitNo',t2.house_no as 'houseNo',t2.room as 'room',t2.hall as 'hall',t2.bathroom as 'bathroom',t2.kitchen as 'kitchen',t1.total_price as 'totalPrice',t2.area as 'area'
+    from nns_entrust_protocol t1 LEFT JOIN nns_house t2 on t1.nns_house_id = t2.id
+    LEFT JOIN `user` t3 on t1.user_id = t3.id
+    where t1.id= #{protocolId,jdbcType=BIGINT};
+  </select>
+
+  <select id="selectExistProtocol" resultType="java.lang.Long" >
+    SELECT id from nns_entrust_protocol t WHERE t.realtor_id =#{realtorId} and t.nns_house_id=#{nnsHouseId}
+  </select>
+  <!--根据用户id获取协议列表-->
+  <select id="getEntrustListByUserId" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+    select
+    h.plot_name,
+    h.unit_no,
+    h.floor,
+    h.house_no,
+    rc.com_abbr,
+    r.store_name,
+    r.real_name,
+    e.status,
+    e.id,
+    e.success_time,
+    e.total_price
+    from nns_entrust_protocol e
+    left join nns_house h on e.nns_house_id = h.id
+    left join realtor_info r on e.realtor_id = r.realtor_id
+    left join realtor_company rc on r.com_id = rc.id
+    where e.user_id = #{query.userId,jdbcType=BIGINT}
+    group by e.id
+  </select>
+
+  <!--根据协议id获取协议详情信息-->
+  <select id="getEntrustInfoById" parameterType="java.lang.Long" resultType="java.util.HashMap">
+    select
+    e.id,
+    e.protocol_number,
+    e.protocol_content,
+    e.nns_house_id,
+    rc.com_abbr,
+    rc.com_name,
+    r.store_name,
+    r.real_name,
+    r.head_portrait,
+    e.status,
+    e.success_time,
+    e.overdue_time,
+    e.deadline,
+    r.telphone,
+    h.plot_name,
+    h.house_no,
+    h.unit_no,
+    h.floor,
+    h.total_floor,
+    h.room,
+    h.hall,
+    h.bathroom,
+    h.kitchen,
+    h.area,
+    h.house_code,
+    h.address,
+    bd.district_name,
+    bb.block_name,
+    e.total_price,
+    e.price_type,
+    u.phone
+    from nns_entrust_protocol e
+    left join nns_house h on e.nns_house_id = h.id
+    left join realtor_info r on e.realtor_id = r.realtor_id
+    left join realtor_company rc on r.com_id = rc.id
+    left join user u on e.user_id = u.id
+    left join base_district bd on h.district_id = bd.id
+    left join base_block bb on h.block_id = bb.id
+    where e.id = #{agreementId,jdbcType=BIGINT}
+    group by e.id
+  </select>
+  <select id="selectPastProtocol" resultType="com.shfc.house.dto.PastProtocolDTO">
+     SELECT t1.phone as 'userPhone',t.id as 'protocolId',t.protocol_number as 'protocolNumber',t4.district_name as 'districtName',t1.wx_open_id as 'wxOpenId',
+      t3.address,t3.plot_name as 'plotName',DATE_FORMAT(t.success_time,'%Y-%m-%d %H:%i:%s') as 'successTime',DATE_FORMAT(t.overdue_time,'%Y-%m-%d') as 'overdueTime',
+      t2.telphone as 'realtorPhone',t2.real_name as 'realName',t2.id as 'realtorId'
+        from nns_entrust_protocol t LEFT JOIN `user` t1 on t.user_id = t1.id
+    LEFT JOIN realtor_info t2 on t.realtor_id = t2.realtor_id
+    LEFT JOIN nns_house t3 on t.nns_house_id = t3.id
+    LEFT JOIN base_district t4 on t4.id = t3.district_id
+        where DATE_FORMAT(NOW(),'%Y-%m-%d')   <![CDATA[ >]]>  t.overdue_time and t.`status`!='4';
+  </select>
+
+  <update id="updatePastProtocol" parameterType="java.lang.Long">
+    UPDATE nns_entrust_protocol set `status`='4',modify_time = now() where id=  #{id,jdbcType=BIGINT};
+  </update>
+
+  <select id="findPlotNameByProtocolId" parameterType="java.lang.Long" resultType="java.lang.String">
+    SELECT t2.plot_name as 'plotName'  from nns_entrust_protocol t1 LEFT JOIN nns_house t2 on t1.nns_house_id= t2.id
+    where t1.id= #{protocolId,jdbcType=BIGINT} ;
+  </select>
+
+  <select id="getEffectiveEntrustCountByHouseId" parameterType="java.lang.Long" resultType="java.lang.Integer">
+    select
+    count(0)
+    from nns_entrust_protocol
+    where nns_house_id = #{houseId,jdbcType=BIGINT} and status = 1
+  </select>
+</mapper>

@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shfc.house.dao.UserMapper">
+  <resultMap id="BaseResultMap" type="com.shfc.house.domain.User">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_pwd" jdbcType="VARCHAR" property="userPwd" />
+    <result column="gender" jdbcType="TINYINT" property="gender" />
+    <result column="user_autograph" jdbcType="VARCHAR" property="userAutograph" />
+    <result column="user_email" jdbcType="VARCHAR" property="userEmail" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="real_name" jdbcType="VARCHAR" property="realName" />
+    <result column="header_url" jdbcType="VARCHAR" property="headerUrl" />
+    <result column="city_id" jdbcType="BIGINT" property="cityId" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="user_login_ip" jdbcType="VARCHAR" property="userLoginIp" />
+    <result column="device_id" jdbcType="VARCHAR" property="deviceId" />
+    <result column="operator_no" jdbcType="VARCHAR" property="operatorNo" />
+    <result column="wx_open_id" jdbcType="VARCHAR" property="wxOpenId" />
+    <result column="binding_time" jdbcType="TIMESTAMP" property="bindingTime" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="is_white" jdbcType="BIT" property="isWhite" />
+    <result column="bank_account" jdbcType="VARCHAR" property="bankAccount" />
+    <result column="identity_no" jdbcType="VARCHAR" property="identityNo" />
+    <result column="bank_leave_phone" jdbcType="VARCHAR" property="bankLeavePhone" />
+    <result column="four_elements_auth" jdbcType="BIT" property="fourElementsAuth" />
+    <result column="is_auth" jdbcType="BIT" property="isAuth" />
+    <result column="source" jdbcType="BIT" property="source" />
+    <result column="creater" jdbcType="BIGINT" property="creater" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_name, user_pwd, gender, user_autograph, user_email, mobile, phone, real_name, 
+    header_url, city_id, address, user_login_ip, device_id, operator_no, wx_open_id, 
+    binding_time, status, is_white, bank_account, identity_no, bank_leave_phone, four_elements_auth, 
+    is_auth, source, creater, create_time, modifier, modify_time, version
+  </sql>
+  
+  <select id="isAuthIdentityNoExist" resultType="java.util.HashMap" parameterType="java.lang.String">
+    select
+    id,
+    phone
+    from user
+    where identity_no = #{identityNo,jdbcType=VARCHAR} and is_auth = 1
+    limit 1
+  </select>
+
+  <select id="isPhoneExist" resultType="java.util.HashMap" parameterType="java.lang.String">
+    select
+    id,
+    identity_no
+    from user
+    where phone = #{phone,jdbcType=VARCHAR}
+    limit 1
+  </select>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--
+    开发负责人：Li Jianguo
+    功能说明：根据主键获取一条数据库记录
+    是否有缓存：无
+    -->
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--
+    开发负责人：Li Jianguo
+    功能说明：根据主键删除数据库的记录
+    是否有缓存：无
+    -->
+    delete from user
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.shfc.house.domain.User" useGeneratedKeys="true">
+    <!--
+    开发负责人：Li Jianguo
+    功能说明：插入数据库记录
+    是否有缓存：无
+    -->
+    insert into user (id, user_name, user_pwd, 
+      gender, user_autograph, user_email, 
+      mobile, phone, real_name, 
+      header_url, city_id, address, 
+      user_login_ip, device_id, operator_no, 
+      wx_open_id, binding_time, status, 
+      is_white, bank_account, identity_no, 
+      bank_leave_phone, four_elements_auth, is_auth, 
+      source, creater, create_time, 
+      modifier, modify_time, version
+      )
+    values (#{id,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, #{userPwd,jdbcType=VARCHAR}, 
+      #{gender,jdbcType=TINYINT}, #{userAutograph,jdbcType=VARCHAR}, #{userEmail,jdbcType=VARCHAR}, 
+      #{mobile,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, 
+      #{headerUrl,jdbcType=VARCHAR}, #{cityId,jdbcType=BIGINT}, #{address,jdbcType=VARCHAR}, 
+      #{userLoginIp,jdbcType=VARCHAR}, #{deviceId,jdbcType=VARCHAR}, #{operatorNo,jdbcType=VARCHAR}, 
+      #{wxOpenId,jdbcType=VARCHAR}, #{bindingTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, 
+      #{isWhite,jdbcType=BIT}, #{bankAccount,jdbcType=VARCHAR}, #{identityNo,jdbcType=VARCHAR}, 
+      #{bankLeavePhone,jdbcType=VARCHAR}, #{fourElementsAuth,jdbcType=BIT}, #{isAuth,jdbcType=BIT}, 
+      #{source,jdbcType=BIT}, #{creater,jdbcType=BIGINT}, now(), 
+      #{modifier,jdbcType=BIGINT}, #{modifyTime,jdbcType=TIMESTAMP}, 0
+      )
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.shfc.house.domain.User" useGeneratedKeys="true">
+    <!--
+    开发负责人：Li Jianguo
+    功能说明：选择性插入数据库记录
+    是否有缓存：无
+    -->
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="userPwd != null">
+        user_pwd,
+      </if>
+      <if test="gender != null">
+        gender,
+      </if>
+      <if test="userAutograph != null">
+        user_autograph,
+      </if>
+      <if test="userEmail != null">
+        user_email,
+      </if>
+      <if test="mobile != null">
+        mobile,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="realName != null">
+        real_name,
+      </if>
+      <if test="headerUrl != null">
+        header_url,
+      </if>
+      <if test="cityId != null">
+        city_id,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="userLoginIp != null">
+        user_login_ip,
+      </if>
+      <if test="deviceId != null">
+        device_id,
+      </if>
+      <if test="operatorNo != null">
+        operator_no,
+      </if>
+      <if test="wxOpenId != null">
+        wx_open_id,
+      </if>
+      <if test="bindingTime != null">
+        binding_time,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="isWhite != null">
+        is_white,
+      </if>
+      <if test="bankAccount != null">
+        bank_account,
+      </if>
+      <if test="identityNo != null">
+        identity_no,
+      </if>
+      <if test="bankLeavePhone != null">
+        bank_leave_phone,
+      </if>
+      <if test="fourElementsAuth != null">
+        four_elements_auth,
+      </if>
+      <if test="isAuth != null">
+        is_auth,
+      </if>
+      <if test="source != null">
+        source,
+      </if>
+      <if test="creater != null">
+        creater,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPwd != null">
+        #{userPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=TINYINT},
+      </if>
+      <if test="userAutograph != null">
+        #{userAutograph,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmail != null">
+        #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null">
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="headerUrl != null">
+        #{headerUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="cityId != null">
+        #{cityId,jdbcType=BIGINT},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="userLoginIp != null">
+        #{userLoginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceId != null">
+        #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorNo != null">
+        #{operatorNo,jdbcType=VARCHAR},
+      </if>
+      <if test="wxOpenId != null">
+        #{wxOpenId,jdbcType=VARCHAR},
+      </if>
+      <if test="bindingTime != null">
+        #{bindingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="isWhite != null">
+        #{isWhite,jdbcType=BIT},
+      </if>
+      <if test="bankAccount != null">
+        #{bankAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="identityNo != null">
+        #{identityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bankLeavePhone != null">
+        #{bankLeavePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="fourElementsAuth != null">
+        #{fourElementsAuth,jdbcType=BIT},
+      </if>
+      <if test="isAuth != null">
+        #{isAuth,jdbcType=BIT},
+      </if>
+      <if test="source != null">
+        #{source,jdbcType=BIT},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shfc.house.domain.User">
+    <!--
+    开发负责人：Li Jianguo
+    功能说明：根据主键来更新对应数据库字段
+    是否有缓存：无
+    -->
+    update user
+    <set>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPwd != null">
+        user_pwd = #{userPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        gender = #{gender,jdbcType=TINYINT},
+      </if>
+      <if test="userAutograph != null">
+        user_autograph = #{userAutograph,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmail != null">
+        user_email = #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null">
+        real_name = #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="headerUrl != null">
+        header_url = #{headerUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="cityId != null">
+        city_id = #{cityId,jdbcType=BIGINT},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="userLoginIp != null">
+        user_login_ip = #{userLoginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceId != null">
+        device_id = #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorNo != null">
+        operator_no = #{operatorNo,jdbcType=VARCHAR},
+      </if>
+      <if test="wxOpenId != null">
+        wx_open_id = #{wxOpenId,jdbcType=VARCHAR},
+      </if>
+      <if test="bindingTime != null">
+        binding_time = #{bindingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="isWhite != null">
+        is_white = #{isWhite,jdbcType=BIT},
+      </if>
+      <if test="bankAccount != null">
+        bank_account = #{bankAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="identityNo != null">
+        identity_no = #{identityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bankLeavePhone != null">
+        bank_leave_phone = #{bankLeavePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="fourElementsAuth != null">
+        four_elements_auth = #{fourElementsAuth,jdbcType=BIT},
+      </if>
+      <if test="isAuth != null">
+        is_auth = #{isAuth,jdbcType=BIT},
+      </if>
+      <if test="source != null">
+        source = #{source,jdbcType=BIT},
+      </if>
+      <if test="creater != null">
+        creater = #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shfc.house.domain.User">
+    <!--
+    开发负责人：Li Jianguo
+    功能说明：根据主键来更新数据库记录
+    是否有缓存：无
+    -->
+    update user
+    set user_name = #{userName,jdbcType=VARCHAR},
+      user_pwd = #{userPwd,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=TINYINT},
+      user_autograph = #{userAutograph,jdbcType=VARCHAR},
+      user_email = #{userEmail,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      real_name = #{realName,jdbcType=VARCHAR},
+      header_url = #{headerUrl,jdbcType=VARCHAR},
+      city_id = #{cityId,jdbcType=BIGINT},
+      address = #{address,jdbcType=VARCHAR},
+      user_login_ip = #{userLoginIp,jdbcType=VARCHAR},
+      device_id = #{deviceId,jdbcType=VARCHAR},
+      operator_no = #{operatorNo,jdbcType=VARCHAR},
+      wx_open_id = #{wxOpenId,jdbcType=VARCHAR},
+      binding_time = #{bindingTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER},
+      is_white = #{isWhite,jdbcType=BIT},
+      bank_account = #{bankAccount,jdbcType=VARCHAR},
+      identity_no = #{identityNo,jdbcType=VARCHAR},
+      bank_leave_phone = #{bankLeavePhone,jdbcType=VARCHAR},
+      four_elements_auth = #{fourElementsAuth,jdbcType=BIT},
+      is_auth = #{isAuth,jdbcType=BIT},
+      source = #{source,jdbcType=BIT},
+      creater = #{creater,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=BIGINT},
+      modify_time = now(),
+      version = version+1
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+
+    <!--  根据手机号查询用户是否存在 -->
+  <select id="findUserByPhone" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select  <include refid="Base_Column_List" />  from user where phone=#{phone,jdbcType=VARCHAR} and status = 0
+  </select>
+
+  <!--  根据微信openId查找用户 -->
+  <select id="findUserByWxOpenId" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select  <include refid="Base_Column_List" />  from user where wx_open_id = #{wxOpenId,jdbcType=VARCHAR} and status = 0
+  </select>
+</mapper>
+

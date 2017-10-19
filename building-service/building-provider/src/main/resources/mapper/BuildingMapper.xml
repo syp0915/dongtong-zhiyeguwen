@@ -1,0 +1,824 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shfc.building.dao.BuildingMapper">
+  <resultMap id="BaseResultMap" type="com.shfc.building.domain.Building">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="building_name" jdbcType="VARCHAR" property="buildingName" />
+    <result column="building_aliases" jdbcType="VARCHAR" property="buildingAliases" />
+    <result column="city_id" jdbcType="BIGINT" property="cityId" />
+    <result column="district_id" jdbcType="BIGINT" property="districtId" />
+    <result column="block_id" jdbcType="BIGINT" property="blockId" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="longitude" jdbcType="DECIMAL" property="longitude" />
+    <result column="latitude" jdbcType="DECIMAL" property="latitude" />
+    <result column="sales_address" jdbcType="VARCHAR" property="salesAddress" />
+    <result column="sales_phone" jdbcType="VARCHAR" property="salesPhone" />
+    <result column="property_type" jdbcType="TINYINT" property="propertyType" />
+    <result column="property_company" jdbcType="VARCHAR" property="propertyCompany" />
+    <result column="property_cost" jdbcType="REAL" property="propertyCost" />
+    <result column="owner_type" jdbcType="TINYINT" property="ownerType" />
+    <result column="owner_years" jdbcType="INTEGER" property="ownerYears" />
+    <result column="house_count" jdbcType="INTEGER" property="houseCount" />
+    <result column="ground_parking_count" jdbcType="INTEGER" property="groundParkingCount" />
+    <result column="underground_parking_count" jdbcType="BIGINT" property="undergroundParkingCount" />
+    <result column="parking_price" jdbcType="INTEGER" property="parkingPrice" />
+    <result column="volume_ratio" jdbcType="REAL" property="volumeRatio" />
+    <result column="greening_ratio" jdbcType="REAL" property="greeningRatio" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+    <result column="discount_info" jdbcType="VARCHAR" property="discountInfo" />
+    <result column="delivery_type" jdbcType="TINYINT" property="deliveryType" />
+    <result column="unit_average_price" jdbcType="DECIMAL" property="unitAveragePrice" />
+    <result column="house_average_price" jdbcType="DECIMAL" property="houseAveragePrice" />
+    <result column="open_date" jdbcType="DATE" property="openDate" />
+    <result column="delivery_date" jdbcType="DATE" property="deliveryDate" />
+    <result column="sale_longitude" jdbcType="DECIMAL" property="saleLongitude" />
+    <result column="sale_latitude" jdbcType="DECIMAL" property="saleLatitude" />
+    <result column="commission" jdbcType="VARCHAR" property="commission" />
+    <result column="commission_desc" jdbcType="VARCHAR" property="commissionDesc" />
+    <result column="creator" jdbcType="BIGINT" property="creator" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.shfc.building.domain.Building">
+    <result column="cover_photo_url" jdbcType="LONGVARCHAR" property="coverPhotoUrl" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, building_name, building_aliases, city_id, district_id, block_id, address, longitude,
+    latitude, sales_address, sales_phone, property_type, property_company, property_cost,
+    owner_type, owner_years, house_count, ground_parking_count, underground_parking_count,
+    parking_price, volume_ratio, greening_ratio, status, is_delete, discount_info, delivery_type,
+    unit_average_price, house_average_price,open_date, delivery_date, sale_longitude, sale_latitude,
+    commission, commission_desc, creator, create_time, modifier, modify_time, version
+  </sql>
+  <sql id="Blob_Column_List">
+    cover_photo_url
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from building
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from building
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.shfc.building.domain.Building" useGeneratedKeys="true">
+    insert into building (id, building_name, building_aliases,
+      city_id, district_id, block_id,
+      address, longitude, latitude,
+      sales_address, sales_phone, property_type,
+      property_company, property_cost, owner_type,
+      owner_years, house_count, ground_parking_count,
+      underground_parking_count, parking_price, volume_ratio,
+      greening_ratio, status, is_delete,
+      discount_info, delivery_type, unit_average_price,
+      house_average_price,open_date, delivery_date, sale_longitude,
+      sale_latitude, commission, commission_desc,
+      creator, create_time, modifier,
+      modify_time, version, cover_photo_url
+      )
+    values (#{id,jdbcType=BIGINT}, #{buildingName,jdbcType=VARCHAR}, #{buildingAliases,jdbcType=VARCHAR},
+      #{cityId,jdbcType=BIGINT}, #{districtId,jdbcType=BIGINT}, #{blockId,jdbcType=BIGINT},
+      #{address,jdbcType=VARCHAR}, #{longitude,jdbcType=DECIMAL}, #{latitude,jdbcType=DECIMAL},
+      #{salesAddress,jdbcType=VARCHAR}, #{salesPhone,jdbcType=VARCHAR}, #{propertyType,jdbcType=TINYINT},
+      #{propertyCompany,jdbcType=VARCHAR}, #{propertyCost,jdbcType=REAL}, #{ownerType,jdbcType=TINYINT},
+      #{ownerYears,jdbcType=INTEGER}, #{houseCount,jdbcType=INTEGER}, #{groundParkingCount,jdbcType=INTEGER},
+      #{undergroundParkingCount,jdbcType=BIGINT}, #{parkingPrice,jdbcType=INTEGER}, #{volumeRatio,jdbcType=REAL},
+      #{greeningRatio,jdbcType=REAL}, #{status,jdbcType=TINYINT}, #{isDelete,jdbcType=TINYINT},
+      #{discountInfo,jdbcType=VARCHAR}, #{deliveryType,jdbcType=TINYINT}, #{unitAveragePrice,jdbcType=DECIMAL},
+      #{houseAveragePrice,jdbcType=DECIMAL},#{openDate,jdbcType=DATE}, #{deliveryDate,jdbcType=DATE}, #{saleLongitude,jdbcType=DECIMAL},
+      #{saleLatitude,jdbcType=DECIMAL}, #{commission,jdbcType=VARCHAR}, #{commissionDesc,jdbcType=VARCHAR},
+      #{creator,jdbcType=BIGINT}, now(), #{modifier,jdbcType=BIGINT},
+      #{modifyTime,jdbcType=TIMESTAMP}, 0, #{coverPhotoUrl,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.shfc.building.domain.Building" useGeneratedKeys="true">
+    insert into building
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="buildingName != null">
+        building_name,
+      </if>
+      <if test="buildingAliases != null">
+        building_aliases,
+      </if>
+      <if test="cityId != null">
+        city_id,
+      </if>
+      <if test="districtId != null">
+        district_id,
+      </if>
+      <if test="blockId != null">
+        block_id,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="longitude != null">
+        longitude,
+      </if>
+      <if test="latitude != null">
+        latitude,
+      </if>
+      <if test="salesAddress != null">
+        sales_address,
+      </if>
+      <if test="salesPhone != null">
+        sales_phone,
+      </if>
+      <if test="propertyType != null">
+        property_type,
+      </if>
+      <if test="propertyCompany != null">
+        property_company,
+      </if>
+      <if test="propertyCost != null">
+        property_cost,
+      </if>
+      <if test="ownerType != null">
+        owner_type,
+      </if>
+      <if test="ownerYears != null">
+        owner_years,
+      </if>
+      <if test="houseCount != null">
+        house_count,
+      </if>
+      <if test="groundParkingCount != null">
+        ground_parking_count,
+      </if>
+      <if test="undergroundParkingCount != null">
+        underground_parking_count,
+      </if>
+      <if test="parkingPrice != null">
+        parking_price,
+      </if>
+      <if test="volumeRatio != null">
+        volume_ratio,
+      </if>
+      <if test="greeningRatio != null">
+        greening_ratio,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="discountInfo != null">
+        discount_info,
+      </if>
+      <if test="deliveryType != null">
+        delivery_type,
+      </if>
+      <if test="unitAveragePrice != null">
+        unit_average_price,
+      </if>
+      <if test="houseAveragePrice != null">
+        house_average_price,
+      </if>
+      <if test="openDate != null">
+        open_date,
+      </if>
+      <if test="deliveryDate != null">
+        delivery_date,
+      </if>
+      <if test="saleLongitude != null">
+        sale_longitude,
+      </if>
+      <if test="saleLatitude != null">
+        sale_latitude,
+      </if>
+      <if test="commission != null">
+        commission,
+      </if>
+      <if test="commissionDesc != null">
+        commission_desc,
+      </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+      <if test="coverPhotoUrl != null">
+        cover_photo_url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="buildingName != null">
+        #{buildingName,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingAliases != null">
+        #{buildingAliases,jdbcType=VARCHAR},
+      </if>
+      <if test="cityId != null">
+        #{cityId,jdbcType=BIGINT},
+      </if>
+      <if test="districtId != null">
+        #{districtId,jdbcType=BIGINT},
+      </if>
+      <if test="blockId != null">
+        #{blockId,jdbcType=BIGINT},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null">
+        #{longitude,jdbcType=DECIMAL},
+      </if>
+      <if test="latitude != null">
+        #{latitude,jdbcType=DECIMAL},
+      </if>
+      <if test="salesAddress != null">
+        #{salesAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="salesPhone != null">
+        #{salesPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyType != null">
+        #{propertyType,jdbcType=TINYINT},
+      </if>
+      <if test="propertyCompany != null">
+        #{propertyCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyCost != null">
+        #{propertyCost,jdbcType=REAL},
+      </if>
+      <if test="ownerType != null">
+        #{ownerType,jdbcType=TINYINT},
+      </if>
+      <if test="ownerYears != null">
+        #{ownerYears,jdbcType=INTEGER},
+      </if>
+      <if test="houseCount != null">
+        #{houseCount,jdbcType=INTEGER},
+      </if>
+      <if test="groundParkingCount != null">
+        #{groundParkingCount,jdbcType=INTEGER},
+      </if>
+      <if test="undergroundParkingCount != null">
+        #{undergroundParkingCount,jdbcType=BIGINT},
+      </if>
+      <if test="parkingPrice != null">
+        #{parkingPrice,jdbcType=INTEGER},
+      </if>
+      <if test="volumeRatio != null">
+        #{volumeRatio,jdbcType=REAL},
+      </if>
+      <if test="greeningRatio != null">
+        #{greeningRatio,jdbcType=REAL},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="discountInfo != null">
+        #{discountInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryType != null">
+        #{deliveryType,jdbcType=TINYINT},
+      </if>
+      <if test="unitAveragePrice != null">
+        #{unitAveragePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="houseAveragePrice != null">
+        #{houseAveragePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="openDate != null">
+        #{openDate,jdbcType=DATE},
+      </if>
+      <if test="deliveryDate != null">
+        #{deliveryDate,jdbcType=DATE},
+      </if>
+      <if test="saleLongitude != null">
+        #{saleLongitude,jdbcType=DECIMAL},
+      </if>
+      <if test="saleLatitude != null">
+        #{saleLatitude,jdbcType=DECIMAL},
+      </if>
+      <if test="commission != null">
+        #{commission,jdbcType=VARCHAR},
+      </if>
+      <if test="commissionDesc != null">
+        #{commissionDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+      <if test="coverPhotoUrl != null">
+        #{coverPhotoUrl,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shfc.building.domain.Building">
+    update building
+    <set>
+      <if test="buildingName != null">
+        building_name = #{buildingName,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingAliases != null">
+        building_aliases = #{buildingAliases,jdbcType=VARCHAR},
+      </if>
+      <if test="cityId != null">
+        city_id = #{cityId,jdbcType=BIGINT},
+      </if>
+      <if test="districtId != null">
+        district_id = #{districtId,jdbcType=BIGINT},
+      </if>
+      <if test="blockId != null">
+        block_id = #{blockId,jdbcType=BIGINT},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null">
+        longitude = #{longitude,jdbcType=DECIMAL},
+      </if>
+      <if test="latitude != null">
+        latitude = #{latitude,jdbcType=DECIMAL},
+      </if>
+      <if test="salesAddress != null">
+        sales_address = #{salesAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="salesPhone != null">
+        sales_phone = #{salesPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyType != null">
+        property_type = #{propertyType,jdbcType=TINYINT},
+      </if>
+      <if test="propertyCompany != null">
+        property_company = #{propertyCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyCost != null">
+        property_cost = #{propertyCost,jdbcType=REAL},
+      </if>
+      <if test="ownerType != null">
+        owner_type = #{ownerType,jdbcType=TINYINT},
+      </if>
+      <if test="ownerYears != null">
+        owner_years = #{ownerYears,jdbcType=INTEGER},
+      </if>
+      <if test="houseCount != null">
+        house_count = #{houseCount,jdbcType=INTEGER},
+      </if>
+      <if test="groundParkingCount != null">
+        ground_parking_count = #{groundParkingCount,jdbcType=INTEGER},
+      </if>
+      <if test="undergroundParkingCount != null">
+        underground_parking_count = #{undergroundParkingCount,jdbcType=BIGINT},
+      </if>
+      <if test="parkingPrice != null">
+        parking_price = #{parkingPrice,jdbcType=INTEGER},
+      </if>
+      <if test="volumeRatio != null">
+        volume_ratio = #{volumeRatio,jdbcType=REAL},
+      </if>
+      <if test="greeningRatio != null">
+        greening_ratio = #{greeningRatio,jdbcType=REAL},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="discountInfo != null">
+        discount_info = #{discountInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryType != null">
+        delivery_type = #{deliveryType,jdbcType=TINYINT},
+      </if>
+      <if test="unitAveragePrice != null">
+        unit_average_price = #{unitAveragePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="houseAveragePrice != null">
+        house_average_price = #{houseAveragePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="openDate != null">
+        open_date = #{openDate,jdbcType=DATE},
+      </if>
+      <if test="deliveryDate != null">
+        delivery_date = #{deliveryDate,jdbcType=DATE},
+      </if>
+      <if test="saleLongitude != null">
+        sale_longitude = #{saleLongitude,jdbcType=DECIMAL},
+      </if>
+      <if test="saleLatitude != null">
+        sale_latitude = #{saleLatitude,jdbcType=DECIMAL},
+      </if>
+      <if test="commission != null">
+        commission = #{commission,jdbcType=VARCHAR},
+      </if>
+      <if test="commissionDesc != null">
+        commission_desc = #{commissionDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null">
+        creator = #{creator,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+      <if test="coverPhotoUrl != null">
+        cover_photo_url = #{coverPhotoUrl,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.shfc.building.domain.Building">
+    update building
+    set building_name = #{buildingName,jdbcType=VARCHAR},
+      building_aliases = #{buildingAliases,jdbcType=VARCHAR},
+      city_id = #{cityId,jdbcType=BIGINT},
+      district_id = #{districtId,jdbcType=BIGINT},
+      block_id = #{blockId,jdbcType=BIGINT},
+      address = #{address,jdbcType=VARCHAR},
+      longitude = #{longitude,jdbcType=DECIMAL},
+      latitude = #{latitude,jdbcType=DECIMAL},
+      sales_address = #{salesAddress,jdbcType=VARCHAR},
+      sales_phone = #{salesPhone,jdbcType=VARCHAR},
+      property_type = #{propertyType,jdbcType=TINYINT},
+      property_company = #{propertyCompany,jdbcType=VARCHAR},
+      property_cost = #{propertyCost,jdbcType=REAL},
+      owner_type = #{ownerType,jdbcType=TINYINT},
+      owner_years = #{ownerYears,jdbcType=INTEGER},
+      house_count = #{houseCount,jdbcType=INTEGER},
+      ground_parking_count = #{groundParkingCount,jdbcType=INTEGER},
+      underground_parking_count = #{undergroundParkingCount,jdbcType=BIGINT},
+      parking_price = #{parkingPrice,jdbcType=INTEGER},
+      volume_ratio = #{volumeRatio,jdbcType=REAL},
+      greening_ratio = #{greeningRatio,jdbcType=REAL},
+      status = #{status,jdbcType=TINYINT},
+      is_delete = #{isDelete,jdbcType=TINYINT},
+      discount_info = #{discountInfo,jdbcType=VARCHAR},
+      delivery_type = #{deliveryType,jdbcType=TINYINT},
+      unit_average_price = #{unitAveragePrice,jdbcType=DECIMAL},
+      house_average_price = #{houseAveragePrice,jdbcType=DECIMAL},
+      open_date = #{openDate,jdbcType=DATE},
+      delivery_date = #{deliveryDate,jdbcType=DATE},
+      sale_longitude = #{saleLongitude,jdbcType=DECIMAL},
+      sale_latitude = #{saleLatitude,jdbcType=DECIMAL},
+      commission = #{commission,jdbcType=VARCHAR},
+      commission_desc = #{commissionDesc,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=BIGINT},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      version = #{version,jdbcType=BIGINT},
+      cover_photo_url = #{coverPhotoUrl,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shfc.building.domain.Building">
+    update building
+    set building_name = #{buildingName,jdbcType=VARCHAR},
+      building_aliases = #{buildingAliases,jdbcType=VARCHAR},
+      city_id = #{cityId,jdbcType=BIGINT},
+      district_id = #{districtId,jdbcType=BIGINT},
+      block_id = #{blockId,jdbcType=BIGINT},
+      address = #{address,jdbcType=VARCHAR},
+      longitude = #{longitude,jdbcType=DECIMAL},
+      latitude = #{latitude,jdbcType=DECIMAL},
+      sales_address = #{salesAddress,jdbcType=VARCHAR},
+      sales_phone = #{salesPhone,jdbcType=VARCHAR},
+      property_type = #{propertyType,jdbcType=TINYINT},
+      property_company = #{propertyCompany,jdbcType=VARCHAR},
+      property_cost = #{propertyCost,jdbcType=REAL},
+      owner_type = #{ownerType,jdbcType=TINYINT},
+      owner_years = #{ownerYears,jdbcType=INTEGER},
+      house_count = #{houseCount,jdbcType=INTEGER},
+      ground_parking_count = #{groundParkingCount,jdbcType=INTEGER},
+      underground_parking_count = #{undergroundParkingCount,jdbcType=BIGINT},
+      parking_price = #{parkingPrice,jdbcType=INTEGER},
+      volume_ratio = #{volumeRatio,jdbcType=REAL},
+      greening_ratio = #{greeningRatio,jdbcType=REAL},
+      status = #{status,jdbcType=TINYINT},
+      is_delete = #{isDelete,jdbcType=TINYINT},
+      discount_info = #{discountInfo,jdbcType=VARCHAR},
+      delivery_type = #{deliveryType,jdbcType=TINYINT},
+      unit_average_price = #{unitAveragePrice,jdbcType=DECIMAL},
+      house_average_price = #{houseAveragePrice,jdbcType=DECIMAL},
+      open_date = #{openDate,jdbcType=DATE},
+      delivery_date = #{deliveryDate,jdbcType=DATE},
+      sale_longitude = #{saleLongitude,jdbcType=DECIMAL},
+      sale_latitude = #{saleLatitude,jdbcType=DECIMAL},
+      commission = #{commission,jdbcType=VARCHAR},
+      commission_desc = #{commissionDesc,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=BIGINT},
+      modify_time = now(),
+      version = version+1
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+
+  <select id="getBuildingListBycondition" resultMap="BuildingResultMap">
+    SELECT
+    b.id as buildingId,
+    building_name as buildingName,
+    cover_photo_url as picUrl,
+    status as saleStatus,
+    (SELECT district_name from base_district WHERE id = b.district_id limit 1) as districtName,
+    (SELECT block_name from base_block WHERE id = b.block_id limit 1) as blockName,
+    unit_average_price as areaAveragePrice,
+    house_average_price as houseAveragePrice,
+    commission as commission
+    FROM building b
+    WHERE b.is_delete = 0
+    <if test="query.keyword != null">
+      AND b.building_name like CONCAT('%',#{query.keyword},'%')
+    </if>
+    <if test="query.districtId != null and query.blockId == null">
+      AND b.district_id = #{query.districtId}
+    </if>
+    <if test="query.blockId != null">
+      AND b.block_id = #{query.blockId}
+    </if>
+    <if test="query.maxPrice == -1 and query.minPrice == -1">
+      AND (b.unit_average_price is null OR b.unit_average_price &lt;= 0) AND (b.house_average_price is null OR b.house_average_price &lt;= 0)
+    </if>
+    <if test="query.maxPrice != null and query.maxPrice != -1">
+      AND b.unit_average_price &lt;= #{query.maxPrice}
+    </if>
+    <if test="query.minPrice != null and query.minPrice != -1">
+      AND b.unit_average_price &gt;= #{query.minPrice}
+    </if>
+    <if test="query.roomCount != null">
+      <if test="query.roomCount &lt;= 4">
+        AND (SELECT count(0) FROM building_household WHERE building_id = b.id AND room = #{query.roomCount}) &gt; 0
+      </if>
+      <if test="query.roomCount &gt; 4">
+        AND (SELECT count(0) FROM building_household WHERE building_id = b.id AND room &gt; 4) &gt; 0
+      </if>
+    </if>
+    <if test="query.ownerType != null">
+      AND b.property_type = #{query.ownerType}
+    </if>
+    ORDER BY b.modify_time DESC
+  </select>
+
+  <select id="getRealtorAttentionBuildingList" resultMap="BuildingResultMap">
+    SELECT
+    b.id as buildingId,
+    building_name as buildingName,
+    cover_photo_url as picUrl,
+    status as saleStatus,
+    is_delete as publishStatus,
+    (SELECT district_name from base_district WHERE id = b.district_id limit 1) as districtName,
+    (SELECT block_name from base_block WHERE id = b.block_id limit 1) as blockName,
+    unit_average_price as areaAveragePrice,
+    house_average_price as houseAveragePrice,
+    commission as commission
+    FROM building_realtor_attention bra JOIN building b on bra.building_id = b.id
+    WHERE bra.realtor_id = #{query.realtorId}
+    ORDER BY bra.create_time DESC
+  </select>
+
+  <!--新房推荐列表-->
+  <resultMap id="BuildingResultMap" type="com.shfc.building.dto.BuildingListBeanDTO">
+    <id column="buildingId" property="buildingId" jdbcType="BIGINT"/>
+    <result column="buildingName" property="buildingName" jdbcType="VARCHAR"/>
+    <result column="picUrl" property="picUrl" jdbcType="VARCHAR"/>
+    <result column="saleStatus" property="saleStatus" jdbcType="TINYINT"/>
+    <result column="is_delete" property="publishStatus" jdbcType="TINYINT"/>
+    <result column="districtName" property="districtName" jdbcType="VARCHAR"/>
+    <result column="blockName" property="blockName" jdbcType="VARCHAR"/>
+    <result column="areaAveragePrice" property="areaAveragePrice" jdbcType="DECIMAL"/>
+    <result column="houseAveragePrice" property="houseAveragePrice" jdbcType="DECIMAL"/>
+    <result column="commission" property="commission" jdbcType="VARCHAR"/>
+    <collection property="householdArray" column="buildingId" ofType="java.lang.Integer" javaType="java.util.ArrayList"
+                              select="queryRoomsByBuildingId">
+    <id column="room" />
+  </collection>
+  </resultMap>
+
+
+  <!--新房基本信息-->
+  <resultMap id="BuildingBasicResultMap" type="com.shfc.building.dto.BuildingBasicDetailDTO">
+    <id column="buildingId" property="buildingId" jdbcType="BIGINT"/>
+    <result column="buildingName" property="buildingName" jdbcType="VARCHAR"/>
+    <result column="saleStatus" property="saleStatus" jdbcType="TINYINT"/>
+    <result column="districtName" property="districtName" jdbcType="VARCHAR"/>
+    <result column="blockName" property="blockName" jdbcType="VARCHAR"/>
+    <result column="buildingAddress" property="buildingAddress" jdbcType="VARCHAR"/>
+    <result column="longitude" property="longitude" jdbcType="VARCHAR"/>
+    <result column="latitude" property="latitude" jdbcType="VARCHAR"/>
+    <result column="areaAveragePrice" property="areaAveragePrice" jdbcType="DECIMAL"/>
+    <result column="houseAveragePrice" property="houseAveragePrice" jdbcType="DECIMAL"/>
+    <result column="openDate" property="openDate" jdbcType="VARCHAR"/>
+    <result column="deliveryDate" property="deliveryDate" jdbcType="VARCHAR"/>
+    <result column="agent" property="agent" jdbcType="VARCHAR"/>
+    <result column="commission" property="commission" jdbcType="VARCHAR"/>
+    <result column="developer" property="developer" jdbcType="VARCHAR"/>
+    <result column="propertyCompany" property="propertyCompany" jdbcType="VARCHAR"/>
+    <result column="propertyType" property="propertyType" jdbcType="TINYINT"/>
+    <result column="ownerYears" property="ownerYears" jdbcType="INTEGER"/>
+    <result column="commissionExplain" property="commissionExplain" jdbcType="VARCHAR"/>
+    <result column="agentPhone" property="agentPhone" jdbcType="VARCHAR"/>
+    <result column="commission" property="commission" jdbcType="VARCHAR"/>
+    <result column="volumeRatio" property="volumeRatio" jdbcType="REAL"/>
+    <result column="greeningRatio" property="greeningRatio" jdbcType="REAL"/>
+    <result column="parkingCount" property="parkingCount" jdbcType="INTEGER"/>
+    <result column="parkingRatio" property="parkingRatio" jdbcType="VARCHAR"/>
+    <result column="salePhone" property="salePhone" jdbcType="VARCHAR"/>
+    <collection property="tagList" column="buildingId" ofType="com.shfc.building.dto.BaseTagDTO" javaType="java.util.ArrayList"
+                select="queryTagByBuildingId">
+      <id column="tagId" property="tagId" />
+      <id column="tagColor" property="tagColor"/>
+      <id column="tagColor" property="tagColor"/>
+    </collection>
+    <collection property="picList" column="buildingId" ofType="java.lang.String" javaType="java.util.ArrayList"
+                select="queryPicByBuildingId">
+    <id column="picUrl" />
+    </collection>
+  </resultMap>
+
+
+  <select id="recommendBuilding" resultMap="BuildingResultMap">
+    SELECT
+    t.id AS buildingId,
+    t.building_name AS buildingName,
+    t.cover_photo_url AS picUrl,
+    t.status AS saleStatus,
+    t1.district_name as districtName,
+    t2.block_name as blockName,
+    t.unit_average_price AS areaAveragePrice,
+    t.house_average_price as houseAveragePrice,
+    <if test="longitude != null and longitude != '' and latitude != null and latitude != ''">
+      fun_distance(t.latitude, t.longitude, #{latitude}, #{longitude}) as distance,
+    </if>
+    t.commission AS commission
+  FROM
+    building t
+        LEFT JOIN
+    base_district t1 ON t.district_id = t1.id
+        LEFT JOIN
+    base_block t2 ON t.block_id = t2.id
+  WHERE
+    is_delete = 0
+    order by
+    <if test="longitude != null and longitude != '' and latitude != null and latitude != ''">
+    distance,
+    </if>
+    t.create_time desc
+    limit #{count}
+  </select>
+
+  <!-- 户型集合 -->
+  <select id="queryRoomsByBuildingId" parameterType="java.lang.Long" resultType="java.lang.Integer">
+    select distinct room
+    from building_household
+    where building_id=#{buildingId}
+  </select>
+
+  <select id="queryBuildingDetail" resultMap="BuildingBasicResultMap">
+    SELECT
+    t.id AS buildingId,
+    t.building_name AS buildingName,
+    t.status AS saleStatus,
+    t1.district_name AS districtName,
+    t2.block_name AS blockName,
+    t.address AS buildingAddress,
+    t.longitude AS longitude,
+    t.latitude AS latitude,
+    t.unit_average_price AS areaAveragePrice,
+    t.house_average_price As houseAveragePrice,
+    DATE_FORMAT(t.open_date, '%Y-%m-%d') AS openDate,
+    DATE_FORMAT(t.delivery_date, '%Y-%m') AS deliveryDate,
+    t.commission AS commission,
+    t.commission_desc AS commissionExplain,
+    t.property_company AS propertyCompany,
+    t.property_type AS propertyType,
+    t.owner_years AS ownerYears,
+    t.volume_ratio AS volumeRatio,
+    t.greening_ratio AS greeningRatio,
+    t.house_count AS houseCount,
+    t.ground_parking_count + t.underground_parking_count AS parkingCount,
+    CONCAT('1:',ROUND((t.ground_parking_count + t.underground_parking_count) / t.house_count,1)) AS parkingRatio,
+    dev.phone as salePhone,
+    ag.name as agent,
+    ag.phone as agentPhone,
+    dev.name as developer
+     FROM
+    building t
+        LEFT JOIN
+    base_district t1 ON t.district_id = t1.id
+        LEFT JOIN
+    base_block t2 ON t.block_id = t2.id
+    LEFT JOIN
+    (SELECT bcr.building_id as id,
+            bc.name,
+            bc.phone
+        FROM
+            building_company bc
+                LEFT JOIN
+            building_company_rel bcr ON bcr.company_id = bc.id
+        WHERE
+            bc.type = 1 and bc.status=0
+        ) ag on ag.id=t.id
+	left join
+    (SELECT bcr.building_id as id,
+            bc.name,
+            bc.phone
+        FROM
+            building_company bc
+                LEFT JOIN
+            building_company_rel bcr ON bcr.company_id = bc.id
+        WHERE
+            bc.type = 0 and bc.status=0
+        ) dev on dev.id=t.id
+    WHERE
+    is_delete = 0 AND t.id = #{buildingId}
+    limit 1
+  </select>
+
+
+
+  <!-- 标签集合 -->
+  <select id="queryTagByBuildingId" parameterType="java.lang.Long" resultType="com.shfc.building.dto.BaseTagDTO">
+  SELECT t1.id as tagId ,t1.tag_name as tagName,t1.tag_color as tagColor
+  FROM building_tag_rel t left join base_tag t1 on t1.id=t.tag_id
+  WHERE t.building_id=#{buildingId}
+  </select>
+
+  <!-- 楼盘图片集合 -->
+  <select id="queryPicByBuildingId" parameterType="java.lang.Long" resultType="java.lang.String">
+    select pic_url as picUrl
+    from building_pic
+    where associate_id=#{buildingId} and is_delete=0 and check_status=0 and biz_type=0
+  </select>
+
+
+  <!-- 同区域楼盘 -->
+  <select id="querySameAreaBuildingByBuildingId" parameterType="java.lang.Long" resultMap="BuildingResultMap">
+   select b.id as buildingId,
+    building_name as buildingName,
+    cover_photo_url as picUrl,
+    unit_average_price as areaAveragePrice,
+    house_average_price as houseAveragePrice,
+    b.status AS saleStatus,
+    t1.district_name as districtName,
+    t2.block_name as blockName,
+    commission AS commission
+   from building b
+    LEFT JOIN
+    base_district t1 ON b.district_id = t1.id
+    LEFT JOIN
+    base_block t2 ON b.block_id = t2.id
+   INNER JOIN (select district_id from building where id=#{buildingId,jdbcType=BIGINT}) as c on b.district_id=c.district_id
+   where b.is_delete = 0 and b.id!=#{buildingId,jdbcType=BIGINT} limit 3
+  </select>
+  <select id="queryAreaAndModel" resultType="com.shfc.building.dto.BuildingDTO">
+   SELECT
+    (CASE
+        WHEN MIN(room) = MAX(room) THEN CONCAT(MIN(room), '室')
+        ELSE CONCAT(MIN(room), '-', MAX(room), '室')
+    END) AS saleModel,
+    (CASE
+        WHEN MIN(area) = MAX(area) THEN CONCAT(MIN(area), '平')
+        ELSE CONCAT(MIN(area), '-', MAX(area), '平')
+    END) AS saleArea
+    FROM
+    building_household
+  WHERE
+    building_id = #{buildingId}
+  </select>
+</mapper>

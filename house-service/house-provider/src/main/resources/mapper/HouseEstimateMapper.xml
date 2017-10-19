@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shfc.house.dao.HouseEstimateMapper">
+  <resultMap id="BaseResultMap" type="com.shfc.house.domain.HouseEstimate">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="detail_address" jdbcType="VARCHAR" property="detailAddress" />
+    <result column="latitude" jdbcType="VARCHAR" property="latitude" />
+    <result column="longitude" jdbcType="VARCHAR" property="longitude" />
+    <result column="city_id" jdbcType="BIGINT" property="cityId" />
+    <result column="plot_id" jdbcType="BIGINT" property="plotId" />
+    <result column="plot_name" jdbcType="VARCHAR" property="plotName" />
+    <result column="unit_no" jdbcType="VARCHAR" property="unitNo" />
+    <result column="room_no" jdbcType="VARCHAR" property="roomNo" />
+    <result column="area" jdbcType="REAL" property="area" />
+    <result column="room" jdbcType="TINYINT" property="room" />
+    <result column="hall" jdbcType="TINYINT" property="hall" />
+    <result column="bathroom" jdbcType="TINYINT" property="bathroom" />
+    <result column="kitchen" jdbcType="TINYINT" property="kitchen" />
+    <result column="decorate" jdbcType="TINYINT" property="decorate" />
+    <result column="floor" jdbcType="INTEGER" property="floor" />
+    <result column="total_floor" jdbcType="INTEGER" property="totalFloor" />
+    <result column="house_type" jdbcType="TINYINT" property="houseType" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="total_price" jdbcType="DECIMAL" property="totalPrice" />
+    <result column="serve_type" jdbcType="TINYINT" property="serveType" />
+    <result column="serve_company" jdbcType="VARCHAR" property="serveCompany" />
+    <result column="serve_cost" jdbcType="REAL" property="serveCost" />
+    <result column="owner_type" jdbcType="TINYINT" property="ownerType" />
+    <result column="owner_years" jdbcType="INTEGER" property="ownerYears" />
+    <result column="creater" jdbcType="BIGINT" property="creater" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, detail_address, latitude, longitude, city_id, plot_id, plot_name, unit_no, 
+    room_no, area, room, hall, bathroom, kitchen, decorate, floor, total_floor, house_type, 
+    price, total_price, serve_type, serve_company, serve_cost, owner_type, owner_years, 
+    creater, create_time, modifier, modify_time, version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--
+    开发负责人：lv bin
+    功能说明：根据主键获取一条数据库记录
+    是否有缓存：无
+    -->
+    select 
+    <include refid="Base_Column_List" />
+    from house_estimate
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--
+    开发负责人：lv bin
+    功能说明：根据主键删除数据库的记录
+    是否有缓存：无
+    -->
+    delete from house_estimate
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.shfc.house.domain.HouseEstimate" useGeneratedKeys="true">
+    <!--
+    开发负责人：lv bin
+    功能说明：插入数据库记录
+    是否有缓存：无
+    -->
+    insert into house_estimate (id, user_id, detail_address, 
+      latitude, longitude, city_id, 
+      plot_id, plot_name, unit_no, 
+      room_no, area, room, hall, 
+      bathroom, kitchen, decorate, 
+      floor, total_floor, house_type, 
+      price, total_price, serve_type, 
+      serve_company, serve_cost, owner_type, 
+      owner_years, creater, create_time, 
+      modifier, modify_time, version
+      )
+    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{detailAddress,jdbcType=VARCHAR}, 
+      #{latitude,jdbcType=VARCHAR}, #{longitude,jdbcType=VARCHAR}, #{cityId,jdbcType=BIGINT}, 
+      #{plotId,jdbcType=BIGINT}, #{plotName,jdbcType=VARCHAR}, #{unitNo,jdbcType=VARCHAR}, 
+      #{roomNo,jdbcType=VARCHAR}, #{area,jdbcType=REAL}, #{room,jdbcType=TINYINT}, #{hall,jdbcType=TINYINT}, 
+      #{bathroom,jdbcType=TINYINT}, #{kitchen,jdbcType=TINYINT}, #{decorate,jdbcType=TINYINT}, 
+      #{floor,jdbcType=INTEGER}, #{totalFloor,jdbcType=INTEGER}, #{houseType,jdbcType=TINYINT}, 
+      #{price,jdbcType=DECIMAL}, #{totalPrice,jdbcType=DECIMAL}, #{serveType,jdbcType=TINYINT}, 
+      #{serveCompany,jdbcType=VARCHAR}, #{serveCost,jdbcType=REAL}, #{ownerType,jdbcType=TINYINT}, 
+      #{ownerYears,jdbcType=INTEGER}, #{creater,jdbcType=BIGINT}, now(), 
+      #{modifier,jdbcType=BIGINT}, #{modifyTime,jdbcType=TIMESTAMP}, 0
+      )
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.shfc.house.domain.HouseEstimate" useGeneratedKeys="true">
+    <!--
+    开发负责人：lv bin
+    功能说明：选择性插入数据库记录
+    是否有缓存：无
+    -->
+    insert into house_estimate
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="detailAddress != null">
+        detail_address,
+      </if>
+      <if test="latitude != null">
+        latitude,
+      </if>
+      <if test="longitude != null">
+        longitude,
+      </if>
+      <if test="cityId != null">
+        city_id,
+      </if>
+      <if test="plotId != null">
+        plot_id,
+      </if>
+      <if test="plotName != null">
+        plot_name,
+      </if>
+      <if test="unitNo != null">
+        unit_no,
+      </if>
+      <if test="roomNo != null">
+        room_no,
+      </if>
+      <if test="area != null">
+        area,
+      </if>
+      <if test="room != null">
+        room,
+      </if>
+      <if test="hall != null">
+        hall,
+      </if>
+      <if test="bathroom != null">
+        bathroom,
+      </if>
+      <if test="kitchen != null">
+        kitchen,
+      </if>
+      <if test="decorate != null">
+        decorate,
+      </if>
+      <if test="floor != null">
+        floor,
+      </if>
+      <if test="totalFloor != null">
+        total_floor,
+      </if>
+      <if test="houseType != null">
+        house_type,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="totalPrice != null">
+        total_price,
+      </if>
+      <if test="serveType != null">
+        serve_type,
+      </if>
+      <if test="serveCompany != null">
+        serve_company,
+      </if>
+      <if test="serveCost != null">
+        serve_cost,
+      </if>
+      <if test="ownerType != null">
+        owner_type,
+      </if>
+      <if test="ownerYears != null">
+        owner_years,
+      </if>
+      <if test="creater != null">
+        creater,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="detailAddress != null">
+        #{detailAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null">
+        #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null">
+        #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="cityId != null">
+        #{cityId,jdbcType=BIGINT},
+      </if>
+      <if test="plotId != null">
+        #{plotId,jdbcType=BIGINT},
+      </if>
+      <if test="plotName != null">
+        #{plotName,jdbcType=VARCHAR},
+      </if>
+      <if test="unitNo != null">
+        #{unitNo,jdbcType=VARCHAR},
+      </if>
+      <if test="roomNo != null">
+        #{roomNo,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null">
+        #{area,jdbcType=REAL},
+      </if>
+      <if test="room != null">
+        #{room,jdbcType=TINYINT},
+      </if>
+      <if test="hall != null">
+        #{hall,jdbcType=TINYINT},
+      </if>
+      <if test="bathroom != null">
+        #{bathroom,jdbcType=TINYINT},
+      </if>
+      <if test="kitchen != null">
+        #{kitchen,jdbcType=TINYINT},
+      </if>
+      <if test="decorate != null">
+        #{decorate,jdbcType=TINYINT},
+      </if>
+      <if test="floor != null">
+        #{floor,jdbcType=INTEGER},
+      </if>
+      <if test="totalFloor != null">
+        #{totalFloor,jdbcType=INTEGER},
+      </if>
+      <if test="houseType != null">
+        #{houseType,jdbcType=TINYINT},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="totalPrice != null">
+        #{totalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="serveType != null">
+        #{serveType,jdbcType=TINYINT},
+      </if>
+      <if test="serveCompany != null">
+        #{serveCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="serveCost != null">
+        #{serveCost,jdbcType=REAL},
+      </if>
+      <if test="ownerType != null">
+        #{ownerType,jdbcType=TINYINT},
+      </if>
+      <if test="ownerYears != null">
+        #{ownerYears,jdbcType=INTEGER},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shfc.house.domain.HouseEstimate">
+    <!--
+    开发负责人：lv bin
+    功能说明：根据主键来更新对应数据库字段
+    是否有缓存：无
+    -->
+    update house_estimate
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="detailAddress != null">
+        detail_address = #{detailAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null">
+        latitude = #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null">
+        longitude = #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="cityId != null">
+        city_id = #{cityId,jdbcType=BIGINT},
+      </if>
+      <if test="plotId != null">
+        plot_id = #{plotId,jdbcType=BIGINT},
+      </if>
+      <if test="plotName != null">
+        plot_name = #{plotName,jdbcType=VARCHAR},
+      </if>
+      <if test="unitNo != null">
+        unit_no = #{unitNo,jdbcType=VARCHAR},
+      </if>
+      <if test="roomNo != null">
+        room_no = #{roomNo,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null">
+        area = #{area,jdbcType=REAL},
+      </if>
+      <if test="room != null">
+        room = #{room,jdbcType=TINYINT},
+      </if>
+      <if test="hall != null">
+        hall = #{hall,jdbcType=TINYINT},
+      </if>
+      <if test="bathroom != null">
+        bathroom = #{bathroom,jdbcType=TINYINT},
+      </if>
+      <if test="kitchen != null">
+        kitchen = #{kitchen,jdbcType=TINYINT},
+      </if>
+      <if test="decorate != null">
+        decorate = #{decorate,jdbcType=TINYINT},
+      </if>
+      <if test="floor != null">
+        floor = #{floor,jdbcType=INTEGER},
+      </if>
+      <if test="totalFloor != null">
+        total_floor = #{totalFloor,jdbcType=INTEGER},
+      </if>
+      <if test="houseType != null">
+        house_type = #{houseType,jdbcType=TINYINT},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="totalPrice != null">
+        total_price = #{totalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="serveType != null">
+        serve_type = #{serveType,jdbcType=TINYINT},
+      </if>
+      <if test="serveCompany != null">
+        serve_company = #{serveCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="serveCost != null">
+        serve_cost = #{serveCost,jdbcType=REAL},
+      </if>
+      <if test="ownerType != null">
+        owner_type = #{ownerType,jdbcType=TINYINT},
+      </if>
+      <if test="ownerYears != null">
+        owner_years = #{ownerYears,jdbcType=INTEGER},
+      </if>
+      <if test="creater != null">
+        creater = #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shfc.house.domain.HouseEstimate">
+    <!--
+    开发负责人：lv bin
+    功能说明：根据主键来更新数据库记录
+    是否有缓存：无
+    -->
+    update house_estimate
+    set user_id = #{userId,jdbcType=BIGINT},
+      detail_address = #{detailAddress,jdbcType=VARCHAR},
+      latitude = #{latitude,jdbcType=VARCHAR},
+      longitude = #{longitude,jdbcType=VARCHAR},
+      city_id = #{cityId,jdbcType=BIGINT},
+      plot_id = #{plotId,jdbcType=BIGINT},
+      plot_name = #{plotName,jdbcType=VARCHAR},
+      unit_no = #{unitNo,jdbcType=VARCHAR},
+      room_no = #{roomNo,jdbcType=VARCHAR},
+      area = #{area,jdbcType=REAL},
+      room = #{room,jdbcType=TINYINT},
+      hall = #{hall,jdbcType=TINYINT},
+      bathroom = #{bathroom,jdbcType=TINYINT},
+      kitchen = #{kitchen,jdbcType=TINYINT},
+      decorate = #{decorate,jdbcType=TINYINT},
+      floor = #{floor,jdbcType=INTEGER},
+      total_floor = #{totalFloor,jdbcType=INTEGER},
+      house_type = #{houseType,jdbcType=TINYINT},
+      price = #{price,jdbcType=DECIMAL},
+      total_price = #{totalPrice,jdbcType=DECIMAL},
+      serve_type = #{serveType,jdbcType=TINYINT},
+      serve_company = #{serveCompany,jdbcType=VARCHAR},
+      serve_cost = #{serveCost,jdbcType=REAL},
+      owner_type = #{ownerType,jdbcType=TINYINT},
+      owner_years = #{ownerYears,jdbcType=INTEGER},
+      creater = #{creater,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=BIGINT},
+      modify_time = now(),
+      version = version+1
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+
+  <select id="queryRecentEstimate" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from house_estimate
+    where 1 = 1
+    <if test="query != null">
+      <if test="query.plotId != null">
+        and plot_id = #{query.plotId}
+      </if>
+      <if test="query.serveType != null">
+        and serve_type = #{query.serveType}
+      </if>
+      <if test="query.room != null">
+        and room = #{query.room}
+      </if>
+      <if test="query.hall != null">
+        and hall = #{query.hall}
+      </if>
+      <if test="query.bathroom != null">
+        and bathroom = #{query.bathroom}
+      </if>
+      <if test="query.area != null">
+        and area = #{query.area}
+      </if>
+      <if test="query.floor != null">
+        and floor = #{query.floor}
+      </if>
+      <if test="query.totalFloor != null">
+        and total_floor = #{query.totalFloor}
+      </if>
+    </if>
+    and create_time &gt; date_sub(now(),interval 15 day)
+    order by create_time desc
+    limit 1
+  </select>
+</mapper>

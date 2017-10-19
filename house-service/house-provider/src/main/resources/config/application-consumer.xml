@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+        xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+    <!-- 定义使用服务的的消费者bean -->
+    <bean id="referenceBean" abstract="true" class="com.alibaba.dubbo.config.spring.ReferenceBean">
+        <property name="application" ref="dubboApplicationConfig"/>
+        <property name="registry" ref="dubboRegistryConfig"/>
+        <property name="consumer" ref="consumerConfig"/>
+        <property name="version" value="${consumer.default_version}"/>
+    </bean>
+
+    <bean id="consumerConfig" class="com.alibaba.dubbo.config.ConsumerConfig">
+        <property name="check" value="${consume.service_check}"/>
+    </bean>
+
+    <bean parent="referenceBean">
+        <property name="retries" value="0"/>
+        <property name="timeout" value="10000"/>
+        <property name="interface" value="com.shfc.base.service.SmsRemoteService"/>
+    </bean>
+
+
+
+    <bean parent="referenceBean">
+        <property name="interface" value="com.shfc.base.service.SysMessageService"/>
+    </bean>
+
+    <bean parent="referenceBean">
+        <property name="timeout" value="20000"/>
+        <property name="interface" value="com.shfc.sign.service.SignService"/>
+    </bean>
+    <!--微信通知服务-->
+    <bean parent="referenceBean">
+        <property name="interface" value="com.shfc.user.service.WxOfficialAccountService"/>
+    </bean>
+
+
+    <!--<bean id="methodConfig" class="com.alibaba.dubbo.config.MethodConfig">-->
+    <!--<property name="async" value="true"/>-->
+    <!--<property name="name" value="upload2OSS"/>-->
+    <!--</bean>-->
+
+    <bean parent="referenceBean">
+        <!--<property name="methods" ref="methodConfig"/>-->
+        <property name="timeout" value="8000"/>
+        <property name="interface" value="com.shfc.attachment.service.AttachmentService"/>
+    </bean>
+    <!-- 支付服务-->
+    <bean parent="referenceBean">
+        <property name="interface" value="com.shfc.pay.service.PayService"/>
+        <property name="timeout" value="8000"/>
+        <property name="retries" value="0"/>
+    </bean>
+</beans>
